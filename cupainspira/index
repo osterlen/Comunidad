@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUPA Inspira</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0f1a0f; color: #d4e6c3; font-family: Georgia, serif; padding: 2rem; }
+header { border-bottom: 1px solid #7ab648; padding-bottom: 1rem; margin-bottom: 2rem; }
+h1 { color: #7ab648; font-size: 2rem; letter-spacing: 0.1em; }
+h2 { color: #a8d080; font-size: 1.1rem; font-weight: normal; margin-top: 0.5rem; }
+p { line-height: 1.8; margin-bottom: 1rem; max-width: 680px; }
+a { color: #7ab648; }
+nav { margin-top: 3rem; font-size: 0.85rem; }
+nav a { margin-right: 1.5rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>CUPA Inspira</h1>
+  <h2>Iniciativa comunitaria · Del Valle, CDMX</h2>
+</header>
+<p>Aquí va el contenido de CUPA Inspira.</p>
+<nav>
+  <a href="/">← Inicio</a>
+  <a href="/poposta">Poposta</a>
+  <a href="/aguaparatodos">Agua para todos</a>
+</nav>
+</body>
+</html>
 
