@@ -3,24 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comunidad</title>
+<title>Visiones — Iniciativas Comunitarias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #080e08;
+  --surface: #0f1a0f;
+  --green: #7ab648;
+  --green-dim: #4a7a28;
+  --text: #c8ddb0;
+  --text-dim: #6a8a58;
+  --border: #1e3018;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0f1a0f; color: #d4e6c3; font-family: Georgia, serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-.container { text-align: center; padding: 2rem; }
-h1 { font-size: 0.9rem; letter-spacing: 0.4em; color: #7ab648; text-transform: uppercase; margin-bottom: 3rem; font-weight: normal; }
-nav a { display: block; color: #d4e6c3; text-decoration: none; font-size: 1.4rem; margin: 1.2rem 0; letter-spacing: 0.05em; transition: color 0.3s; }
-nav a:hover { color: #7ab648; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.wrapper { position: relative; z-index: 1; }
+
+/* Header */
+header {
+  padding: 3rem 2rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.logo {
+  font-family: 'Martian Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--green);
+  text-transform: uppercase;
+}
+.logo span {
+  display: block;
+  color: var(--text-dim);
+  margin-top: 0.3rem;
+  font-size: 0.6rem;
+}
+.header-tag {
+  font-family: 'Martian Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* Hero */
+.hero {
+  padding: 6rem 2rem 5rem;
+  max-width: 800px;
+}
+.hero-label {
+  font-family: 'Martian Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--green);
+}
+.hero p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-dim);
+  max-width: 520px;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider-text {
+  font-family: 'Martian Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Projects */
+.projects {
+  padding: 1rem 2rem 6rem;
+}
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 2.5rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s, background 0.4s;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--green-dim);
+  transition: width 0.4s, opacity 0.4s;
+  opacity: 0.4;
+}
+.project-card:hover {
+  border-color: var(--green-dim);
+  background: rgba(122, 182, 72, 0.03);
+}
+.project-card:hover::before {
+  width: 4px;
+  opacity: 1;
+}
+.card-number {
+  font-family: 'Martian Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.2em;
+  margin-bottom: 1.2rem;
+}
+.card-title {
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+.card-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.6;
+  font-style: italic;
+}
+.card-arrow {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--green-dim);
+  font-family: 'Martian Mono', monospace;
+  opacity: 0;
+  transition: opacity 0.3s, right 0.3s;
+}
+.project-card:hover .card-arrow {
+  opacity: 1;
+  right: 2rem;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-text {
+  font-family: 'Martian Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>Iniciativas comunitarias</h1>
-  <nav>
-    <a href="/cupainspira">CUPA Inspira</a>
-    <a href="/poposta">Poposta</a>
-    <a href="/aguaparatodos">Agua para todos</a>
-  </nav>
+<div class="wrapper">
+  <header>
+    <div class="logo">
+      Visiones AC
+      <span>CDMX · México</span>
+    </div>
+    <div class="header-tag">Iniciativas comunitarias</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label">El Gorila — Visiones AC</div>
+    <h1>Comunidad<br>que se <em>construye</em><br>desde adentro</h1>
+    <p>Identificamos problemas reales en comunidades urbanas, articulamos soluciones concretas y documentamos el proceso. Cada iniciativa es un episodio.</p>
+  </section>
+
+  <div class="divider">
+    <div class="divider-text">Proyectos activos — CDMX</div>
+  </div>
+
+  <section class="projects">
+    <a class="project-card" href="/cupainspira">
+      <div class="card-number">001 · Residuos</div>
+      <div class="card-title">CUPA Inspira</div>
+      <div class="card-desc">Gestión de residuos y reciclaje en conjunto residencial · Del Valle</div>
+      <div class="card-arrow">→</div>
+    </a>
+    <a class="project-card" href="/popocatl">
+      <div class="card-number">002 · Suelo</div>
+      <div class="card-title">Popocatl</div>
+      <div class="card-desc">Compostaje casero y economía circular vecinal</div>
+      <div class="card-arrow">→</div>
+    </a>
+    <a class="project-card" href="/aguaparatodos">
+      <div class="card-number">003 · Agua</div>
+      <div class="card-title">Agua para todos</div>
+      <div class="card-desc">Mantenimiento y saneamiento de tinacos en el multifamiliar</div>
+      <div class="card-arrow">→</div>
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-text">© 2026 Visiones AC</div>
+    <div class="footer-text">elgorila.org</div>
+  </footer>
 </div>
 </body>
 </html>
