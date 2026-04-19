@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visiones AC — Cómo funciona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080e08; --green: #7ab648; --green-dim: #4a7a28; --green-glow: rgba(122,182,72,0.12);
+  --text: #c8ddb0; --text-dim: #6a8a58; --border: #1e3018; --gold: #c8a84a; --gold-dim: #7a6428;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.6; }
+.wrapper { position: relative; z-index: 1; }
+nav { padding: 2.5rem 2rem 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.back { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition: color 0.3s; }
+.back:hover { color: var(--green); }
+.nav-tag { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; }
+.hero { padding: 5rem 2rem 4rem; max-width: 720px; border-bottom: 1px solid var(--border); }
+.hero-label { font-family: 'Martian Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--green); margin-bottom: 2rem; }
+.hero h1 { font-size: clamp(2.8rem, 8vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 1.5rem; }
+.hero h1 em { font-style: italic; color: var(--green); }
+.hero p { font-size: 1.1rem; font-weight: 300; line-height: 1.8; color: var(--text-dim); max-width: 560px; }
+.org-section { padding: 5rem 2rem; }
+.section-label { font-family: 'Martian Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.org-visual { width: 100%; max-width: 900px; margin: 0 auto; }
+.node { cursor: pointer; }
+.tooltip { position: fixed; background: #0f1a0f; border: 1px solid var(--green-dim); color: var(--text); font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-weight: 300; line-height: 1.6; padding: 1rem 1.3rem; max-width: 260px; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 100; }
+.tooltip.visible { opacity: 1; }
+.steps { padding: 0 2rem 5rem; max-width: 720px; }
+.step { display: flex; gap: 2rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border); opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.step.visible { opacity: 1; transform: none; }
+.step-num { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--green-dim); padding-top: 0.3rem; flex-shrink: 0; width: 2.5rem; }
+.step-content h3 { font-size: 1.4rem; font-weight: 300; color: var(--text); margin-bottom: 0.6rem; }
+.step-content p { font-size: 1rem; font-weight: 300; line-height: 1.75; color: var(--text-dim); }
+.step-content p strong { color: var(--text); font-weight: 400; }
+.cta-section { padding: 4rem 2rem 6rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: flex-start; gap: 2rem; max-width: 600px; }
+.cta-label { font-family: 'Martian Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--text-dim); }
+.cta-title { font-size: 2rem; font-weight: 300; line-height: 1.2; }
+.cta-title em { font-style: italic; color: var(--green); }
+.cta-body { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-dim); }
+.cta-link { font-family: 'Martian Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green-dim); padding-bottom: 0.2rem; }
+</style>
+</head>
+<body>
+<div class="tooltip" id="tooltip"></div>
+<div class="wrapper">
+  <nav>
+    <a class="back" href="/">← Inicio</a>
+    <span class="nav-tag">Visiones AC — Modelo</span>
+  </nav>
+  <section class="hero">
+    <div class="hero-label">Cómo funciona Visiones AC</div>
+    <h1>Un modelo que<br>une <em>acción</em><br>y testimonio</h1>
+    <p>No documentamos lo que ya pasó. Entramos desde el inicio, construimos junto con la comunidad y registramos cada paso. El resultado es real en dos dimensiones: el cambio en el barrio y la historia que se cuenta.</p>
+  </section>
+
+  <section class="org-section">
+    <div class="section-label">Estructura del modelo</div>
+    <div class="org-visual">
+      <svg viewBox="0 0 860 630" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4a7a28"/></marker>
+          <marker id="arrg" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a6428"/></marker>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <!-- ROOT -->
+        <g class="node" data-tip="Visiones AC es la Asociación Civil que articula todo. Identifica problemas, consigue el financiamiento y coordina la organización comunitaria y la producción documental.">
+          <rect x="280" y="20" width="300" height="70" rx="2" fill="#0f1a0f" stroke="#7ab648" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="430" y="51" fill="#c8ddb0" font-size="19" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300">Visiones AC</text>
+          <text x="430" y="75" fill="#7ab648" font-size="7.5" text-anchor="middle" font-family="Martian Mono, monospace">Asociación civil · CDMX</text>
+        </g>
+        <!-- Fork lines -->
+        <line x1="430" y1="90" x2="430" y2="146" stroke="#1e3018" stroke-width="1"/>
+        <line x1="180" y1="146" x2="680" y2="146" stroke="#1e3018" stroke-width="1"/>
+        <line x1="180" y1="146" x2="180" y2="192" stroke="#4a7a28" stroke-width="1" marker-end="url(#arr)"/>
+        <line x1="680" y1="146" x2="680" y2="192" stroke="#7a6428" stroke-width="1" marker-end="url(#arrg)"/>
+        <!-- LEFT: ORG COMUNITARIA -->
+        <g class="node" data-tip="El equipo entra al territorio. Escucha, mapea el problema real y diseña junto con los vecinos una solución concreta, financiada y ejecutable.">
+          <rect x="60" y="192" width="240" height="70" rx="2" fill="#0c160c" stroke="#4a7a28" stroke-width="1"/>
+          <text x="180" y="224" fill="#c8ddb0" font-size="15" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300">Organización</text>
+          <text x="180" y="244" fill="#c8ddb0" font-size="15" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300">Comunitaria</text>
+          <text x="180" y="258" fill="#4a7a28" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">Diagnóstico · Diseño · Ejecución</text>
+        </g>
+        <!-- RIGHT: PRODUCTORA -->
+        <g class="node" data-tip="La productora Las Vistas documenta todo el proceso en tiempo real. No es un making-of — es la historia del cambio, con rigor cinematográfico.">
+          <rect x="560" y="192" width="240" height="70" rx="2" fill="#100e06" stroke="#c8a84a" stroke-width="1"/>
+          <text x="680" y="224" fill="#c8ddb0" font-size="15" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300">Productora</text>
+          <text x="680" y="244" fill="#d4c090" font-size="15" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic">Las Vistas</text>
+          <text x="680" y="258" fill="#c8a84a" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">Cine con propósito</text>
+        </g>
+        <!-- LEFT chain -->
+        <line x1="180" y1="262" x2="180" y2="318" stroke="#4a7a28" stroke-width="1" marker-end="url(#arr)"/>
+        <g class="node" data-tip="La comunidad no es audiencia — es protagonista. Los vecinos identifican el problema, participan en el diseño y sostienen la solución cuando el proyecto termina.">
+          <rect x="60" y="318" width="240" height="58" rx="2" fill="#0a120a" stroke="#2a5018" stroke-width="1"/>
+          <text x="180" y="345" fill="#a0c890" font-size="13" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic">Comunidad activa</text>
+          <text x="180" y="366" fill="#4a7a28" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">Vecinos · Líderes · Territorio</text>
+        </g>
+        <line x1="180" y1="376" x2="180" y2="428" stroke="#4a7a28" stroke-width="1" marker-end="url(#arr)"/>
+        <g class="node" data-tip="Cada proyecto termina con una solución real funcionando: un sistema de reciclaje, un tinaco limpio, una compostera activa. Verificable, medible, sostenible.">
+          <rect x="60" y="428" width="240" height="58" rx="2" fill="#0a120a" stroke="#2a5018" stroke-width="1"/>
+          <text x="180" y="455" fill="#a0c890" font-size="13" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic">Solución implementada</text>
+          <text x="180" y="476" fill="#4a7a28" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">Resultado real · Fin del proyecto</text>
+        </g>
+        <!-- RIGHT chain -->
+        <line x1="680" y1="262" x2="680" y2="318" stroke="#7a6428" stroke-width="1" marker-end="url(#arrg)"/>
+        <g class="node" data-tip="El equipo de producción está desde el día uno. No graban el resultado — graban el proceso: juntas vecinales, fracasos, acuerdos y transformaciones reales.">
+          <rect x="560" y="318" width="240" height="58" rx="2" fill="#100e06" stroke="#7a6428" stroke-width="1"/>
+          <text x="680" y="345" fill="#d4c090" font-size="13" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic">Documentación en campo</text>
+          <text x="680" y="366" fill="#7a6428" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">Proceso · Narrativa · Testimonio</text>
+        </g>
+        <line x1="680" y1="376" x2="680" y2="428" stroke="#7a6428" stroke-width="1" marker-end="url(#arrg)"/>
+        <g class="node" data-tip="El episodio documenta un proyecto real de inicio a fin. No es publicidad — es cine con propósito. Puede distribuirse, premiarse y financiar el siguiente episodio.">
+          <rect x="560" y="428" width="240" height="58" rx="2" fill="#100e06" stroke="#7a6428" stroke-width="1"/>
+          <text x="680" y="455" fill="#d4c090" font-size="13" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic">Episodio documental</text>
+          <text x="680" y="476" fill="#7a6428" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">Las Vistas · Serie</text>
+        </g>
+        <!-- Converge -->
+        <line x1="300" y1="457" x2="395" y2="548" stroke="#1e3018" stroke-width="1"/>
+        <line x1="560" y1="457" x2="465" y2="548" stroke="#1e3018" stroke-width="1"/>
+        <g class="node" data-tip="Aquí cierra el ciclo: la solución real en la comunidad y la historia que la documenta se encuentran. El proyecto existe en dos planos — el barrio y la pantalla.">
+          <rect x="305" y="548" width="250" height="62" rx="2" fill="#0f1a0f" stroke="#7ab648" stroke-width="1.5" filter="url(#glow)"/>
+          <text x="430" y="576" fill="#c8ddb0" font-size="15" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300">Comunidad + Historia</text>
+          <text x="430" y="598" fill="#7ab648" font-size="7" text-anchor="middle" font-family="Martian Mono, monospace">El ciclo completo · Visiones AC</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h3>Visiones identifica el problema</h3><p>No esperamos convocatorias. <strong>Entramos al territorio</strong>, observamos, hablamos con vecinos y detectamos los problemas que nadie ha resuelto porque nadie los ha organizado.</p></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h3>Dos equipos, una sola operación</h3><p>El equipo de organización comunitaria diseña e implementa la solución. El equipo de producción documenta todo en tiempo real. <strong>No son procesos paralelos — son uno solo.</strong></p></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h3>La comunidad es protagonista</h3><p>Seleccionamos con los vecinos a las personas clave, construimos junto con ellos y nos aseguramos de que la solución sea sostenible cuando Visiones ya no esté. <strong>El proyecto termina cuando la comunidad puede sola.</strong></p></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h3>El episodio cierra el ciclo</h3><p>Cada proyecto se convierte en un episodio de <strong>Las Vistas</strong>. No un video institucional — una historia real con inicio, conflicto y resolución. Verificable en el barrio donde ocurrió.</p></div></div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-label">Ser parte de Visiones AC</div>
+    <div class="cta-title">Esto no se<br>sostiene <em>solo</em></div>
+    <p class="cta-body">Cada proyecto requiere financiamiento real: el equipo de campo, la producción documental y los materiales de la iniciativa. Los socios de Visiones no compran publicidad — invierten en un proceso que pueden ver, tocar y contar.</p>
+    <a class="cta-link" href="mailto:hola@elgorila.org">Conversemos → hola@elgorila.org</a>
+  </section>
+</div>
+<script>
+const tooltip = document.getElementById('tooltip');
+document.querySelectorAll('.node').forEach(node => {
+  node.addEventListener('mouseenter', e => { tooltip.textContent = node.dataset.tip; tooltip.classList.add('visible'); });
+  node.addEventListener('mousemove', e => { tooltip.style.left = (e.clientX+16)+'px'; tooltip.style.top = (e.clientY-10)+'px'; });
+  node.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+});
+const obs = new IntersectionObserver(entries => entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*120); }), {threshold:0.15});
+document.querySelectorAll('.step').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
