@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Composteros Caseros — Visiones AC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -10,86 +9,76 @@
 :root{--bg:#080e08;--green:#7ab648;--green-dim:#4a7a28;--text:#c8ddb0;--text-dim:#6a8a58;--border:#1e3018;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6;}
-.wrapper{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 2rem 5rem;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.6;}
+.w{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 2rem 5rem;}
 nav{padding:2.5rem 0 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
-.back{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.15em;transition:color 0.3s;}
+.back{font-family:'Martian Mono',monospace;font-size:.6rem;color:var(--text-dim);text-decoration:none;letter-spacing:.15em;transition:color .3s;}
 .back:hover{color:var(--green);}
-.nav-tag{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;}
+.nt{font-family:'Martian Mono',monospace;font-size:.6rem;color:var(--text-dim);}
 header{padding:4rem 0 3rem;border-bottom:1px solid var(--border);}
-.tag{font-family:'Martian Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--green);text-transform:uppercase;margin-bottom:1.5rem;}
+.tag{font-family:'Martian Mono',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:1.5rem;}
 h1{font-size:clamp(2.5rem,7vw,4rem);font-weight:300;line-height:1.05;margin-bottom:1rem;}
-.subtitle{font-size:1.1rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.6;}
+.sub{font-size:1.1rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.6;}
 section{padding:3rem 0;border-bottom:1px solid var(--border);}
 section:last-child{border-bottom:none;}
-h2{font-family:'Martian Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--green);text-transform:uppercase;margin-bottom:1.8rem;}
+h2{font-family:'Martian Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--green);text-transform:uppercase;margin-bottom:1.8rem;}
 p{font-size:1.1rem;font-weight:300;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem;}
 p strong{color:var(--text);font-weight:400;}
-.flow{display:flex;flex-direction:column;gap:0;}
+.flow{display:flex;flex-direction:column;}
 .flow-step{display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
 .flow-step:last-child{border-bottom:none;}
-.flow-n{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--green-dim);padding-top:0.25rem;flex-shrink:0;}
+.flow-n{font-family:'Martian Mono',monospace;font-size:.6rem;color:var(--green-dim);padding-top:.25rem;flex-shrink:0;}
 .flow-text{font-size:1rem;font-weight:300;line-height:1.7;color:var(--text-dim);}
 .flow-text strong{color:var(--text);font-weight:400;}
-.highlight-box{border:1px solid var(--green-dim);padding:1.8rem;margin:2rem 0;background:rgba(122,182,72,0.03);}
-.hl-label{font-family:'Martian Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;color:var(--green);text-transform:uppercase;margin-bottom:0.8rem;}
-.hl-text{font-size:1rem;font-weight:300;line-height:1.7;color:var(--text-dim);}
-.hl-text strong{color:var(--text);font-weight:400;}
-.tag-pill{display:inline-block;font-family:'Martian Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:var(--green-dim);border:1px solid var(--green-dim);padding:0.2rem 0.5rem;margin-top:1rem;text-transform:uppercase;}
+.highlight{border:1px solid var(--green-dim);padding:1.8rem;margin:2rem 0;background:rgba(122,182,72,.03);}
+.hl-label{font-family:'Martian Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--green);text-transform:uppercase;margin-bottom:.8rem;}
+.pill{display:inline-block;font-family:'Martian Mono',monospace;font-size:.5rem;letter-spacing:.15em;color:var(--green-dim);border:1px solid var(--green-dim);padding:.2rem .5rem;margin-top:1rem;text-transform:uppercase;}
 </style>
 </head>
 <body>
-<div class="wrapper">
-  <nav>
-    <a class="back" href="/">← Visiones AC</a>
-    <span class="nav-tag">004 · Educación + Economía</span>
-  </nav>
+<div class="w">
+  <nav><a class="back" href="/">← Visiones AC</a><span class="nt">004 · Orgánicos + Educación</span></nav>
   <header>
     <div class="tag">Prototipo en desarrollo · CDMX</div>
     <h1>Composteros<br>Caseros</h1>
-    <p class="subtitle">Armas tu compostera, aprendes cómo funciona,<br>y te la llevas a tu casa.</p>
+    <p class="sub">Armas tu compostera, entiendes cómo funciona y te la llevas a casa.<br>Compostaje casero adaptado al contexto urbano — sin patio, sin experiencia previa.</p>
   </header>
 
   <section>
-    <h2>La idea</h2>
-    <p>Un mercado-taller donde la gente <strong>compra su material, arma su compostera con guía en vivo</strong> y se va a casa con todo lo necesario para compostar desde el primer día. No es un curso teórico — es una experiencia práctica que termina con un resultado tangible.</p>
-    <p>El prototipo del compostero ya está en desarrollo. La idea es que el modelo sea replicable, licenciable, y financiable con recursos públicos para llevarlo a colonias y alcaldías.</p>
+    <h2>El problema</h2>
+    <p>Entre el 40% y 60% de los residuos domésticos son orgánicos. En la ciudad, casi todos terminan en relleno sanitario donde generan metano. <strong>El compostaje casero es técnicamente simple pero culturalmente ajeno</strong> para la mayoría de los habitantes urbanos.</p>
+    <p>La barrera no es técnica — es de diseño y acceso: los sistemas disponibles no están pensados para departamentos pequeños ni para personas sin conocimiento previo. Y nadie te enseña mientras lo haces.</p>
   </section>
 
   <section>
-    <h2>Cómo funciona el evento</h2>
+    <h2>La propuesta</h2>
+    <p>Un mercado-taller donde la gente <strong>compra su material, arma su compostera con guía en vivo</strong> y sale a casa con todo listo para compostar desde el primer día. No es un curso teórico — es una experiencia práctica que termina con un resultado tangible en las manos.</p>
+    <p>El prototipo del compostero ya está en desarrollo. El sistema está diseñado para espacios urbanos compactos: <strong>sin patio, sin olor, sin complicaciones de mantenimiento.</strong></p>
+  </section>
+
+  <section>
+    <h2>Cómo funciona el taller</h2>
     <div class="flow">
-      <div class="flow-step">
-        <span class="flow-n">01</span>
-        <span class="flow-text"><strong>Llegas al mercado-taller.</strong> Hay materiales, guías y estaciones de trabajo. Pagas tu kit de entrada.</span>
-      </div>
-      <div class="flow-step">
-        <span class="flow-n">02</span>
-        <span class="flow-text"><strong>Armas tu compostera.</strong> Con apoyo de un facilitador que te explica qué va dónde y por qué. No necesitas experiencia previa.</span>
-      </div>
-      <div class="flow-step">
-        <span class="flow-n">03</span>
-        <span class="flow-text"><strong>Aprendes qué compostar.</strong> Qué residuos van, qué no, cómo mantenerla, qué hacer con la composta lista.</span>
-      </div>
-      <div class="flow-step">
-        <span class="flow-n">04</span>
-        <span class="flow-text"><strong>Te la llevas.</strong> Sales con tu compostera armada, tu guía de mantenimiento y conexión a la red de compostadores de la colonia.</span>
-      </div>
+      <div class="flow-step"><span class="flow-n">01</span><span class="flow-text"><strong>Llegas al mercado-taller.</strong> Hay materiales, guías y estaciones de trabajo. Pagas tu kit de entrada.</span></div>
+      <div class="flow-step"><span class="flow-n">02</span><span class="flow-text"><strong>Armas tu compostera.</strong> Con un facilitador que explica qué va dónde y por qué. Sin experiencia previa necesaria.</span></div>
+      <div class="flow-step"><span class="flow-n">03</span><span class="flow-text"><strong>Aprendes qué compostar.</strong> Qué residuos van, qué no, cómo mantenerla, qué hacer con la composta lista.</span></div>
+      <div class="flow-step"><span class="flow-n">04</span><span class="flow-text"><strong>Te la llevas.</strong> Sales con tu compostera armada, guía de mantenimiento y conexión a la red de compostadores de la colonia.</span></div>
     </div>
   </section>
 
   <section>
-    <h2>El modelo de escala</h2>
-    <div class="highlight-box">
+    <h2>Modelo de escala</h2>
+    <div class="highlight">
       <div class="hl-label">Potencial de licencia y financiamiento público</div>
-      <p class="hl-text">El modelo está diseñado para ser <strong>patentado o licenciado</strong> — cualquier organización, alcaldía o empresa puede replicarlo con una licencia. El objetivo es que el gobierno financie la instalación de composteras en hogares de colonias prioritarias, usando este mismo modelo como vehículo de implementación.</p>
+      <p style="margin:0">El modelo está diseñado para ser <strong>licenciado o replicado</strong> — alcaldías, organizaciones y empresas pueden adoptarlo. El objetivo es que el gobierno financie la instalación de composteras en hogares de colonias prioritarias usando este modelo como vehículo de implementación.</p>
     </div>
     <p>La lógica: <strong>hacer a la gente protagonista del cambio</strong>, no receptora pasiva. Cada persona que arma su compostera entiende el proceso, lo explica a sus vecinos y multiplica el impacto.</p>
+    <span class="pill">Prototipo en desarrollo — 2026</span>
   </section>
 
   <section>
     <h2>Esto es Las Vistas</h2>
-    <p>El proceso completo — desde el prototipo hasta el primer taller — se documenta como episodio de <strong>Las Vistas</strong>.</p>
+    <p>Desde el diseño del prototipo hasta el primer taller — episodio de <strong>Las Vistas</strong>.</p>
   </section>
 </div>
 <script src="/assets/gate.js"></script>
