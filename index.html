@@ -3,121 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visiones AC — Iniciativas Comunitarias</title>
+<title>Visiones AC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #080e08; --green: #7ab648; --green-dim: #4a7a28;
-  --text: #c8ddb0; --text-dim: #6a8a58; --border: #1e3018;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; overflow-x: hidden; }
-body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.6; }
-.wrapper { position: relative; z-index: 1; }
-header { padding: 3rem 2rem 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; }
-.logo { font-family: 'Martian Mono', monospace; font-size: 0.7rem; font-weight: 300; letter-spacing: 0.2em; color: var(--green); text-transform: uppercase; }
-.logo span { display: block; color: var(--text-dim); margin-top: 0.3rem; font-size: 0.6rem; }
-.header-tag { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; }
-.hero { padding: 6rem 2rem 5rem; max-width: 800px; }
-.hero-label { font-family: 'Martian Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--green); text-transform: uppercase; margin-bottom: 2rem; }
-.hero h1 { font-size: clamp(2.8rem, 8vw, 5rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; }
-.hero h1 em { font-style: italic; color: var(--green); }
-.hero p { font-size: 1.2rem; font-weight: 300; line-height: 1.8; color: var(--text-dim); max-width: 520px; }
-.divider { display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; margin: 1rem 0; }
-.divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.divider-text { font-family: 'Martian Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; white-space: nowrap; }
-.projects { padding: 1rem 2rem 6rem; }
-.project-card { border: 1px solid var(--border); border-radius: 2px; padding: 2.5rem; margin-bottom: 1rem; text-decoration: none; display: block; position: relative; overflow: hidden; transition: border-color 0.4s, background 0.4s; }
-.project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--green-dim); transition: width 0.4s, opacity 0.4s; opacity: 0.4; }
-.project-card:hover { border-color: var(--green-dim); background: rgba(122,182,72,0.03); }
-.project-card:hover::before { width: 4px; opacity: 1; }
-.card-number { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.2em; margin-bottom: 1.2rem; }
-.card-title { font-size: 1.8rem; font-weight: 300; color: var(--text); margin-bottom: 0.6rem; }
-.card-desc { font-size: 1rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; font-style: italic; }
-.card-arrow { position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%); font-size: 1.2rem; color: var(--green-dim); font-family: 'Martian Mono', monospace; opacity: 0; transition: opacity 0.3s, right 0.3s; }
-.project-card:hover .card-arrow { opacity: 1; right: 2rem; }
-.card-tag { display: inline-block; font-family: 'Martian Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; color: var(--green-dim); border: 1px solid var(--green-dim); padding: 0.2rem 0.5rem; margin-top: 0.8rem; text-transform: uppercase; }
-.card-tag.pronto { color: var(--text-dim); border-color: var(--border); }
-footer { border-top: 1px solid var(--border); padding: 2rem; display: flex; justify-content: space-between; }
-.footer-text { font-family: 'Martian Mono', monospace; font-size: 0.55rem; color: var(--text-dim); letter-spacing: 0.15em; }
+:root{--bg:#080e08;--green:#7ab648;--green-dim:#4a7a28;--text:#c8ddb0;--text-dim:#6a8a58;--border:#1e3018;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.6;}
+.w{position:relative;z-index:1;}
+
+/* Header */
+header{padding:3rem 2rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;}
+.logo{font-family:'Martian Mono',monospace;font-size:.7rem;font-weight:300;letter-spacing:.2em;color:var(--green);text-transform:uppercase;}
+.logo span{display:block;color:var(--text-dim);margin-top:.3rem;font-size:.6rem;}
+.htag{font-family:'Martian Mono',monospace;font-size:.6rem;color:var(--text-dim);letter-spacing:.1em;}
+
+/* Sections */
+.section{padding:5rem 2rem;border-bottom:1px solid var(--border);}
+.section-label{font-family:'Martian Mono',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--text-dim);text-transform:uppercase;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* Visiones AC block */
+.org-block{max-width:760px;}
+.org-block h2{font-size:clamp(2.5rem,7vw,4rem);font-weight:300;line-height:1.05;margin-bottom:1.5rem;}
+.org-block h2 em{font-style:italic;color:var(--green);}
+.org-block p{font-size:1.1rem;font-weight:300;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem;max-width:620px;}
+.org-block p strong{color:var(--text);font-weight:400;}
+.model-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:2.5rem 0;}
+.model-cell{background:var(--bg);padding:1.8rem 1.5rem;}
+.mc-n{font-family:'Martian Mono',monospace;font-size:.55rem;color:var(--green-dim);letter-spacing:.2em;margin-bottom:.8rem;}
+.mc-title{font-size:1.2rem;font-weight:300;color:var(--text);margin-bottom:.4rem;}
+.mc-desc{font-size:.9rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.5;}
+
+/* Las Vistas block */
+.vistas-block{max-width:760px;}
+.vistas-block h2{font-size:clamp(2.2rem,6vw,3.5rem);font-weight:300;line-height:1.05;margin-bottom:1.5rem;}
+.vistas-block h2 em{font-style:italic;color:var(--green);}
+.vistas-block p{font-size:1.1rem;font-weight:300;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem;max-width:620px;}
+.vistas-block p strong{color:var(--text);font-weight:400;}
+.tagline-box{border-left:2px solid var(--green-dim);padding:1.2rem 1.5rem;margin:2rem 0;font-size:1.4rem;font-weight:300;font-style:italic;color:var(--text);}
+
+/* Projects */
+.projects-section{padding:3rem 2rem 5rem;}
+.project-card{border:1px solid var(--border);border-radius:2px;padding:2rem 2.5rem;margin-bottom:.8rem;text-decoration:none;display:block;position:relative;overflow:hidden;transition:border-color .4s,background .4s;}
+.project-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green-dim);opacity:.3;transition:opacity .4s;}
+.project-card:hover{border-color:var(--green-dim);background:rgba(122,182,72,.03);}
+.project-card:hover::before{opacity:1;}
+.cn{font-family:'Martian Mono',monospace;font-size:.55rem;color:var(--text-dim);letter-spacing:.2em;margin-bottom:.8rem;}
+.ct{font-size:1.6rem;font-weight:300;color:var(--text);margin-bottom:.4rem;}
+.cd{font-size:.95rem;font-weight:300;color:var(--text-dim);line-height:1.5;font-style:italic;}
+.ca{position:absolute;right:2.5rem;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--green-dim);font-family:'Martian Mono',monospace;opacity:0;transition:opacity .3s,right .3s;}
+.project-card:hover .ca{opacity:1;right:2rem;}
+.pill{display:inline-block;font-family:'Martian Mono',monospace;font-size:.48rem;letter-spacing:.12em;color:var(--green-dim);border:1px solid var(--green-dim);padding:.15rem .45rem;margin-top:.6rem;text-transform:uppercase;}
+.pill.dim{color:var(--text-dim);border-color:var(--border);}
+
+/* Divider */
+.div-row{display:flex;align-items:center;gap:1.5rem;padding:0 2rem;margin:.5rem 0;}
+.div-row::after{content:'';flex:1;height:1px;background:var(--border);}
+.div-text{font-family:'Martian Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--text-dim);text-transform:uppercase;white-space:nowrap;}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:2rem;display:flex;justify-content:space-between;}
+.ft{font-family:'Martian Mono',monospace;font-size:.55rem;color:var(--text-dim);letter-spacing:.15em;}
 </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="w">
+
   <header>
     <div class="logo">Visiones AC<span>CDMX · México</span></div>
-    <div class="header-tag">Iniciativas comunitarias</div>
+    <div class="htag">En desarrollo</div>
   </header>
-  <section class="hero">
-    <div class="hero-label">Visiones AC</div>
-    <h1>Comunidad que<br>se construye<br>desde <em>adentro</em></h1>
-    <p>Identificamos problemas reales en comunidades urbanas, articulamos soluciones concretas con economía y consciencia, y documentamos el proceso. Cada iniciativa es un episodio.</p>
-  </section>
-  <div class="divider"><div class="divider-text">Proyectos activos y en desarrollo — CDMX</div></div>
-  <section class="projects">
+
+  <!-- VISIONES AC -->
+  <div class="section">
+    <div class="section-label">Visiones AC</div>
+    <div class="org-block">
+      <h2>Identificar.<br>Resolver. <em>Documentar.</em></h2>
+      <p>Visiones AC es una Asociación Civil mexicana que opera en tres pasos: <strong>identifica problemáticas comunitarias reales</strong> en entornos urbanos, <strong>diseña e inyecta soluciones concretas</strong> con financiamiento enfocado, y <strong>documenta el proceso completo</strong> como material cinematográfico.</p>
+      <p>Cada iniciativa es un proyecto operativo y un episodio. No hay separación entre la acción y el registro — ocurren simultáneamente, desde el día uno.</p>
+      <div class="model-grid">
+        <div class="model-cell">
+          <div class="mc-n">01 · Identificar</div>
+          <div class="mc-title">Diagnóstico en campo</div>
+          <div class="mc-desc">Entrada directa al territorio. Observación, conversación con vecinos y mapeo del problema real.</div>
+        </div>
+        <div class="model-cell">
+          <div class="mc-n">02 · Resolver</div>
+          <div class="mc-title">Solución instalada</div>
+          <div class="mc-desc">Diseño conjunto con la comunidad. Implementación financiada. El proyecto termina cuando la comunidad puede sola.</div>
+        </div>
+        <div class="model-cell">
+          <div class="mc-n">03 · Documentar</div>
+          <div class="mc-title">Episodio documental</div>
+          <div class="mc-desc">Producción en tiempo real. No un resultado final — el proceso completo, con rigor cinematográfico.</div>
+        </div>
+      </div>
+      <p>El equipo de Visiones AC tiene formación en <strong>política audiovisual, narrativa, derecho y economía</strong>. El propósito es responsabilizarse y responsabilizar para generar comunidad en armonía.</p>
+      <a href="/visiones" style="font-family:'Martian Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green-dim);padding-bottom:.2rem;">Ver el modelo completo →</a>
+    </div>
+  </div>
+
+  <!-- LAS VISTAS -->
+  <div class="section">
+    <div class="section-label">Las Vistas</div>
+    <div class="vistas-block">
+      <h2>Cine con <em>propósito</em></h2>
+      <div class="tagline-box">Cada episodio es una iniciativa real — instalada, operada y sostenida por la comunidad donde ocurre.</div>
+      <p>Las Vistas es la marca documental de Visiones AC. Una serie donde la cámara no llega después del cambio — <strong>entra desde el inicio y registra cómo se construye</strong>. Los protagonistas son los vecinos, los procesos son reales, los resultados son verificables.</p>
+      <p>No es publicidad social. No es contenido institucional. Es <strong>narrativa de no ficción con rigor cinematográfico</strong> sobre lo que pasa cuando una comunidad decide resolver algo.</p>
+    </div>
+  </div>
+
+  <!-- PROYECTOS -->
+  <div class="div-row"><div class="div-text">Proyectos piloto — CDMX</div></div>
+  <div class="projects-section">
+
     <a class="project-card" href="/cupainspira">
-      <div class="card-number">001 · Residuos</div>
-      <div class="card-title">CUPA Inspira</div>
-      <div class="card-desc">Gestión de residuos y reciclaje en conjunto residencial · Del Valle</div>
-      <span class="card-tag">En curso</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">001 · Residuos</div>
+      <div class="ct">CUPA Inspira</div>
+      <div class="cd">Gestión de residuos y reciclaje en conjunto residencial · Del Valle</div>
+      <span class="pill">En curso</span>
+      <div class="ca">→</div>
     </a>
+
     <a class="project-card" href="/popocacatl">
-      <div class="card-number">002 · Suelo</div>
-      <div class="card-title">Popocacatl</div>
-      <div class="card-desc">Compostaje de residuos orgánicos urbanos — desde la calle hasta el hogar</div>
-      <span class="card-tag">En desarrollo</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">002 · Suelo</div>
+      <div class="ct">Popocacatl</div>
+      <div class="cd">Compostaje de residuos orgánicos urbanos — bolsas biodegradables, popo de perro, neutralización de orina</div>
+      <span class="pill">En desarrollo</span>
+      <div class="ca">→</div>
     </a>
+
     <a class="project-card" href="/aguaparatodos">
-      <div class="card-number">003 · Agua</div>
-      <div class="card-title">Agua para todos</div>
-      <div class="card-desc">Saneamiento y mantenimiento de tinacos en el multifamiliar · Propuesta vecinal</div>
-      <span class="card-tag pronto">Próximamente</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">003 · Agua</div>
+      <div class="ct">Agua para todos</div>
+      <div class="cd">Saneamiento y mantenimiento de tinacos en multifamiliar · Propuesta vecinal</div>
+      <span class="pill dim">Próximamente</span>
+      <div class="ca">→</div>
     </a>
+
     <a class="project-card" href="/composteros">
-      <div class="card-number">004 · Educación + Economía</div>
-      <div class="card-title">Composteros Caseros</div>
-      <div class="card-desc">Mercado-taller donde armas tu compostera y te la llevas a casa. Modelo replicable con financiamiento público</div>
-      <span class="card-tag pronto">Prototipo en desarrollo</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">004 · Educación + Economía</div>
+      <div class="ct">Composteros Caseros</div>
+      <div class="cd">Mercado-taller: armas tu compostera, aprendes cómo funciona, te la llevas a casa. Modelo licenciable con financiamiento público</div>
+      <span class="pill">Prototipo en desarrollo</span>
+      <div class="ca">→</div>
     </a>
+
+    <a class="project-card" href="/compostaje">
+      <div class="cn">005 · Orgánicos</div>
+      <div class="ct">Compostaje Casero</div>
+      <div class="cd">Sistemas de compostaje adaptados al contexto urbano — sin patio, sin experiencia previa</div>
+      <span class="pill dim">En desarrollo</span>
+      <div class="ca">→</div>
+    </a>
+
+    <a class="project-card" href="/huerto">
+      <div class="cn">006 · Alimentación</div>
+      <div class="ct">Huerto Urbano</div>
+      <div class="cd">Producción de alimentos en espacios comunes — soberanía alimentaria a escala de colonia</div>
+      <span class="pill dim">Exploración</span>
+      <div class="ca">→</div>
+    </a>
+
+    <a class="project-card" href="/consumolocal">
+      <div class="cn">007 · Economía local</div>
+      <div class="ct">Consumo Local</div>
+      <div class="cd">Fortalecer la economía del barrio — mapeo de oferta local y condiciones para que sea la opción conveniente</div>
+      <span class="pill dim">Exploración</span>
+      <div class="ca">→</div>
+    </a>
+
     <a class="project-card" href="/pet3d">
-      <div class="card-number">005 · Materiales</div>
-      <div class="card-title">PET 3D</div>
-      <div class="card-desc">Impresión 3D con filamento hecho de PET reciclado — cerrar el ciclo del plástico en la ciudad</div>
-      <span class="card-tag pronto">Exploración</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">008 · Materiales</div>
+      <div class="ct">PET 3D</div>
+      <div class="cd">Filamento de impresión 3D hecho de PET reciclado — cerrar el ciclo del plástico en la ciudad</div>
+      <span class="pill dim">Exploración</span>
+      <div class="ca">→</div>
     </a>
+
     <a class="project-card" href="/empaques">
-      <div class="card-number">006 · Packaging</div>
-      <div class="card-title">Sin huella</div>
-      <div class="card-desc">Empaques para llevar 100% compostables o reutilizables — alternativa real para comercios urbanos</div>
-      <span class="card-tag pronto">Exploración</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">009 · Packaging</div>
+      <div class="ct">Sin huella</div>
+      <div class="cd">Empaques para llevar 100% compostables o reutilizables — alternativa real para comercios urbanos</div>
+      <span class="pill dim">Exploración</span>
+      <div class="ca">→</div>
     </a>
+
     <a class="project-card" href="/consumo">
-      <div class="card-number">007 · El hilo común</div>
-      <div class="card-title">Consumo Desbordado</div>
-      <div class="card-desc">La iniciativa transversal — medir lo que consumimos como responsabilidad individual, sin demonizar, sin catastrofismo</div>
-      <span class="card-tag">En diseño</span>
-      <div class="card-arrow">→</div>
+      <div class="cn">010 · El hilo común</div>
+      <div class="ct">Consumo Desbordado</div>
+      <div class="cd">La iniciativa transversal — medir lo que consumimos como responsabilidad individual, sin demonizar</div>
+      <span class="pill dim">En diseño</span>
+      <div class="ca">→</div>
     </a>
-  </section>
-  <div class="divider" style="margin:0 0 0 0"><div class="divider-text">Herramienta</div></div>
-  <section style="padding:2rem;max-width:600px;">
-    <a href="/huella" style="display:block;border:1px solid var(--green-dim);padding:2rem;text-decoration:none;transition:background .3s;" onmouseover="this.style.background='rgba(122,182,72,0.04)'" onmouseout="this.style.background='transparent'">
-      <div style="font-family:'Martian Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;color:var(--green);margin-bottom:1rem;text-transform:uppercase;">Calculadora</div>
-      <div style="font-size:1.6rem;font-weight:300;color:var(--text);margin-bottom:0.5rem;">¿Cuál es tu huella?</div>
-      <div style="font-size:0.95rem;font-weight:300;font-style:italic;color:var(--text-dim);">Mide tu impacto en residuos, agua y plástico. Ve qué proyectos de Visiones AC aplican a tu situación.</div>
+
+  </div>
+
+  <div class="div-row"><div class="div-text">Herramienta</div></div>
+  <div style="padding:2rem 2rem 4rem;max-width:600px;">
+    <a href="/huella" style="display:block;border:1px solid var(--border);padding:2rem;text-decoration:none;transition:background .3s,border-color .3s;" onmouseover="this.style.background='rgba(122,182,72,.04)';this.style.borderColor='var(--green-dim)'" onmouseout="this.style.background='transparent';this.style.borderColor='var(--border)'">
+      <div style="font-family:'Martian Mono',monospace;font-size:.55rem;letter-spacing:.25em;color:var(--green);margin-bottom:1rem;text-transform:uppercase;">Calculadora de huella</div>
+      <div style="font-size:1.5rem;font-weight:300;color:var(--text);margin-bottom:.5rem;">¿Cuál es tu huella?</div>
+      <div style="font-size:.95rem;font-weight:300;font-style:italic;color:var(--text-dim);">5 preguntas. Sin juicios. Tu resultado conecta con los proyectos que más te aplican.</div>
     </a>
-  </section>
+  </div>
+
   <footer>
-    <div class="footer-text">© 2026 Visiones AC</div>
-    <div class="footer-text"><a href="/visiones" style="color:inherit;text-decoration:none;">Cómo funciona →</a></div>
+    <div class="ft">© 2026 Visiones AC</div>
+    <div class="ft"><a href="/visiones" style="color:inherit;text-decoration:none;">Modelo →</a></div>
   </footer>
+
 </div>
+<script src="/assets/gate.js"></script>
 </body>
 </html>

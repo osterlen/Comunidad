@@ -155,5 +155,6 @@ document.querySelectorAll('.node').forEach(node => {
 const obs = new IntersectionObserver(entries => entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*120); }), {threshold:0.15});
 document.querySelectorAll('.step').forEach(s=>obs.observe(s));
 </script>
+<script src="/assets/gate.js"></script>
 </body>
 </html>
