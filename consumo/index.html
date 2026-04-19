@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumo Desbordado — Visiones AC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080e08;--green:#7ab648;--green-dim:#4a7a28;--text:#c8ddb0;--text-dim:#6a8a58;--border:#1e3018;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6;}
+.wrapper{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 2rem 5rem;}
+nav{padding:2.5rem 0 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.back{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.15em;transition:color .3s;}
+.back:hover{color:var(--green);}
+.nav-tag{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);}
+header{padding:4rem 0 3rem;border-bottom:1px solid var(--border);}
+.tag{font-family:'Martian Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--green);text-transform:uppercase;margin-bottom:1.5rem;}
+h1{font-size:clamp(2.5rem,7vw,4rem);font-weight:300;line-height:1.05;margin-bottom:1rem;}
+.subtitle{font-size:1.1rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.6;}
+section{padding:3rem 0;border-bottom:1px solid var(--border);}
+section:last-child{border-bottom:none;}
+h2{font-family:'Martian Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--green);text-transform:uppercase;margin-bottom:1.8rem;}
+p{font-size:1.1rem;font-weight:300;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem;}
+p strong{color:var(--text);font-weight:400;}
+.tension{border-left:2px solid var(--green-dim);padding:1.5rem;margin:1.5rem 0;background:rgba(122,182,72,0.03);}
+.tension-label{font-family:'Martian Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;color:var(--green-dim);text-transform:uppercase;margin-bottom:0.8rem;}
+.coming{display:inline-block;font-family:'Martian Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--green-dim);border:1px solid var(--green-dim);padding:0.5rem 1rem;margin-top:1rem;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <nav><a class="back" href="/">← Visiones AC</a><span class="nav-tag">007 · El hilo común</span></nav>
+  <header>
+    <div class="tag">Iniciativa transversal · CDMX</div>
+    <h1>Consumo<br>Desbordado</h1>
+    <p class="subtitle">La junta de todo. Medir lo que consumimos<br>como acto de responsabilidad individual.</p>
+  </header>
+
+  <section>
+    <h2>El hilo que une todo</h2>
+    <p>Detrás de cada proyecto de Visiones AC hay el mismo problema de fondo: <strong>consumimos más de lo que el sistema puede procesar.</strong> Residuos, agua, plástico, empaques, energía. No por maldad — por falta de medición y por un sistema que no facilita las alternativas.</p>
+    <p>Consumo Desbordado es la iniciativa que pone ese hilo en el centro. No para señalar ni culpar — para <strong>hacer visible lo que normalmente es invisible</strong>: el impacto real de las decisiones cotidianas.</p>
+  </section>
+
+  <section>
+    <h2>La tensión honesta</h2>
+    <div class="tension">
+      <div class="tension-label">La paradoja del macro</div>
+      <p style="margin:0;font-style:italic;">A nivel individual, casi todos los problemas tienen solución práctica y asequible. A nivel macro — política, industria, cadenas globales de suministro — son literalmente imposibles de resolver sin transformaciones sistémicas que ningún individuo puede accionar solo.</p>
+    </div>
+    <p>Visiones AC no pretende resolver el segundo nivel. Lo que hace es <strong>crear condiciones para el primero</strong>: que cada persona pueda medir su consumo, entender su impacto y tomar decisiones con más información y menos culpa.</p>
+    <p>Sin demonizar ningún elemento. Con elementos naturales. Visto como <strong>responsabilidad individual progresiva</strong>, no como sacrificio.</p>
+  </section>
+
+  <section>
+    <h2>Qué propone</h2>
+    <p>Una herramienta de medición de huella personal que conecta con los proyectos de Visiones AC: si reduces residuos orgánicos, aparece Popocacatl. Si reduces plástico, aparece PET 3D. Si reduces empaques, aparece Sin huella. <strong>El diagnóstico lleva directo a la acción posible.</strong></p>
+    <p>Más una serie de contenidos — no informativos, no de campaña — sino <em>conversacionales</em>. Que la gente se vea reflejada sin sentirse atacada.</p>
+  </section>
+
+  <section>
+    <h2>Esto es Las Vistas</h2>
+    <p>Consumo Desbordado es el episodio marco de la serie. El que le da sentido a todos los demás. <strong>La serie ultrapretenciosa que sí, quiere salvar al mundo — o al menos este pedazo de ciudad.</strong></p>
+    <div class="coming">En diseño — 2026</div>
+  </section>
+</div>
+</body>
+</html>
