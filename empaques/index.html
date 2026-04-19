@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sin Huella — Empaques Compostables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080e08;--green:#7ab648;--green-dim:#4a7a28;--text:#c8ddb0;--text-dim:#6a8a58;--border:#1e3018;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6;}
+.wrapper{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 2rem 5rem;}
+nav{padding:2.5rem 0 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.back{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.15em;}
+.back:hover{color:var(--green);}
+.nav-tag{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);}
+header{padding:4rem 0 3rem;border-bottom:1px solid var(--border);}
+.tag{font-family:'Martian Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--green);text-transform:uppercase;margin-bottom:1.5rem;}
+h1{font-size:clamp(2.5rem,7vw,4rem);font-weight:300;line-height:1.05;margin-bottom:1rem;}
+.subtitle{font-size:1.1rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.6;}
+section{padding:3rem 0;border-bottom:1px solid var(--border);}
+section:last-child{border-bottom:none;}
+h2{font-family:'Martian Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--green);text-transform:uppercase;margin-bottom:1.8rem;}
+p{font-size:1.1rem;font-weight:300;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem;}
+p strong{color:var(--text);font-weight:400;}
+.coming{display:inline-block;font-family:'Martian Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--green-dim);border:1px solid var(--green-dim);padding:0.5rem 1rem;margin-top:1rem;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <nav><a class="back" href="/">← Visiones AC</a><span class="nav-tag">006 · Packaging</span></nav>
+  <header>
+    <div class="tag">Exploración · CDMX</div>
+    <h1>Sin huella</h1>
+    <p class="subtitle">Empaques para llevar 100% compostables o reutilizables —<br>alternativa real para comercios urbanos</p>
+  </header>
+  <section>
+    <h2>El problema</h2>
+    <p>La mayoría de los empaques "para llevar" en la ciudad — vasos, bolsas, contenedores — terminan en relleno sanitario o en la calle. <strong>Muchos se anuncian como reciclables pero no existe la infraestructura para procesarlos.</strong></p>
+    <p>La alternativa tiene que ser real, no solo en el empaque. Compostable de verdad, en semanas, en condiciones reales. O reutilizable con un sistema que funcione.</p>
+  </section>
+  <section>
+    <h2>La propuesta</h2>
+    <p>Identificar, probar y conectar a comercios locales con <strong>proveedores de empaques genuinamente compostables o reutilizables</strong> a precios competitivos. No queremos convencer — queremos que sea la opción obvia.</p>
+    <p>La lógica de todos los proyectos de Visiones AC aplica aquí también: <strong>quitar la barrera existente, generar economía local y educar de forma práctica.</strong></p>
+  </section>
+  <section>
+    <h2>Estado actual</h2>
+    <p>En fase de exploración — mapeando proveedores en México, certificaciones reales de compostabilidad y modelos de reutilización que ya funcionan en otras ciudades.</p>
+    <div class="coming">Exploración activa — 2026</div>
+  </section>
+  <section>
+    <h2>Esto es Las Vistas</h2>
+    <p>Si el proyecto avanza, se documenta como episodio de <strong>Las Vistas</strong>.</p>
+  </section>
+</div>
+</body>
+</html>

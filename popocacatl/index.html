@@ -3,49 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Popocacatl — Compostaje Casero</title>
+<title>Popocacatl — Compostaje Urbano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #080e08;
-  --green: #7ab648;
-  --green-dim: #4a7a28;
-  --text: #c8ddb0;
-  --text-dim: #6a8a58;
-  --border: #1e3018;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; }
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0; opacity: 0.6;
-}
-.wrapper { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 0 2rem 5rem; }
-nav { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.back { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition: color 0.3s; }
-.back:hover { color: var(--green); }
-.nav-tag { font-family: 'Martian Mono', monospace; font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; }
-header { padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); }
-.tag { font-family: 'Martian Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--green); text-transform: uppercase; margin-bottom: 1.5rem; }
-h1 { font-size: clamp(2.5rem, 7vw, 4rem); font-weight: 300; line-height: 1.05; margin-bottom: 1rem; }
-.subtitle { font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--text-dim); line-height: 1.6; }
-section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
-section:last-child { border-bottom: none; }
-h2 { font-family: 'Martian Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--green); text-transform: uppercase; margin-bottom: 1.8rem; }
-p { font-size: 1.1rem; font-weight: 300; line-height: 1.85; color: var(--text-dim); margin-bottom: 1.2rem; }
-p strong { color: var(--text); font-weight: 400; }
-.coming {
-  display: inline-block;
-  font-family: 'Martian Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: var(--green-dim);
-  border: 1px solid var(--green-dim);
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-}
+:root { --bg:#080e08;--green:#7ab648;--green-dim:#4a7a28;--text:#c8ddb0;--text-dim:#6a8a58;--border:#1e3018; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6;}
+.wrapper{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 2rem 5rem;}
+nav{padding:2.5rem 0 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.back{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.15em;transition:color 0.3s;}
+.back:hover{color:var(--green);}
+.nav-tag{font-family:'Martian Mono',monospace;font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;}
+header{padding:4rem 0 3rem;border-bottom:1px solid var(--border);}
+.tag{font-family:'Martian Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--green);text-transform:uppercase;margin-bottom:1.5rem;}
+h1{font-size:clamp(2.5rem,7vw,4rem);font-weight:300;line-height:1.05;margin-bottom:1rem;}
+.subtitle{font-size:1.1rem;font-weight:300;font-style:italic;color:var(--text-dim);line-height:1.6;}
+section{padding:3rem 0;border-bottom:1px solid var(--border);}
+section:last-child{border-bottom:none;}
+h2{font-family:'Martian Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--green);text-transform:uppercase;margin-bottom:1.8rem;}
+p{font-size:1.1rem;font-weight:300;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem;}
+p strong{color:var(--text);font-weight:400;}
+.initiative-grid{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);margin:1.5rem 0;}
+.initiative{background:var(--bg);padding:1.8rem 1.5rem;}
+.init-label{font-family:'Martian Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;color:var(--green-dim);text-transform:uppercase;margin-bottom:0.8rem;}
+.init-title{font-size:1.3rem;font-weight:300;color:var(--text);margin-bottom:0.5rem;}
+.init-desc{font-size:0.95rem;font-weight:300;line-height:1.7;color:var(--text-dim);font-style:italic;}
+.tag-pill{display:inline-block;font-family:'Martian Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:var(--green-dim);border:1px solid var(--green-dim);padding:0.2rem 0.5rem;margin-top:0.8rem;text-transform:uppercase;}
 </style>
 </head>
 <body>
@@ -54,23 +39,49 @@ p strong { color: var(--text); font-weight: 400; }
     <a class="back" href="/">← Visiones AC</a>
     <span class="nav-tag">002 · Suelo</span>
   </nav>
-
   <header>
-    <div class="tag">Próximamente · CDMX</div>
+    <div class="tag">Compostaje urbano · CDMX</div>
     <h1>Popocacatl</h1>
-    <p class="subtitle">Compostaje casero y economía circular vecinal</p>
+    <p class="subtitle">Del residuo orgánico al suelo fértil —<br>iniciativas para cerrar el ciclo en la ciudad</p>
   </header>
 
   <section>
-    <h2>La idea</h2>
-    <p>Entre el 40 y 60% de los residuos domésticos son orgánicos. La mayoría termina en relleno sanitario donde genera metano. <strong>Popocacatl propone otra ruta: convertir ese desperdicio en suelo fértil</strong>, dentro del mismo vecindario que lo produce.</p>
-    <p>La iniciativa diseña un modelo de compostaje accesible para contextos urbanos — sin patio, sin espacio sobrante, sin conocimientos previos necesarios.</p>
+    <h2>El problema</h2>
+    <p>La ciudad produce toneladas de residuos orgánicos cada día: comida, hojas, y también desechos de mascotas que terminan en las banquetas y postres contaminando suelo, agua y aire. <strong>Popocacatl propone convertir ese problema en recurso.</strong></p>
+    <p>No es un solo proyecto — es un ecosistema de iniciativas conectadas por la misma lógica: economía circular desde lo más cotidiano.</p>
   </section>
 
   <section>
-    <h2>Estado actual</h2>
-    <p>Popocacatl está en fase de diseño. Aprendemos de CUPA Inspira para construir un modelo replicable.</p>
-    <div class="coming">En desarrollo — 2026</div>
+    <h2>Iniciativas del proyecto</h2>
+    <div class="initiative-grid">
+
+      <div class="initiative">
+        <div class="init-label">001 · Residuos de mascotas</div>
+        <div class="init-title">Compostaje de popo de perro</div>
+        <div class="init-desc">Sistemas de compostaje específicos para residuos de mascotas en espacios urbanos. Lo que hoy contamina banquetas y parques se convierte en composta para jardines comunitarios.</div>
+        <span class="tag-pill">En desarrollo</span>
+      </div>
+
+      <div class="initiative">
+        <div class="init-label">002 · Calle</div>
+        <div class="init-title">Bolsas biodegradables de verdad</div>
+        <div class="init-desc">Identificar y conectar con una empresa mexicana que produzca bolsas para caca de perro 100% compostables en semanas — no en años. De materiales como arroz o almidón, a precio accesible. Sin greenwashing.</div>
+        <span class="tag-pill">Búsqueda activa</span>
+      </div>
+
+      <div class="initiative">
+        <div class="init-label">003 · Banquetas y postes</div>
+        <div class="init-title">Neutralizador de orina</div>
+        <div class="init-desc">Desarrollo o identificación de un jabón o líquido de fórmula natural que neutralice el olor y la corrosión del orin de mascotas en superficies urbanas. Problema cotidiano, solución práctica.</div>
+        <span class="tag-pill">Exploración</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>La lógica del proyecto</h2>
+    <p>Cada iniciativa de Popocacatl busca lo mismo: <strong>quitar una barrera real existente</strong>, generar economía local y educar de forma práctica y progresiva. No panfletos — soluciones que la gente pueda usar hoy.</p>
   </section>
 
   <section>
