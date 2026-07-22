@@ -1,0 +1,23 @@
+{
+  "updated": "2026-06-15",
+  "items": [
+    {
+      "id": "jornada-jardines",
+      "title": "Jornada de jardines",
+      "body": "Sábado 21 de junio, 9:00 hrs. Punto de reunión: Jardín del Corazón.",
+      "tag": "Ecología"
+    },
+    {
+      "id": "cisternas",
+      "title": "Calendario de cisternas",
+      "body": "Revisa en La Gaceta las fechas de mantenimiento por sección para el segundo semestre.",
+      "tag": "Agua"
+    },
+    {
+      "id": "asamblea",
+      "title": "Próxima asamblea vecinal",
+      "body": "Se publicará la convocatoria en este espacio y en el grupo de WhatsApp.",
+      "tag": "Comunidad"
+    }
+  ]
+}

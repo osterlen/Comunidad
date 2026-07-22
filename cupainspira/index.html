@@ -1,33 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CUPA Inspira</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CUPA Inspira — Visiones AC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0f1a0f; color: #d4e6c3; font-family: Georgia, serif; padding: 2rem; }
-header { border-bottom: 1px solid #7ab648; padding-bottom: 1rem; margin-bottom: 2rem; }
-h1 { color: #7ab648; font-size: 2rem; letter-spacing: 0.1em; }
-h2 { color: #a8d080; font-size: 1.1rem; font-weight: normal; margin-top: 0.5rem; }
-p { line-height: 1.8; margin-bottom: 1rem; max-width: 680px; }
-a { color: #7ab648; }
-nav { margin-top: 3rem; font-size: 0.85rem; }
-nav a { margin-right: 1.5rem; }
+  :root {
+    --red: #7a1410;
+    --red-deep: #5e0f0c;
+    --green: #0d3e23;
+    --green-deep: #082a17;
+    --cream: #fbf3dc;
+    --cream-soft: #f4e8cd;
+    --brown: #5b4a36;
+    --brown-soft: #8a775f;
+    --line: rgba(91, 74, 54, 0.18);
+    --line-strong: rgba(91, 74, 54, 0.32);
+    --serif: "Newsreader", Georgia, serif;
+    --sans: "Hanken Grotesk", system-ui, sans-serif;
+    --maxw: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--brown);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--red); color: var(--cream); }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* keyframes */
+  @keyframes floatUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  image-slot { display: block; background: var(--cream-soft); }
+
+  nav::-webkit-scrollbar { display: none; }
+  nav { scrollbar-width: none; }
+
+  .footlink { transition: color .18s ease; }
+  .footlink:hover { color: #fbf3dc !important; }
+
+  #root { min-height: 100vh; }
 </style>
 </head>
 <body>
-<header>
-  <h1>CUPA Inspira</h1>
-  <h2>Iniciativa comunitaria · Del Valle, CDMX</h2>
-</header>
-<p>Aquí va el contenido de CUPA Inspira.</p>
-<nav>
-  <a href="/">← Inicio</a>
-  <a href="/poposta">Poposta</a>
-  <a href="/aguaparatodos">Agua para todos</a>
-</nav>
-<script src="/assets/gate.js"></script>
+<div id="root"></div>
+
+<script src="content/load.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="image-slot.js"></script>
+<script type="text/babel" src="src/logo.jsx"></script>
+<script type="text/babel" src="src/sections.jsx"></script>
+<script type="text/babel" src="src/data.jsx"></script>
+<script type="text/babel" src="src/pages.jsx"></script>
+<script type="text/babel" src="src/pages2.jsx"></script>
+<script type="text/babel" src="src/app.jsx"></script>
 </body>
 </html>
-

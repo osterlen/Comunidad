@@ -1,0 +1,24 @@
+{
+  "issue": "Núm. 18",
+  "date": "1 — 15 de junio, 2026",
+  "headline": "Vuelve la jornada de jardines y arranca la composta",
+  "lede": "Reciclaje, jardines y la vida cotidiana del conjunto, contada por quienes la hacemos.",
+  "subscribe_note": "La suscripción tiene una cuota mínima de recuperación de $20 al mes que cubre la impresión. Quien no pueda aportar, igual la recibe: nadie se queda sin Gaceta.",
+  "articles": [
+    {
+      "tag": "Ecología",
+      "title": "La composta ya tiene lugar",
+      "excerpt": "Tras 184 firmas, la estación comunitaria se instalará junto al Jardín del Corazón."
+    },
+    {
+      "tag": "Vecinos",
+      "title": "Doña Lupita y su cochinita dominical",
+      "excerpt": "Una tradición del Edif. 9 que ya es punto de encuentro de varias secciones."
+    },
+    {
+      "tag": "Agua",
+      "title": "Cisternas: calendario de mantenimiento",
+      "excerpt": "Las fechas por sección para la limpieza del segundo semestre."
+    }
+  ]
+}
