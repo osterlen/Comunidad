@@ -25,47 +25,45 @@ function GateScreen({ title, intro, onRegister }) {
 /* ====================================================== */
 /*  PROYECTOS                                             */
 /* ====================================================== */
-function ProyectosPage({ user, votes, onVote }) {
+function ProyectosPage({ user }) {
+  const list = window.PROYECTOS || [];
   return (
     <div style={{ paddingTop: 56, paddingBottom: 90 }}>
       <div className="wrap">
-        <PageHead eyebrow="Proyectos" title="Propuestas en aprobación"
-          intro="Proyectos elaborados por vecinos, en espera del visto bueno de la comunidad. Tu voto ayuda a decidir cuáles avanzan." />
+        <PageHead eyebrow="Proyectos" title="Lo que estamos sacando adelante"
+          intro="Iniciativas vecinales con estatus claro. Poposta ya cerró firmas y va en gestión con la alcaldía." />
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 18, fontFamily: "var(--sans)", fontSize: 14, color: C.green }}>
-          <IconCheck size={16} color={C.green} /> Sesión iniciada como <strong style={{ marginLeft: 2 }}>{user.name}</strong> · {user.building} {user.apt}
+          <IconCheck size={16} color={C.green} /> Sesión como <strong style={{ marginLeft: 2 }}>{user.name}</strong> · {user.building} {user.apt}
+          {user.status && user.status !== "activo" && (
+            <span style={{ marginLeft: 8, color: "#b5701a" }}>({user.status})</span>
+          )}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))", gap: 24, marginTop: 36 }}>
-          {PROYECTOS.map((p) => {
-            const v = votes[p.id];
-            const favor = p.favor + (v === "favor" ? 1 : 0);
-            const contra = p.contra + (v === "contra" ? 1 : 0);
-            const total = favor + contra;
-            const pct = Math.round((favor / total) * 100);
-            return (
-              <article key={p.id} style={{ background: C.cream, border: "1px solid var(--line)", borderRadius: 20, padding: "28px 28px 24px", boxShadow: "0 1px 0 rgba(91,74,54,.04)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <Tag color="#b5701a">{p.status}</Tag>
-                  <span style={{ fontFamily: "var(--sans)", fontSize: 13, color: "var(--brown-soft)" }}>{total} votos</span>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 24, marginTop: 36 }}>
+          {list.map((p) => (
+            <article key={p.id} style={{ background: C.cream, border: "1px solid var(--line)", borderRadius: 20, padding: "28px 28px 24px", boxShadow: "0 1px 0 rgba(91,74,54,.04)" }}>
+              <Tag color={p.phase === "gestion" ? C.green : "#b5701a"}>{p.status}</Tag>
+              <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 27, color: C.red, margin: "16px 0 0", lineHeight: 1.08 }}>{p.title}</h3>
+              <p style={{ fontFamily: "var(--sans)", fontSize: 15.5, lineHeight: 1.56, color: C.brown, margin: "10px 0 0" }}>{p.desc}</p>
+              {p.update && (
+                <p style={{ fontFamily: "var(--sans)", fontSize: 14.5, lineHeight: 1.5, color: "var(--brown-soft)", margin: "12px 0 0", padding: "12px 14px", background: "rgba(13,62,35,.06)", borderRadius: 12 }}>
+                  {p.update}
+                </p>
+              )}
+              {p.signatures_closed && (
+                <div style={{ marginTop: 14, fontFamily: "var(--sans)", fontSize: 13.5, color: C.green, fontWeight: 600 }}>
+                  Firmas cerradas{p.signatures_final ? ` · ${p.signatures_final} vecinas/os` : ""}
                 </div>
-                <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 27, color: C.red, margin: "16px 0 0", lineHeight: 1.08 }}>{p.title}</h3>
-                <p style={{ fontFamily: "var(--sans)", fontSize: 15.5, lineHeight: 1.56, color: C.brown, margin: "10px 0 0" }}>{p.desc}</p>
-                {/* barra favor/contra */}
+              )}
+              {p.cta_label && (
                 <div style={{ marginTop: 20 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 600, marginBottom: 7 }}>
-                    <span style={{ color: C.green }}>A favor {pct}%</span>
-                    <span style={{ color: C.red }}>En contra {100 - pct}%</span>
-                  </div>
-                  <div style={{ height: 8, borderRadius: 99, background: "rgba(122,20,16,.18)", overflow: "hidden", display: "flex" }}>
-                    <div style={{ width: `${pct}%`, background: C.green, transition: "width .5s ease" }} />
-                  </div>
+                  <Btn variant="green" size="sm" icon={false}
+                    onClick={() => { if ((p.cta_href || "").startsWith("http")) window.open(p.cta_href, "_blank"); }}>
+                    {p.cta_label}
+                  </Btn>
                 </div>
-                <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
-                  <VoteBtn active={v === "favor"} color={C.green} label="A favor" onClick={() => onVote(p.id, "favor")} />
-                  <VoteBtn active={v === "contra"} color={C.red} label="En contra" down onClick={() => onVote(p.id, "contra")} />
-                </div>
-              </article>
-            );
-          })}
+              )}
+            </article>
+          ))}
         </div>
       </div>
     </div>

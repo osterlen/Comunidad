@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cochinita",
+    "vecino": "Doña Lupita",
+    "product": "Cochinita pibil los domingos",
+    "edif": "Edif. 9 · 102",
+    "emoji": "🫔",
+    "oficio": "comida"
+  },
+  {
+    "id": "aguas",
+    "vecino": "Carlos M.",
+    "product": "Aguas frescas de temporada",
+    "edif": "Edif. 3 · 204",
+    "emoji": "🥤",
+    "oficio": "comida"
+  },
+  {
+    "id": "helados",
+    "vecino": "Sofía y Diego",
+    "product": "Helados y paletas artesanales",
+    "edif": "Edif. 14 · 301",
+    "emoji": "🍦",
+    "oficio": "comida"
+  },
+  {
+    "id": "pan",
+    "vecino": "Familia Bautista",
+    "product": "Pan y conchas recién horneadas",
+    "edif": "Edif. 7 · 105",
+    "emoji": "🥖",
+    "oficio": "comida"
+  },
+  {
+    "id": "tamales",
+    "vecino": "Doña Remedios",
+    "product": "Tamales oaxaqueños (por encargo)",
+    "edif": "Edif. 1 · 008",
+    "emoji": "🌽",
+    "oficio": "comida"
+  },
+  {
+    "id": "costura",
+    "vecino": "Tere Jiménez",
+    "product": "Costura y arreglos de ropa",
+    "edif": "Edif. 11 · 207",
+    "emoji": "🧵",
+    "oficio": "oficio"
+  }
+]

@@ -1,8 +1,6 @@
 /* CUPA Inspira — router, navegación, sesión y modales */
 const { useState, useEffect, useRef } = React;
 
-const GOAL = 250;
-
 /* ---------- hooks de persistencia ---------- */
 function useLocal(key, init) {
   const [val, setVal] = useState(() => {
@@ -15,12 +13,10 @@ function useLocal(key, init) {
 /* ====================================================== */
 /*  NAV                                                   */
 /* ====================================================== */
-function Nav({ route, go, user, onRegister, onLogout }) {
+function Nav({ route, go, user, onRegister, onLogin, onLogout }) {
   const [scrolled, setScrolled] = useState(false);
-  const [openCom, setOpenCom] = useState(false);
   const [narrow, setNarrow] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const comRef = useRef(null);
   const onHome = route === "#/" || route === "" || route === "#";
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -34,11 +30,6 @@ function Nav({ route, go, user, onRegister, onLogout }) {
     return () => window.removeEventListener("resize", onResize);
   }, []);
   useEffect(() => { setOpenMenu(false); }, [route]);
-  useEffect(() => {
-    const close = (e) => { if (comRef.current && !comRef.current.contains(e.target)) setOpenCom(false); };
-    document.addEventListener("click", close);
-    return () => document.removeEventListener("click", close);
-  }, []);
 
   // sobre el hero (home, sin scroll, menú cerrado) el nav es claro
   const overHero = onHome && !scrolled && !openMenu;
@@ -67,32 +58,8 @@ function Nav({ route, go, user, onRegister, onLogout }) {
 
         {!narrow && (
         <nav style={{ display: "flex", alignItems: "center", gap: 24, overflowX: "auto", flex: 1, justifyContent: "flex-end", minWidth: 0 }}>
-          {/* Comunidad dropdown */}
-          <div ref={comRef} style={{ position: "relative" }}>
-            <button onClick={() => setOpenCom((o) => !o)}
-              style={{ position: "relative", background: "none", border: "none", cursor: "pointer", padding: "8px 2px", fontFamily: "var(--sans)", fontWeight: 500, fontSize: 15, color: isActive("#/comunidad") ? fg : fg, display: "inline-flex", alignItems: "center", gap: 6, whiteSpace: "nowrap" }}>
-              Comunidad
-              <svg width="11" height="11" viewBox="0 0 12 12" style={{ transform: openCom ? "rotate(180deg)" : "none", transition: "transform .2s" }}><path d="M2 4l4 4 4-4" stroke={fg} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              {isActive("#/comunidad") && <span style={{ position: "absolute", left: 0, right: 17, bottom: -2, height: 2, background: overHero ? C.cream : C.red, borderRadius: 99 }} />}
-            </button>
-            {openCom && (
-              <div style={{ position: "absolute", top: "calc(100% + 12px)", left: -8, background: C.cream, border: "1px solid var(--line)", borderRadius: 14, padding: 8, minWidth: 200, boxShadow: "0 20px 45px -20px rgba(91,74,54,.5)", animation: "floatUp .2s ease both" }}>
-                {[["Ecología", "#/comunidad/ecologia", "Jardines, composta y reciclaje"], ["Emprendimiento", "#/comunidad/emprendimiento", "Vecinos que venden"], ["Comercio", "#/comunidad/comercio", "Locales del conjunto"]].map(([t, h, d]) => (
-                  <button key={h} onClick={() => { setOpenCom(false); go(h); }}
-                    style={{ display: "block", width: "100%", textAlign: "left", background: route === h ? "rgba(122,20,16,.06)" : "none", border: "none", cursor: "pointer", padding: "10px 12px", borderRadius: 9, transition: "background .15s" }}
-                    onMouseEnter={(e) => { if (route !== h) e.currentTarget.style.background = "rgba(91,74,54,.05)"; }}
-                    onMouseLeave={(e) => { if (route !== h) e.currentTarget.style.background = "none"; }}>
-                    <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 14.5, color: C.red }}>{t}</div>
-                    <div style={{ fontFamily: "var(--sans)", fontSize: 12.5, color: "var(--brown-soft)", marginTop: 1 }}>{d}</div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
           {navItem("Proyectos", "#/proyectos")}
           {navItem("Iniciativas", "#/iniciativas")}
-          {navItem("Votación", "#/votacion", { disabled: true, badge: true })}
           {navItem("Gaceta", "#/gaceta")}
           {navItem("Fotos", "ig", { external: true, onClick: () => window.open("https://instagram.com/cupainspira", "_blank") })}
         </nav>
@@ -103,13 +70,16 @@ function Nav({ route, go, user, onRegister, onLogout }) {
           {user ? (
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 14, color: fg }}>
-                <span style={{ width: 30, height: 30, borderRadius: 99, background: C.green, color: C.cream, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700 }}>{user.name[0]}</span>
-                <span style={{ whiteSpace: "nowrap" }}>{user.name.split(" ")[0]}</span>
+                <span style={{ width: 30, height: 30, borderRadius: 99, background: user.status === "activo" ? C.green : C.red, color: C.cream, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700 }}>{(user.name || "?")[0]}</span>
+                <span style={{ whiteSpace: "nowrap" }}>{(user.name || "").split(" ")[0]}{user.status === "pendiente" ? " · pendiente" : ""}</span>
               </span>
               <button onClick={onLogout} title="Cerrar sesión" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--sans)", fontSize: 13, color: overHero ? "rgba(251,243,220,.7)" : "var(--brown-soft)", textDecoration: "underline", whiteSpace: "nowrap" }}>Salir</button>
             </div>
           ) : (
-            <Btn variant={overHero ? "creamSolid" : "primary"} size="sm" icon={false} onClick={onRegister}>Registrarme</Btn>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <button type="button" onClick={onLogin} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 14, color: fg, textDecoration: "underline", whiteSpace: "nowrap" }}>Entrar</button>
+              <Btn variant={overHero ? "creamSolid" : "primary"} size="sm" icon={false} onClick={onRegister}>Registrarme</Btn>
+            </div>
           )}
           {narrow && (
             <button onClick={() => setOpenMenu((o) => !o)} aria-label="Menú" style={{ background: "none", border: "none", cursor: "pointer", padding: 6, display: "flex", flexDirection: "column", gap: 4 }}>
@@ -123,18 +93,10 @@ function Nav({ route, go, user, onRegister, onLogout }) {
       {narrow && openMenu && (
         <div style={{ background: C.cream, borderTop: "1px solid var(--line)", boxShadow: "0 20px 40px -24px rgba(91,74,54,.5)", animation: "floatUp .22s ease both" }}>
           <div className="wrap" style={{ padding: "16px 32px 24px", display: "flex", flexDirection: "column", gap: 4 }}>
-            <div style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 11.5, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--brown-soft)", padding: "8px 0 4px" }}>Comunidad</div>
-            {[["Ecología", "#/comunidad/ecologia"], ["Emprendimiento", "#/comunidad/emprendimiento"], ["Comercio", "#/comunidad/comercio"]].map(([t, h]) => (
-              <button key={h} onClick={() => go(h)} style={{ textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 12px", borderRadius: 9, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: route === h ? C.red : C.brown }}>{t}</button>
+            {[["Proyectos", "#/proyectos"], ["Iniciativas", "#/iniciativas"], ["Gaceta", "#/gaceta"],
+              ["Ecología", "#/comunidad/ecologia"], ["Emprendimiento", "#/comunidad/emprendimiento"], ["Comercio", "#/comunidad/comercio"]].map(([t, h]) => (
+              <button key={h} onClick={() => go(h)} style={{ textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 12px", borderRadius: 9, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: route.startsWith(h) || route === h ? C.red : C.brown }}>{t}</button>
             ))}
-            <div style={{ height: 1, background: "var(--line)", margin: "8px 0" }} />
-            {[["Proyectos", "#/proyectos"], ["Iniciativas", "#/iniciativas"], ["Gaceta", "#/gaceta"]].map(([t, h]) => (
-              <button key={h} onClick={() => go(h)} style={{ textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 12px", borderRadius: 9, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: route.startsWith(h) ? C.red : C.brown }}>{t}</button>
-            ))}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px" }}>
-              <span style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: "var(--brown-soft)" }}>Votación</span>
-              <span style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 10.5, color: "#b5701a", background: "rgba(181,112,26,.14)", padding: "3px 8px", borderRadius: 999, letterSpacing: "0.05em" }}>PRÓXIMAMENTE</span>
-            </div>
             <a href="https://instagram.com/cupainspira" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 12px", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: C.brown }}><IconInstagram size={18} /> Fotos · Instagram</a>
           </div>
         </div>
@@ -222,35 +184,89 @@ function SelectField({ label, value, onChange, options, placeholder }) {
   );
 }
 
-/* registro vecinal — pide teléfono si requirePhone */
-function RegisterModal({ open, onClose, onDone, requirePhone, intro }) {
+/* registro vecinal — correo o teléfono + opt-in directorio */
+function RegisterModal({ open, onClose, onDone, intro, mode }) {
   const [name, setName] = useState("");
   const [building, setBuilding] = useState("");
   const [apt, setApt] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  useEffect(() => { if (open) { setName(""); setBuilding(""); setApt(""); setPhone(""); } }, [open]);
+  const [ofrece, setOfrece] = useState(false);
+  const [oficio, setOficio] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const isLogin = mode === "login";
+
+  useEffect(() => {
+    if (open) { setName(""); setBuilding(""); setApt(""); setEmail(""); setPhone(""); setOfrece(false); setOficio(""); setErr(""); setBusy(false); }
+  }, [open, mode]);
   if (!open) return null;
-  const valid = name.trim() && building && apt.trim() && (!requirePhone || phone.trim().length >= 8);
-  const submit = (e) => { e.preventDefault(); if (!valid) return; onDone({ name, building, apt, phone: phone || undefined }); };
+
+  const validReg = name.trim() && building && apt.trim() && (email.trim() || phone.trim().length >= 8);
+  const validLogin = email.trim() || phone.trim().length >= 8;
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setErr("");
+    if (isLogin) {
+      if (!validLogin) return;
+      setBusy(true);
+      const res = await window.CupaAPI.login({ email: email.trim() || undefined, phone: phone.trim() || undefined });
+      setBusy(false);
+      if (!res.ok) { setErr(res.error || "No se pudo entrar"); return; }
+      window.CupaAPI.setSession(res.sessionToken);
+      onDone(res.user, { loggedIn: true });
+      return;
+    }
+    if (!validReg) return;
+    setBusy(true);
+    const res = await window.CupaAPI.register({
+      name: name.trim(), building, apt: apt.trim(),
+      email: email.trim() || undefined,
+      phone: phone.trim() || undefined,
+      ofrece, oficio: oficio.trim() || undefined,
+    });
+    setBusy(false);
+    if (!res.ok) { setErr(res.error || "No se pudo registrar"); return; }
+    if (res.sessionToken) window.CupaAPI.setSession(res.sessionToken);
+    onDone(res.user || { name, building, apt, email, phone, status: "pendiente" }, res);
+  };
+
   return (
     <Overlay onClose={onClose}>
       <Logo variant="mark" size={44} />
-      <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 27, color: C.red, margin: "16px 0 6px" }}>Confírmanos que eres del CUPA</h3>
-      <p style={{ fontFamily: "var(--sans)", fontSize: 15, color: C.brown, lineHeight: 1.5 }}>{intro || "Con tu nombre, edificio y departamento validamos que vives en el conjunto. Si los datos no corresponden a un vecino, el acceso se retira."}</p>
+      <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 27, color: C.red, margin: "16px 0 6px" }}>
+        {isLogin ? "Reingresar" : "Registro vecinal CUPA"}
+      </h3>
+      <p style={{ fontFamily: "var(--sans)", fontSize: 15, color: C.brown, lineHeight: 1.5 }}>
+        {intro || (isLogin
+          ? "Entra con el correo o teléfono con el que te registraste (debe estar activo)."
+          : "Nombre, edificio y departamento. Correo o teléfono (uno basta). La mesa puede revocar accesos raros.")}
+      </p>
       <form onSubmit={submit} style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 14 }}>
-        <Field label="Nombre completo" value={name} onChange={setName} placeholder="Ej. Mariana Reyes" />
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 12 }}>
-          <SelectField label="Edificio" value={building} onChange={setBuilding} options={BUILDINGS} placeholder="Selecciona" />
-          <Field label="Departamento" value={apt} onChange={setApt} placeholder="Ej. 304" />
-        </div>
-        {requirePhone && (
-          <div style={{ animation: "floatUp .25s ease both" }}>
-            <Field label="Teléfono (para participar)" value={phone} onChange={setPhone} placeholder="Ej. 55 1234 5678" type="tel" />
-            <p style={{ fontFamily: "var(--sans)", fontSize: 12.5, color: "var(--brown-soft)", marginTop: 6, lineHeight: 1.45 }}>Lo pedimos solo para coordinar la participación por WhatsApp. No se publica.</p>
-          </div>
+        {!isLogin && (
+          <>
+            <Field label="Nombre completo" value={name} onChange={setName} placeholder="Ej. Mariana Reyes" />
+            <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 12 }}>
+              <SelectField label="Edificio" value={building} onChange={setBuilding} options={BUILDINGS} placeholder="Selecciona" />
+              <Field label="Departamento" value={apt} onChange={setApt} placeholder="Ej. 304" />
+            </div>
+          </>
         )}
-        <div style={{ display: "flex", gap: 12, marginTop: 6, alignItems: "center" }}>
-          <Btn variant="green" icon={false}>{requirePhone ? "Registrarme y participar" : "Entrar"}</Btn>
+        <Field label="Correo" value={email} onChange={setEmail} placeholder="tu@correo.com" type="email" />
+        <Field label={isLogin ? "Teléfono (si no usas correo)" : "Teléfono (WhatsApp)"} value={phone} onChange={setPhone} placeholder="Ej. 55 1234 5678" type="tel" />
+        {!isLogin && (
+          <>
+            <label style={{ display: "flex", gap: 10, alignItems: "flex-start", cursor: "pointer" }}>
+              <input type="checkbox" checked={ofrece} onChange={(e) => setOfrece(e.target.checked)} style={{ marginTop: 4 }} />
+              <span style={{ fontFamily: "var(--sans)", fontSize: 14, color: C.brown, lineHeight: 1.45 }}>Ofrezco un producto o servicio a la comunidad (directorio)</span>
+            </label>
+            {ofrece && <Field label="¿Qué ofreces?" value={oficio} onChange={setOficio} placeholder="Ej. plomería, clases de inglés…" />}
+          </>
+        )}
+        {err && <p style={{ fontFamily: "var(--sans)", fontSize: 13.5, color: C.red, margin: 0 }}>{err}</p>}
+        <div style={{ display: "flex", gap: 12, marginTop: 6, alignItems: "center", flexWrap: "wrap" }}>
+          <Btn variant="green" icon={false}>{busy ? "…" : (isLogin ? "Entrar" : "Registrarme")}</Btn>
           <button type="button" onClick={onClose} style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 15, color: "var(--brown-soft)", background: "none", border: "none", cursor: "pointer", padding: "13px 8px" }}>Ahora no</button>
         </div>
       </form>
@@ -297,20 +313,32 @@ function MessageModal({ data, onClose }) {
   );
 }
 
+function parseHashRoute(hash) {
+  const raw = (hash || "#/").replace(/^#/, "") || "/";
+  const q = raw.indexOf("?");
+  const path = q >= 0 ? raw.slice(0, q) : raw;
+  const params = {};
+  if (q >= 0) new URLSearchParams(raw.slice(q + 1)).forEach((v, k) => { params[k] = v; });
+  return { path: path.startsWith("/") ? path : "/" + path, params, hash: hash || "#/" };
+}
+
+function isActiveUser(u) {
+  return !!(u && (u.status === "activo" || u.status === "Activo"));
+}
+
 /* ====================================================== */
 /*  APP                                                   */
 /* ====================================================== */
 function App() {
   const [route, setRoute] = useState(window.location.hash || "#/");
   const [user, setUser] = useLocal("cupa_user", null);
-  const [signCount, setSignCount] = useLocal("cupa_signs", 184);
   const [projVotes, setProjVotes] = useLocal("cupa_projvotes", {});
   const [initVotes, setInitVotes] = useLocal("cupa_initvotes", {});
   const [comments, setComments] = useLocal("cupa_comments", {});
+  const [verifying, setVerifying] = useState(false);
 
-  // modales
-  const [reg, setReg] = useState(null);        // { requirePhone, intro }
-  const [phoneAsk, setPhoneAsk] = useState(null); // { actionLabel }
+  const [reg, setReg] = useState(null); // { mode, intro }
+  const [phoneAsk, setPhoneAsk] = useState(null);
   const [msg, setMsg] = useState(null);
   const pending = useRef(null);
 
@@ -320,48 +348,112 @@ function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
+  // refrescar estatus desde Notion si hay sesión
+  useEffect(() => {
+    const session = window.CupaAPI && window.CupaAPI.getSession();
+    if (!session) return;
+    window.CupaAPI.me().then((res) => {
+      if (res.ok && res.user) setUser(res.user);
+      else if (res.error) {
+        window.CupaAPI.setSession(null);
+        if (user && user.status === "revocado") setUser(null);
+      }
+    });
+  }, []);
+
+  // ruta #/verificar?token=
+  useEffect(() => {
+    const { path, params } = parseHashRoute(route);
+    if (path !== "/verificar" || !params.token || verifying) return;
+    setVerifying(true);
+    window.CupaAPI.verify(params.token).then((res) => {
+      setVerifying(false);
+      if (res.ok) {
+        window.CupaAPI.setSession(res.sessionToken);
+        setUser(res.user);
+        setMsg({ title: "Registro confirmado", body: "Ya eres vecina/o activa/o en CUPA Inspira. Bienvenida." });
+        window.location.hash = "#/";
+      } else {
+        setMsg({ title: "No se pudo verificar", body: res.error || "El enlace no es válido o ya se usó." });
+        window.location.hash = "#/";
+      }
+    });
+  }, [route]);
+
   const go = (h) => { if (window.location.hash === h) { window.scrollTo({ top: 0, behavior: "smooth" }); } else { window.location.hash = h; } };
 
-  // registro simple (solo acceso a páginas)
-  const openRegister = (opts = {}) => setReg({ requirePhone: false, ...opts });
+  const openRegister = (opts = {}) => setReg({ mode: "register", ...opts });
+  const openLogin = () => setReg({ mode: "login", intro: "Entra con el correo con el que te registraste." });
 
-  // garantiza sesión válida; luego corre fn
   const ensureAccess = (fn) => {
-    if (user) { fn && fn(); }
-    else { pending.current = fn; setReg({ requirePhone: false, intro: "Regístrate para ver esta sección. Solo confirmamos que vives en el CUPA." }); }
-  };
-
-  // garantiza sesión + teléfono (participación activa); luego corre fn
-  const ensureParticipation = (actionLabel, fn) => {
-    if (user && user.phone) { fn && fn(); return; }
+    if (isActiveUser(user)) { fn && fn(); return; }
+    if (user && user.status === "pendiente") {
+      setMsg({ title: "Registro en revisión", body: "Tu ficha está pendiente. Si diste correo, confirma el enlace; si solo teléfono, la mesa te activará pronto." });
+      return;
+    }
+    if (user && user.status === "revocado") {
+      setMsg({ title: "Acceso revocado", body: "Este acceso ya no está vigente. Escribe a la mesa vecinal si crees que es un error." });
+      return;
+    }
     pending.current = fn;
-    if (!user) setReg({ requirePhone: true, intro: `Para ${actionLabel} confirma que eres del CUPA y déjanos un teléfono de contacto.` });
-    else setPhoneAsk({ actionLabel });
+    setReg({ mode: "register", intro: "Regístrate para ver esta sección. Confirmamos edificio, departamento y contacto." });
   };
 
-  const finishReg = (data) => {
-    setUser(data); setReg(null);
-    const fn = pending.current; pending.current = null;
-    setTimeout(() => fn && fn(), 50);
+  const ensureParticipation = (actionLabel, fn) => {
+    if (!isActiveUser(user)) { ensureAccess(fn); return; }
+    if (user.phone) { fn && fn(); return; }
+    pending.current = fn;
+    setPhoneAsk({ actionLabel });
   };
+
+  const finishReg = (data, meta) => {
+    setReg(null);
+    if (data) setUser(data);
+    if (meta && meta.loggedIn) {
+      const fn = pending.current; pending.current = null;
+      setTimeout(() => fn && fn(), 50);
+      return;
+    }
+    if (meta && meta.needAdmin) {
+      setMsg({ title: "Registro recibido", body: meta.message || "La mesa vecinal activará tu acceso al confirmar el teléfono." });
+      pending.current = null;
+      return;
+    }
+    if (meta && meta.needVerify) {
+      const body = meta.emailSent
+        ? "Revisa tu correo y abre el enlace de confirmación."
+        : (meta.verifyUrl
+          ? "Confirma tu registro con este enlace (copia y pégalo mientras el correo no esté configurado): " + meta.verifyUrl
+          : (meta.message || "Confirma tu correo para activar el acceso."));
+      setMsg({ title: "Casi listo", body });
+      pending.current = null;
+      return;
+    }
+    if (meta && meta.existing && data && data.status === "pendiente") {
+      setMsg({ title: "Ya estás en el padrón", body: "Tu registro sigue pendiente de confirmación o aprobación." });
+      pending.current = null;
+      return;
+    }
+    const fn = pending.current; pending.current = null;
+    if (isActiveUser(data)) setTimeout(() => fn && fn(), 50);
+  };
+
   const finishPhone = (phone) => {
     setUser((u) => ({ ...u, phone })); setPhoneAsk(null);
     const fn = pending.current; pending.current = null;
     setTimeout(() => fn && fn(), 50);
   };
-  const logout = () => { setUser(null); };
+  const logout = () => {
+    window.CupaAPI && window.CupaAPI.setSession(null);
+    setUser(null);
+  };
 
-  // acciones
-  const sign = () => ensureParticipation("firmar por la composta", () => {
-    setSignCount((c) => c + 1);
-    setMsg({ title: "¡Gracias por firmar!", body: "Tu firma ya cuenta para instalar la composta vecinal. Nos vemos en la próxima jornada." });
-  });
   const joinOrg = (orgName) => ensureParticipation("unirte a esta organización", () =>
     setMsg({ title: "¡Bienvenida al equipo!", body: `Te sumaste a "${orgName}". Te escribiremos por WhatsApp para los próximos pasos.` }));
   const contact = (vecino) => ensureParticipation("contactar a este vecino", () =>
     setMsg({ title: "Contacto enviado", body: `Le avisamos a ${vecino} que quieres contactarle. Te conectará por WhatsApp.` }));
-  const subscribe = () => ensureParticipation("suscribirte a La Gaceta", () =>
-    setMsg({ title: "¡Suscripción lista!", body: "Recibirás La Gaceta cada quincena. Gracias por apoyar la cuota de recuperación." }));
+  const subscribe = () => ensureAccess(() =>
+    setMsg({ title: "¡Quedaste en la lista!", body: "Cuando salga la próxima Gaceta, te llega al correo del padrón. Mientras, léela aquí en la web." }));
   const projVote = (id, v) => ensureParticipation("votar este proyecto", () =>
     setProjVotes((s) => ({ ...s, [id]: s[id] === v ? undefined : v })));
   const initVote = (id, v) => ensureParticipation("votar esta iniciativa", () =>
@@ -369,27 +461,33 @@ function App() {
   const addComment = (id, c) => ensureParticipation("comentar", () =>
     setComments((s) => ({ ...s, [id]: [...(s[id] || []), c] })));
 
-  /* ---- render de página por ruta ---- */
+  const { path } = parseHashRoute(route);
   let page;
-  if (route.startsWith("#/comunidad/emprendimiento")) page = <EmprendimientoPage go={go} onContact={contact} />;
-  else if (route.startsWith("#/comunidad/comercio")) page = <ComercioPage go={go} />;
-  else if (route.startsWith("#/comunidad")) page = <EcologiaPage go={go} onJoin={joinOrg} />;
-  else if (route.startsWith("#/proyectos")) page = user
+  if (path.startsWith("/verificar")) {
+    page = (
+      <div className="wrap" style={{ padding: "120px 32px", textAlign: "center" }}>
+        <p style={{ fontFamily: "var(--sans)", fontSize: 17, color: C.brown }}>{verifying ? "Confirmando tu registro…" : "Verificando…"}</p>
+      </div>
+    );
+  } else if (path.startsWith("/comunidad/emprendimiento")) page = <EmprendimientoPage go={go} onContact={contact} />;
+  else if (path.startsWith("/comunidad/comercio")) page = <ComercioPage go={go} />;
+  else if (path.startsWith("/comunidad")) page = <EcologiaPage go={go} onJoin={joinOrg} />;
+  else if (path.startsWith("/proyectos")) page = isActiveUser(user)
     ? <ProyectosPage user={user} votes={projVotes} onVote={projVote} />
-    : <GateScreen title="Proyectos de la comunidad" intro="Esta sección es para vecinos registrados. Regístrate para ver y votar las propuestas en aprobación." onRegister={() => ensureAccess(() => go("#/proyectos"))} />;
-  else if (route.startsWith("#/iniciativas")) page = user
+    : <GateScreen title="Proyectos de la comunidad" intro="Solo vecinos activos del padrón. Regístrate y confirma tu correo (o espera aprobación si solo diste teléfono)." onRegister={() => ensureAccess(() => go("#/proyectos"))} />;
+  else if (path.startsWith("/iniciativas")) page = isActiveUser(user)
     ? <IniciativasPage user={user} votes={initVotes} onVote={initVote} comments={comments} onComment={addComment} />
-    : <GateScreen title="Iniciativas en desarrollo" intro="Esta sección es para vecinos registrados. Regístrate para sumarte a los grupos, votar y comentar." onRegister={() => ensureAccess(() => go("#/iniciativas"))} />;
-  else if (route.startsWith("#/gaceta")) page = <GacetaPage onSubscribe={subscribe} />;
-  else page = <HomePage go={go} signCount={signCount} goal={GOAL} onSign={sign} />;
+    : <GateScreen title="Iniciativas en desarrollo" intro="Solo vecinos activos. Regístrate para sumarte a los grupos, votar y comentar." onRegister={() => ensureAccess(() => go("#/iniciativas"))} />;
+  else if (path.startsWith("/gaceta")) page = <GacetaPage onSubscribe={subscribe} />;
+  else page = <HomePage go={go} onRegister={() => openRegister()} />;
 
-  const isHome = route === "#/" || route === "" || route === "#";
+  const isHome = path === "/" || path === "";
   return (
     <React.Fragment>
-      <Nav route={route} go={go} user={user} onRegister={() => openRegister()} onLogout={logout} />
+      <Nav route={route} go={go} user={user} onRegister={() => openRegister()} onLogin={openLogin} onLogout={logout} />
       <main style={{ paddingTop: isHome ? 0 : 76 }}>{page}</main>
       <Footer go={go} />
-      <RegisterModal open={!!reg} onClose={() => { setReg(null); pending.current = null; }} onDone={finishReg} requirePhone={reg && reg.requirePhone} intro={reg && reg.intro} />
+      <RegisterModal open={!!reg} onClose={() => { setReg(null); pending.current = null; }} onDone={finishReg} intro={reg && reg.intro} mode={reg && reg.mode} />
       <PhoneModal open={!!phoneAsk} onClose={() => { setPhoneAsk(null); pending.current = null; }} onDone={finishPhone} actionLabel={phoneAsk && phoneAsk.actionLabel} />
       <MessageModal data={msg} onClose={() => setMsg(null)} />
     </React.Fragment>

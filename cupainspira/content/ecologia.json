@@ -1,0 +1,51 @@
+[
+  {
+    "id": "jaula",
+    "name": "Jaula de reciclaje",
+    "lead": "Comité de la Sección 3",
+    "status": "activo",
+    "desc": "Punto fijo donde acopiamos PET, cartón y vidrio. Pasa el camión cada jueves."
+  },
+  {
+    "id": "corazon",
+    "name": "Jardín del Corazón",
+    "lead": "Doña Esther · Edif. 12",
+    "status": "activo",
+    "desc": "El jardín de la entrada principal. Plantamos, regamos y cuidamos entre todas."
+  },
+  {
+    "id": "esperanza",
+    "name": "Jardín de la Esperanza",
+    "lead": "Familia Ortega",
+    "status": "apoyo",
+    "desc": "Área verde junto a la cancha. Nos faltan manos para la poda de temporada."
+  },
+  {
+    "id": "inspiracion",
+    "name": "Jardín de la Inspiración",
+    "lead": "Colectivo Raíces",
+    "status": "activo",
+    "desc": "Jardín de polinizadores con plantas nativas. Mariposas garantizadas."
+  },
+  {
+    "id": "huerto",
+    "name": "Huerto comunitario",
+    "lead": "Sr. Manuel · Edif. 5",
+    "status": "apoyo",
+    "desc": "Jitomate, hierbas y acelgas para quien participa. Buscamos quien adopte una cama."
+  },
+  {
+    "id": "composta",
+    "name": "Composta / Poposta",
+    "lead": "Equipo Poposta",
+    "status": "activo",
+    "desc": "Firmas listas. En trámite la solicitud a alcaldía del compostero (incluye popó de perro) para devolver nutrientes a los jardines."
+  },
+  {
+    "id": "limpieza",
+    "name": "Limpieza semestral",
+    "lead": "Mesa vecinal",
+    "status": "apoyo",
+    "desc": "Dos veces al año juntamos lo que estorba en pasillos y azoteas."
+  }
+]

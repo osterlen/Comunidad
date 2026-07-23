@@ -20,9 +20,30 @@
   window.__CUPA_CONTENT__ = Promise.all([
     get("gaceta.json", null),
     get("avisos.json", { items: [] }),
-  ]).then(function (pair) {
-    window.CUPA_GACETA_FILE = pair[0];
-    window.CUPA_AVISOS_FILE = pair[1];
-    return { gaceta: pair[0], avisos: pair[1] };
+    get("proyectos.json", null),
+    get("ecologia.json", null),
+    get("emprendimiento.json", null),
+    get("comercio.json", null),
+    get("convocatorias.json", []),
+    get("ahora.json", []),
+  ]).then(function (pack) {
+    window.CUPA_GACETA_FILE = pack[0];
+    window.CUPA_AVISOS_FILE = pack[1];
+    window.CUPA_PROYECTOS_FILE = pack[2];
+    window.CUPA_ECOLOGIA_FILE = pack[3];
+    window.CUPA_EMPRENDE_FILE = pack[4];
+    window.CUPA_COMERCIO_FILE = pack[5];
+    window.CUPA_CONVOCATORIAS_FILE = pack[6];
+    window.CUPA_AHORA_FILE = pack[7];
+    return {
+      gaceta: pack[0],
+      avisos: pack[1],
+      proyectos: pack[2],
+      ecologia: pack[3],
+      emprendimiento: pack[4],
+      comercio: pack[5],
+      convocatorias: pack[6],
+      ahora: pack[7],
+    };
   });
 })();

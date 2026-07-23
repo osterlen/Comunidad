@@ -1,16 +1,16 @@
 # Contenido editable — CUPA Inspira
 
-Edita estos JSON y haz push (`./deploy.sh`) para actualizar la página en línea **sin tocar** el código de la UI.
+Edita estos JSON y publica con `./deploy.sh` desde la raíz de VISIONES.
 
-| Archivo | Qué controla |
-|---------|----------------|
-| `gaceta.json` | Portada, artículos y nota de suscripción de La Gaceta |
-| `avisos.json` | Avisos generales de la comunidad |
+| Archivo | Sección |
+|---------|---------|
+| `ahora.json` | Tarjetas “Ahora en el CUPA” (home) |
+| `proyectos.json` | Proyectos (Poposta, etc.) |
+| `convocatorias.json` | CTAs abiertas |
+| `ecologia.json` | Comunidad → Ecología |
+| `emprendimiento.json` | Comunidad → Emprendimiento |
+| `comercio.json` | Comunidad → Comercio |
+| `gaceta.json` | La Gaceta |
+| `avisos.json` | Avisos cortos |
 
-Tras guardar, en la raíz del repo Visiones:
-
-```bash
-./deploy.sh "Actualiza gaceta núm. X"
-```
-
-La página en vivo: https://elgorila.org/cupainspira/#/gaceta
+Poposta hoy: firmas cerradas → gestión con alcaldía (compostero + popó de perro).

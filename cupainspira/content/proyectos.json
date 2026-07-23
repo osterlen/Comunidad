@@ -1,0 +1,26 @@
+[
+  {
+    "id": "poposta",
+    "title": "Hagamos Poposta",
+    "status": "En gestión con alcaldía",
+    "phase": "gestion",
+    "signatures_closed": true,
+    "signatures_final": 184,
+    "desc": "Firmas vecinales concluidas. Ya tramitamos la carta ante la alcaldía / delegación para solicitar el compostero comunitario, incluido el acopio de popó de perro, que nutra los jardines del CUPA.",
+    "update": "Siguiente paso: seguimiento de la solicitud oficial y definición del sitio de instalación junto al Jardín del Corazón.",
+    "cta_label": "Sumarme al grupo WhatsApp",
+    "cta_href": "https://chat.whatsapp.com/cupainspira",
+    "cta_secondary": "Ver avance en Proyectos"
+  },
+  {
+    "id": "telurico",
+    "title": "Lectores de movimientos telúricos",
+    "status": "En exploración",
+    "phase": "exploracion",
+    "signatures_closed": false,
+    "desc": "Red de sensores vecinales para alerta sísmica temprana, aprovechando la estructura del conjunto y conectada a un grupo de aviso.",
+    "update": "Buscamos vecinas/os con conocimiento técnico para un diagnóstico inicial.",
+    "cta_label": "Quiero enterarme",
+    "cta_href": "#/proyectos"
+  }
+]

@@ -1,6 +1,6 @@
-/* CUPA Inspira — contenido de todas las secciones */
+/* CUPA Inspira — contenido (defaults + merge con content/*.json) */
 
-const ECOLOGIA = [
+const ECOLOGIA_DEFAULT = [
   { id: "jaula", name: "Jaula de reciclaje", lead: "Comité de la Sección 3", status: "activo",
     desc: "Punto fijo donde acopiamos PET, cartón y vidrio. Pasa el camión cada jueves." },
   { id: "corazon", name: "Jardín del Corazón", lead: "Doña Esther · Edif. 12", status: "activo",
@@ -11,14 +11,14 @@ const ECOLOGIA = [
     desc: "Jardín de polinizadores con plantas nativas. Mariposas garantizadas." },
   { id: "huerto", name: "Huerto comunitario", lead: "Sr. Manuel · Edif. 5", status: "apoyo",
     desc: "Jitomate, hierbas y acelgas para quien participa. Buscamos quien adopte una cama." },
-  { id: "composta", name: "Composta", lead: "Equipo Poposta", status: "activo",
-    desc: "Convertimos lo orgánico en tierra viva para los jardines del conjunto." },
+  { id: "composta", name: "Composta / Poposta", lead: "Equipo Poposta", status: "activo",
+    desc: "Firmas listas. En trámite la solicitud a alcaldía del compostero (incluye popó de perro)." },
   { id: "limpieza", name: "Limpieza semestral", lead: "Mesa vecinal", status: "apoyo",
-    desc: "Dos veces al año juntamos lo que estorba en pasillos y azoteas. La próxima en julio." },
+    desc: "Dos veces al año juntamos lo que estorba en pasillos y azoteas." },
 ];
 
-const EMPRENDIMIENTO = [
-  { id: "cochinita", vecino: "Doña Lupita", product: "Cochinita pibil los domingos", edif: "Edif. 9 · 102", emoji: "🫔" },
+const EMPRENDIMIENTO_DEFAULT = [
+  { id: "cochinita", vecino: "Doña Lupita", product: "Cochinita pibil los domingos", edif: "Edif. 9 · 102", emoji: "🌮" },
   { id: "aguas", vecino: "Carlos M.", product: "Aguas frescas de temporada", edif: "Edif. 3 · 204", emoji: "🥤" },
   { id: "helados", vecino: "Sofía y Diego", product: "Helados y paletas artesanales", edif: "Edif. 14 · 301", emoji: "🍦" },
   { id: "pan", vecino: "Familia Bautista", product: "Pan y conchas recién horneadas", edif: "Edif. 7 · 105", emoji: "🥖" },
@@ -26,7 +26,7 @@ const EMPRENDIMIENTO = [
   { id: "costura", vecino: "Tere Jiménez", product: "Costura y arreglos de ropa", edif: "Edif. 11 · 207", emoji: "🧵" },
 ];
 
-const COMERCIO = [
+const COMERCIO_DEFAULT = [
   { id: "tiendita", name: "Tiendita de la 4", type: "Abarrotes", loc: "Planta baja · Sección 4" },
   { id: "rest", name: "Cocina económica Male", type: "Comida corrida", loc: "Local 6 · Pasaje central" },
   { id: "rellena", name: "Rellenadora EcoLimpio", type: "Detergentes a granel", loc: "Local 2 · Sección 1" },
@@ -35,13 +35,19 @@ const COMERCIO = [
   { id: "papel", name: "Papelería El Lápiz", type: "Papelería y copias", loc: "Local 9 · Sección 2" },
 ];
 
-const PROYECTOS = [
-  { id: "poposta", title: "Hagamos Poposta", status: "En aprobación",
-    desc: "Instalar una estación de composta comunitaria que procese los residuos orgánicos de todo el conjunto y nutra nuestros jardines.",
-    favor: 142, contra: 18 },
-  { id: "telurico", title: "Lectores de movimientos telúricos", status: "En aprobación",
-    desc: "Red de sensores vecinales para alerta sísmica temprana, aprovechando la estructura del conjunto y conectada a un grupo de aviso.",
-    favor: 98, contra: 9 },
+const PROYECTOS_DEFAULT = [
+  {
+    id: "poposta",
+    title: "Hagamos Poposta",
+    status: "En gestión con alcaldía",
+    phase: "gestion",
+    signatures_closed: true,
+    signatures_final: 184,
+    desc: "Firmas vecinales concluidas. Carta ante alcaldía para compostero comunitario (incluye popó de perro).",
+    update: "Seguimiento de la solicitud oficial y sitio junto al Jardín del Corazón.",
+    cta_label: "Sumarme al grupo WhatsApp",
+    cta_href: "https://chat.whatsapp.com/cupainspira",
+  },
 ];
 
 const INICIATIVAS = [
@@ -52,13 +58,13 @@ const INICIATIVAS = [
       { who: "Beto, Edif. 2", txt: "¿Quién sabe de plomería para calcular las bajadas?" },
     ] },
   { id: "prestamos", title: "Préstamos vecinales", up: 41, down: 6,
-    desc: "Una red para prestarnos herramientas, escaleras y cosas que usamos poco. Menos gasto, más confianza.",
+    desc: "Una red para prestarnos herramientas, escaleras y cosas que usamos poco.",
     comments: [{ who: "Male, Edif. 5", txt: "Yo tengo taladro y pulidora para prestar." }] },
   { id: "seguridad", title: "Seguridad", up: 87, down: 12,
-    desc: "Organizarnos por edificio para cuidarnos entre vecinos y mejorar la iluminación de los pasillos.",
+    desc: "Organizarnos por edificio para cuidarnos entre vecinos y mejorar la iluminación.",
     comments: [{ who: "Don Rafa", txt: "Las lámparas de la Sección 3 llevan meses fundidas." }] },
   { id: "mural", title: "Recuperación del mural", up: 73, down: 2,
-    desc: "Restaurar el mural histórico de la entrada, parte de la memoria del CUPA desde su fundación.",
+    desc: "Restaurar el mural histórico de la entrada, parte de la memoria del CUPA.",
     comments: [{ who: "Colectivo Raíces", txt: "Tenemos contacto con una restauradora que vive aquí." }] },
 ];
 
@@ -75,7 +81,24 @@ const GACETA_DEFAULT = {
   ],
 };
 
-/** Mezcla content/gaceta.json (si cargó) con defaults. */
+const AHORA_DEFAULT = [
+  {
+    id: "poposta",
+    eyebrow: "Ahora en el CUPA",
+    title: "Poposta: de las firmas a la alcaldía",
+    body: "Cerramos firmas. Carta ante la delegación para el compostero (incluye popó de perro).",
+    cta_label: "Ver proyecto",
+    cta_href: "#/proyectos",
+    tone: "green",
+  },
+];
+
+const CONVOCATORIAS_DEFAULT = [];
+
+function pickArr(file, fallback) {
+  return Array.isArray(file) && file.length ? file : fallback;
+}
+
 function resolveGaceta() {
   const file = window.CUPA_GACETA_FILE;
   if (!file || typeof file !== "object") return GACETA_DEFAULT;
@@ -84,9 +107,21 @@ function resolveGaceta() {
   });
 }
 
+const ECOLOGIA = pickArr(window.CUPA_ECOLOGIA_FILE, ECOLOGIA_DEFAULT);
+const EMPRENDIMIENTO = pickArr(window.CUPA_EMPRENDE_FILE, EMPRENDIMIENTO_DEFAULT);
+const COMERCIO = pickArr(window.CUPA_COMERCIO_FILE, COMERCIO_DEFAULT);
+const PROYECTOS = pickArr(window.CUPA_PROYECTOS_FILE, PROYECTOS_DEFAULT);
+const AHORA = pickArr(window.CUPA_AHORA_FILE, AHORA_DEFAULT);
+const CONVOCATORIAS = pickArr(window.CUPA_CONVOCATORIAS_FILE, CONVOCATORIAS_DEFAULT);
 const GACETA = resolveGaceta();
 const AVISOS = (window.CUPA_AVISOS_FILE && window.CUPA_AVISOS_FILE.items) || [];
 
-const BUILDINGS = Array.from({ length: 15 }, (_, i) => `Edificio ${i + 1}`);
+/* Letras CUPA A–V (sin I ni Ñ). Altos A–J; bajos K–V. */
+const BUILDINGS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"];
 
-Object.assign(window, { ECOLOGIA, EMPRENDIMIENTO, COMERCIO, PROYECTOS, INICIATIVAS, GACETA, AVISOS, BUILDINGS, GACETA_DEFAULT, resolveGaceta });
+const API_BASE = window.CUPA_API_BASE || "https://cupa-api.elgorila.org";
+
+Object.assign(window, {
+  ECOLOGIA, EMPRENDIMIENTO, COMERCIO, PROYECTOS, INICIATIVAS, GACETA, AVISOS,
+  AHORA, CONVOCATORIAS, BUILDINGS, GACETA_DEFAULT, resolveGaceta, API_BASE,
+});

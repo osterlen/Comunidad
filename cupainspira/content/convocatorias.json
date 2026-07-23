@@ -1,0 +1,20 @@
+[
+  {
+    "id": "poposta-seguimiento",
+    "title": "Seguimiento Poposta ante alcaldía",
+    "tag": "Ecología",
+    "status": "abierta",
+    "desc": "Las firmas ya están. Ahora acompañamos la carta de solicitud del compostero (incluye popó de perro). Únete al grupo para enterarte de fechas y avances.",
+    "cta_label": "Unirme al grupo",
+    "cta_href": "https://chat.whatsapp.com/cupainspira"
+  },
+  {
+    "id": "directorio",
+    "title": "Súmate al directorio vecinal",
+    "tag": "Comunidad",
+    "status": "abierta",
+    "desc": "¿Cocinas, reparas, das clases o ofreces un servicio? Regístrate y marca que ofreces algo a la comunidad.",
+    "cta_label": "Registrarme",
+    "cta_href": "#/registro"
+  }
+]

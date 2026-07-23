@@ -1,0 +1,38 @@
+[
+  {
+    "id": "tiendita",
+    "name": "Tiendita de la 4",
+    "type": "Abarrotes",
+    "loc": "Planta baja · Sección 4"
+  },
+  {
+    "id": "rest",
+    "name": "Cocina económica Male",
+    "type": "Comida corrida",
+    "loc": "Local 6 · Pasaje central"
+  },
+  {
+    "id": "rellena",
+    "name": "Rellenadora EcoLimpio",
+    "type": "Detergentes a granel",
+    "loc": "Local 2 · Sección 1"
+  },
+  {
+    "id": "mercado",
+    "name": "Mercado interior",
+    "type": "Frutas, verduras y carnes",
+    "loc": "Explanada poniente"
+  },
+  {
+    "id": "issste",
+    "name": "Clínica ISSSTE",
+    "type": "Servicios de salud",
+    "loc": "Acceso Av. Coyoacán"
+  },
+  {
+    "id": "papel",
+    "name": "Papelería El Lápiz",
+    "type": "Papelería y copias",
+    "loc": "Local 9 · Sección 2"
+  }
+]

@@ -4,86 +4,96 @@ const { useState: useStateP, useEffect: useEffectP } = React;
 /* ====================================================== */
 /*  HOME                                                  */
 /* ====================================================== */
-function HomePage({ go, signCount, goal, onSign }) {
+function HomePage({ go, onRegister }) {
+  const ahora = window.AHORA || [];
+  const convocatorias = (window.CONVOCATORIAS || []).filter((c) => c.status === "abierta");
   return (
     <React.Fragment>
       {/* HERO */}
-      <section style={{ position: "relative", minHeight: 660, display: "flex", alignItems: "flex-end", overflow: "hidden", background: "linear-gradient(140deg, #5e0f0c 0%, #7a1410 38%, #0d3e23 100%)" }}>
+      <section style={{ position: "relative", minHeight: 560, display: "flex", alignItems: "flex-end", overflow: "hidden", background: "linear-gradient(140deg, #5e0f0c 0%, #7a1410 38%, #0d3e23 100%)" }}>
         <image-slot id="hero" shape="rect" placeholder="Fachada del Centro Urbano Presidente Alemán"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", background: "transparent" }}></image-slot>
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(94,15,12,.42) 0%, rgba(94,15,12,.4) 42%, rgba(94,15,12,.88) 100%)" }} />
-        <div className="wrap" style={{ position: "relative", paddingTop: 110, paddingBottom: 62 }}>
+        <div className="wrap" style={{ position: "relative", paddingTop: 110, paddingBottom: 56 }}>
           <div style={{ maxWidth: 660, animation: "floatUp .7s ease both" }}>
             <Eyebrow color="rgba(251,243,220,.85)">CUPA · Del Valle, Ciudad de México</Eyebrow>
             <h1 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(42px, 5.4vw, 72px)", lineHeight: 1.0, letterSpacing: "-0.02em", color: C.cream, margin: "20px 0 0", textWrap: "balance" }}>
               75 años de vecindad,<br />una comunidad que <span style={{ fontStyle: "italic" }}>se organiza</span>.
             </h1>
             <p style={{ fontFamily: "var(--sans)", fontSize: 19, lineHeight: 1.58, color: "rgba(251,243,220,.86)", maxWidth: 520, margin: "24px 0 0" }}>
-              CUPA Inspira es la plataforma vecinal del Centro Urbano Presidente Alemán: más de mil departamentos cuidando su ecología, su comercio y su historia, juntos.
+              Canal vecinal del Centro Urbano Presidente Alemán: proyectos en curso, directorio y gaceta — más de mil departamentos.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 34 }}>
-              <Btn variant="creamSolid" size="lg" onClick={() => go("#/comunidad/ecologia")}>Conocer la comunidad</Btn>
-              <Btn variant="ghostCream" size="lg" onClick={onSign} icon={false}>Registrarme como vecino</Btn>
+              <Btn variant="creamSolid" size="lg" onClick={() => go("#/proyectos")}>Ver qué está pasando</Btn>
+              <Btn variant="ghostCream" size="lg" onClick={onRegister} icon={false}>Registrarme como vecino</Btn>
             </div>
           </div>
         </div>
       </section>
 
-      {/* INTRO / IDENTIDAD */}
-      <section id="proyecto" style={{ background: C.green, color: C.cream }}>
-        <div className="wrap" style={{ padding: "82px 32px", display: "grid", gridTemplateColumns: "0.42fr 1fr", gap: 48, alignItems: "start" }}>
-          <Eyebrow color="rgba(251,243,220,.7)">Quiénes somos</Eyebrow>
-          <div>
-            <p style={{ fontFamily: "var(--serif)", fontWeight: 400, fontSize: "clamp(23px, 2.5vw, 32px)", lineHeight: 1.42, color: C.cream, margin: 0, textWrap: "pretty" }}>
-              Somos vecinas y vecinos de un conjunto que hizo historia en la Ciudad de México. Aquí nos organizamos para cuidar nuestros jardines, apoyar a quien emprende desde su casa y mantener viva la memoria del CUPA.
-              <span style={{ color: "rgba(251,243,220,.6)" }}> La comunidad no se hereda: se cuida todos los días.</span>
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 44, marginTop: 40 }}>
-              {[["1949", "Año de fundación del CUPA"], ["1,000+", "Departamentos"], ["7", "Organizaciones de ecología"]].map(([n, l]) => (
-                <div key={l}>
-                  <div style={{ fontFamily: "var(--serif)", fontWeight: 600, fontSize: 32, color: C.cream }}>{n}</div>
-                  <div style={{ fontFamily: "var(--sans)", fontSize: 14, color: "rgba(251,243,220,.7)", marginTop: 2, maxWidth: 150 }}>{l}</div>
+      {/* AHORA EN EL CUPA */}
+      <section style={{ padding: "64px 0 24px" }}>
+        <div className="wrap">
+          <Eyebrow>Ahora en el CUPA</Eyebrow>
+          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 3.2vw, 40px)", color: C.red, margin: "14px 0 0" }}>Lo que está en marcha</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginTop: 28 }}>
+            {ahora.map((card) => (
+              <article key={card.id} style={{ background: card.tone === "green" ? C.green : C.cream, border: card.tone === "green" ? "none" : "1px solid var(--line)", borderRadius: 20, padding: "28px 26px", color: card.tone === "green" ? C.cream : C.brown }}>
+                <div style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.75 }}>{card.eyebrow}</div>
+                <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 26, margin: "12px 0 0", color: card.tone === "green" ? C.cream : C.red, lineHeight: 1.15 }}>{card.title}</h3>
+                <p style={{ fontFamily: "var(--sans)", fontSize: 15.5, lineHeight: 1.55, margin: "12px 0 0", opacity: card.tone === "green" ? 0.88 : 1 }}>{card.body}</p>
+                <div style={{ marginTop: 20 }}>
+                  <Btn variant={card.tone === "green" ? "creamSolid" : "green"} size="sm" icon={false}
+                    onClick={() => { if ((card.cta_href || "").startsWith("http")) window.open(card.cta_href, "_blank"); else go(card.cta_href || "#/"); }}>
+                    {card.cta_label || "Ver más"}
+                  </Btn>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ACCESOS RÁPIDOS */}
-      <section style={{ padding: "82px 0 30px" }}>
+      {/* CONVOCATORIAS */}
+      {convocatorias.length > 0 && (
+      <section style={{ padding: "40px 0 24px" }}>
+        <div className="wrap">
+          <Eyebrow>Convocatorias</Eyebrow>
+          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 32, color: C.red, margin: "14px 0 0" }}>Cómo sumarte</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 24 }}>
+            {convocatorias.map((c) => (
+              <div key={c.id} style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", justifyContent: "space-between", background: C.cream, border: "1px solid var(--line)", borderRadius: 16, padding: "18px 22px" }}>
+                <div style={{ flex: 1, minWidth: 220 }}>
+                  <Tag color={C.green}>{c.tag}</Tag>
+                  <div style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red, marginTop: 8 }}>{c.title}</div>
+                  <p style={{ fontFamily: "var(--sans)", fontSize: 14.5, color: C.brown, margin: "6px 0 0", lineHeight: 1.5 }}>{c.desc}</p>
+                </div>
+                <Btn variant="green" size="sm" icon={false}
+                  onClick={() => {
+                    if ((c.cta_href || "").startsWith("http")) window.open(c.cta_href, "_blank");
+                    else if (c.cta_href === "#/registro") onRegister();
+                    else go(c.cta_href || "#/");
+                  }}>{c.cta_label}</Btn>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ACCESOS */}
+      <section style={{ padding: "48px 0 84px" }}>
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16 }}>
             <div>
-              <Eyebrow>Explora la plataforma</Eyebrow>
-              <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(30px, 3.4vw, 44px)", color: C.red, margin: "16px 0 0", letterSpacing: "-0.01em" }}>Todo lo que pasa en CUPA</h2>
+              <Eyebrow>Explora</Eyebrow>
+              <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 3.2vw, 40px)", color: C.red, margin: "14px 0 0" }}>Comunidad en acción</h2>
             </div>
-            <p style={{ fontFamily: "var(--sans)", fontSize: 16, color: "var(--brown-soft)", maxWidth: 300, lineHeight: 1.5 }}>Súmate a lo que te late. Algunas secciones piden registro vecinal.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22, marginTop: 42 }}>
-            <NavCard icon={<IconLeaf size={24} color={C.green} />} title="Comunidad" desc="Ecología, emprendimiento y comercio de los vecinos." onClick={() => go("#/comunidad/ecologia")} cta="Ver comunidad" />
-            <NavCard icon={<IconCheck size={24} color={C.red} />} title="Proyectos" desc="Propuestas en aprobación que puedes votar." onClick={() => go("#/proyectos")} cta="Ver proyectos" locked />
-            <NavCard icon={<IconWhats size={24} color={C.green} />} title="Iniciativas" desc="Ideas en desarrollo, con grupo y comentarios." onClick={() => go("#/iniciativas")} cta="Ver iniciativas" locked />
-            <NavCard icon={<IconNews size={24} color={C.green} />} title="La Gaceta" desc="El boletín quincenal de la comunidad." onClick={() => go("#/gaceta")} cta="Leer la Gaceta" />
-            <NavCard icon={<IconDrop size={24} color={C.red} />} title="Votación" desc="Decisiones vecinales por votación directa." cta="Próximamente" disabled />
-            <NavCard icon={<IconInstagram size={24} color={C.red} />} title="Fotos" desc="Síguenos en Instagram: @cupainspira." href="https://instagram.com/cupainspira" cta="Abrir Instagram" />
-          </div>
-        </div>
-      </section>
-
-      {/* FIRMAS POPOSTA destacado */}
-      <section style={{ padding: "40px 0 84px" }}>
-        <div className="wrap">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 0.9fr", gap: 30, background: C.cream, border: "1px solid var(--line)", borderRadius: 24, overflow: "hidden", alignItems: "center" }}>
-            <div style={{ padding: "44px 0 44px 44px" }}>
-              <Tag color={C.green}>Recolecta firmas</Tag>
-              <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 34, color: C.red, margin: "16px 0 0", lineHeight: 1.06 }}>Hagamos Poposta: la composta vecinal</h3>
-              <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.58, color: C.brown, margin: "12px 0 0", maxWidth: 460 }}>
-                Reciclamos y compostamos lo orgánico para devolverle vida a la tierra de nuestros jardines. Suma tu firma para instalar la estación comunitaria.
-              </p>
-              <SignatureBar count={signCount} goal={goal} onSign={onSign} />
-            </div>
-            <image-slot id="poposta" shape="rect" placeholder="Composta / jardines del CUPA" style={{ width: "100%", height: 320 }}></image-slot>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22, marginTop: 36 }}>
+            <NavCard icon={<IconLeaf size={24} color={C.green} />} title="Comunidad" desc="Ecología, emprendimiento y comercio." onClick={() => go("#/comunidad/ecologia")} cta="Ver comunidad" />
+            <NavCard icon={<IconCheck size={24} color={C.red} />} title="Proyectos" desc="Poposta y propuestas en curso." onClick={() => go("#/proyectos")} cta="Ver proyectos" locked />
+            <NavCard icon={<IconNews size={24} color={C.green} />} title="La Gaceta" desc="El boletín quincenal." onClick={() => go("#/gaceta")} cta="Leer la Gaceta" />
           </div>
         </div>
       </section>
