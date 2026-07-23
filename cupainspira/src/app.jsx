@@ -130,8 +130,10 @@ function Footer({ go }) {
           </div>
         ))}
         <div>
-          <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 12.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(251,243,220,.5)" }}>Síguenos</div>
+          <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 12.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(251,243,220,.5)" }}>Legal</div>
           <ul style={{ listStyle: "none", marginTop: 14, display: "flex", flexDirection: "column", gap: 10 }}>
+            <li><button onClick={() => go("#/privacidad")} className="footlink" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--sans)", fontSize: 14.5, color: "rgba(251,243,220,.85)", padding: 0, textAlign: "left" }}>Privacidad</button></li>
+            <li><button onClick={() => go("#/terminos")} className="footlink" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--sans)", fontSize: 14.5, color: "rgba(251,243,220,.85)", padding: 0, textAlign: "left" }}>Términos</button></li>
             <li><a href="https://instagram.com/cupainspira" target="_blank" rel="noreferrer" className="footlink" style={{ fontFamily: "var(--sans)", fontSize: 14.5, color: "rgba(251,243,220,.85)", display: "inline-flex", alignItems: "center", gap: 8 }}><IconInstagram size={16} color="#fbf3dc" /> @cupainspira</a></li>
           </ul>
         </div>
@@ -185,24 +187,36 @@ function SelectField({ label, value, onChange, options, placeholder }) {
 }
 
 /* registro vecinal — correo o teléfono + opt-in directorio */
-function RegisterModal({ open, onClose, onDone, intro, mode }) {
+function RegisterModal({ open, onClose, onDone, intro, mode, go }) {
   const [name, setName] = useState("");
+  const [tipo, setTipo] = useState("vecino");
   const [building, setBuilding] = useState("");
   const [apt, setApt] = useState("");
+  const [local, setLocal] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [ofrece, setOfrece] = useState(false);
   const [oficio, setOficio] = useState("");
+  const [accept, setAccept] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const isLogin = mode === "login";
+  const needsHome = tipo === "vecino" || tipo === "ambos";
+  const needsLocal = tipo === "comercio" || tipo === "ambos";
 
   useEffect(() => {
-    if (open) { setName(""); setBuilding(""); setApt(""); setEmail(""); setPhone(""); setOfrece(false); setOficio(""); setErr(""); setBusy(false); }
+    if (open) {
+      setName(""); setTipo("vecino"); setBuilding(""); setApt(""); setLocal("");
+      setEmail(""); setPhone(""); setOfrece(false); setOficio(""); setAccept(false); setErr(""); setBusy(false);
+    }
   }, [open, mode]);
   if (!open) return null;
 
-  const validReg = name.trim() && building && apt.trim() && (email.trim() || phone.trim().length >= 8);
+  const validReg = name.trim()
+    && (!needsHome || (building && apt.trim()))
+    && (!needsLocal || local.trim())
+    && (email.trim() || phone.trim().length >= 8)
+    && accept;
   const validLogin = email.trim() || phone.trim().length >= 8;
 
   const submit = async (e) => {
@@ -221,7 +235,10 @@ function RegisterModal({ open, onClose, onDone, intro, mode }) {
     if (!validReg) return;
     setBusy(true);
     const res = await window.CupaAPI.register({
-      name: name.trim(), building, apt: apt.trim(),
+      name: name.trim(), tipo,
+      building: needsHome ? building : undefined,
+      apt: needsHome ? apt.trim() : undefined,
+      local: needsLocal ? local.trim() : undefined,
       email: email.trim() || undefined,
       phone: phone.trim() || undefined,
       ofrece, oficio: oficio.trim() || undefined,
@@ -229,28 +246,34 @@ function RegisterModal({ open, onClose, onDone, intro, mode }) {
     setBusy(false);
     if (!res.ok) { setErr(res.error || "No se pudo registrar"); return; }
     if (res.sessionToken) window.CupaAPI.setSession(res.sessionToken);
-    onDone(res.user || { name, building, apt, email, phone, status: "pendiente" }, res);
+    onDone(res.user || { name, building, apt, email, phone, tipo, status: "pendiente" }, res);
   };
 
   return (
     <Overlay onClose={onClose}>
       <Logo variant="mark" size={44} />
       <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 27, color: C.red, margin: "16px 0 6px" }}>
-        {isLogin ? "Reingresar" : "Registro vecinal CUPA"}
+        {isLogin ? "Reingresar" : "Registro CUPA"}
       </h3>
       <p style={{ fontFamily: "var(--sans)", fontSize: 15, color: C.brown, lineHeight: 1.5 }}>
         {intro || (isLogin
           ? "Entra con el correo o teléfono con el que te registraste (debe estar activo)."
-          : "Nombre, edificio y departamento. Correo o teléfono (uno basta). La mesa puede revocar accesos raros.")}
+          : "Vecino, comercio del conjunto, o ambos. Correo o teléfono (uno basta).")}
       </p>
       <form onSubmit={submit} style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 14 }}>
         {!isLogin && (
           <>
             <Field label="Nombre completo" value={name} onChange={setName} placeholder="Ej. Mariana Reyes" />
-            <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 12 }}>
-              <SelectField label="Edificio" value={building} onChange={setBuilding} options={BUILDINGS} placeholder="Selecciona" />
-              <Field label="Departamento" value={apt} onChange={setApt} placeholder="Ej. 304" />
-            </div>
+            <SelectField label="Soy" value={tipo} onChange={setTipo}
+              options={["vecino", "comercio", "ambos"]}
+              placeholder="Selecciona" />
+            {needsHome && (
+              <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 12 }}>
+                <SelectField label="Edificio" value={building} onChange={setBuilding} options={BUILDINGS} placeholder="Selecciona" />
+                <Field label="Departamento" value={apt} onChange={setApt} placeholder="Ej. 304" />
+              </div>
+            )}
+            {needsLocal && <Field label="Número de local" value={local} onChange={setLocal} placeholder="Ej. L-12" />}
           </>
         )}
         <Field label="Correo" value={email} onChange={setEmail} placeholder="tu@correo.com" type="email" />
@@ -262,6 +285,15 @@ function RegisterModal({ open, onClose, onDone, intro, mode }) {
               <span style={{ fontFamily: "var(--sans)", fontSize: 14, color: C.brown, lineHeight: 1.45 }}>Ofrezco un producto o servicio a la comunidad (directorio)</span>
             </label>
             {ofrece && <Field label="¿Qué ofreces?" value={oficio} onChange={setOficio} placeholder="Ej. plomería, clases de inglés…" />}
+            <label style={{ display: "flex", gap: 10, alignItems: "flex-start", cursor: "pointer" }}>
+              <input type="checkbox" checked={accept} onChange={(e) => setAccept(e.target.checked)} style={{ marginTop: 4 }} />
+              <span style={{ fontFamily: "var(--sans)", fontSize: 13.5, color: C.brown, lineHeight: 1.45 }}>
+                Acepto la{" "}
+                <button type="button" onClick={() => { onClose(); go && go("#/privacidad"); }} style={{ background: "none", border: "none", padding: 0, color: C.green, fontWeight: 600, cursor: "pointer", textDecoration: "underline", font: "inherit" }}>privacidad</button>
+                {" "}y los{" "}
+                <button type="button" onClick={() => { onClose(); go && go("#/terminos"); }} style={{ background: "none", border: "none", padding: 0, color: C.green, fontWeight: 600, cursor: "pointer", textDecoration: "underline", font: "inherit" }}>términos</button>.
+              </span>
+            </label>
           </>
         )}
         {err && <p style={{ fontFamily: "var(--sans)", fontSize: 13.5, color: C.red, margin: 0 }}>{err}</p>}
@@ -479,6 +511,8 @@ function App() {
     ? <IniciativasPage user={user} votes={initVotes} onVote={initVote} comments={comments} onComment={addComment} />
     : <GateScreen title="Iniciativas en desarrollo" intro="Solo vecinos activos. Regístrate para sumarte a los grupos, votar y comentar." onRegister={() => ensureAccess(() => go("#/iniciativas"))} />;
   else if (path.startsWith("/gaceta")) page = <GacetaPage onSubscribe={subscribe} />;
+  else if (path.startsWith("/privacidad")) page = <LegalPage kind="privacidad" go={go} />;
+  else if (path.startsWith("/terminos")) page = <LegalPage kind="terminos" go={go} />;
   else page = <HomePage go={go} onRegister={() => openRegister()} />;
 
   const isHome = path === "/" || path === "";
@@ -487,7 +521,7 @@ function App() {
       <Nav route={route} go={go} user={user} onRegister={() => openRegister()} onLogin={openLogin} onLogout={logout} />
       <main style={{ paddingTop: isHome ? 0 : 76 }}>{page}</main>
       <Footer go={go} />
-      <RegisterModal open={!!reg} onClose={() => { setReg(null); pending.current = null; }} onDone={finishReg} intro={reg && reg.intro} mode={reg && reg.mode} />
+      <RegisterModal open={!!reg} onClose={() => { setReg(null); pending.current = null; }} onDone={finishReg} intro={reg && reg.intro} mode={reg && reg.mode} go={go} />
       <PhoneModal open={!!phoneAsk} onClose={() => { setPhoneAsk(null); pending.current = null; }} onDone={finishPhone} actionLabel={phoneAsk && phoneAsk.actionLabel} />
       <MessageModal data={msg} onClose={() => setMsg(null)} />
     </React.Fragment>

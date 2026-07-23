@@ -3,3 +3,11 @@
 .wrangler/
 _archivo/
 *.log
+.env
+.env.*
+.dev.vars
+**/.dev.vars
+**/secrets.local.*
+cupainspira/docs/.secrets*
+node_modules/
+**/node_modules/

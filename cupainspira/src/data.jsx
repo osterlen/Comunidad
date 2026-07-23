@@ -119,7 +119,7 @@ const AVISOS = (window.CUPA_AVISOS_FILE && window.CUPA_AVISOS_FILE.items) || [];
 /* Letras CUPA A–V (sin I ni Ñ). Altos A–J; bajos K–V. */
 const BUILDINGS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"];
 
-const API_BASE = window.CUPA_API_BASE || "https://cupa-api.elgorila.org";
+const API_BASE = window.CUPA_API_BASE || "https://cupa-api.dupeyronosterlen.workers.dev";
 
 Object.assign(window, {
   ECOLOGIA, EMPRENDIMIENTO, COMERCIO, PROYECTOS, INICIATIVAS, GACETA, AVISOS,

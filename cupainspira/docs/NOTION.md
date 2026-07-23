@@ -2,6 +2,8 @@
 
 Notion es el **back-office** (tú lo usas). Los vecinos no entran a Notion: se inscriben en la web.
 
+Criterio de datos mínimos y privacidad: [PRIVACIDAD-PADRON.md](./PRIVACIDAD-PADRON.md).
+
 ## 1. Crear integración
 
 1. https://www.notion.so/my-integrations → **New integration** → nombre `CUPA Inspira API`

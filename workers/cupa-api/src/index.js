@@ -56,8 +56,10 @@ function pageToUser(page) {
   return {
     id: page.id,
     name: propText(page, "Nombre"),
+    tipo: propText(page, "Tipo") || "vecino",
     building: propText(page, "Edificio"),
     apt: propText(page, "Departamento"),
+    local: propText(page, "Local"),
     email: propText(page, "Correo"),
     phone: propText(page, "Telefono"),
     status: propText(page, "Estatus") || "pendiente",
@@ -186,14 +188,23 @@ function siteBase(env) {
 async function handleRegister(req, env) {
   const body = await req.json();
   const name = String(body.name || "").trim();
+  const tipo = String(body.tipo || "vecino").trim();
   const building = String(body.building || "").trim();
   const apt = String(body.apt || "").trim();
+  const local = String(body.local || "").trim();
   const email = String(body.email || "").trim().toLowerCase();
   const phone = String(body.phone || "").trim();
   const ofrece = !!body.ofrece;
   const oficio = String(body.oficio || "").trim();
 
-  if (!name || !building || !apt) return bad("Nombre, edificio y departamento son obligatorios");
+  if (!name) return bad("Nombre es obligatorio");
+  if (!["vecino", "comercio", "ambos"].includes(tipo)) return bad("Tipo inválido");
+  if ((tipo === "vecino" || tipo === "ambos") && (!building || !apt)) {
+    return bad("Edificio y departamento son obligatorios para vecinos");
+  }
+  if ((tipo === "comercio" || tipo === "ambos") && !local) {
+    return bad("Número de local es obligatorio para comercios");
+  }
   if (!email && !phone) return bad("Necesitamos correo o teléfono");
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bad("Correo inválido");
 
@@ -207,16 +218,18 @@ async function handleRegister(req, env) {
   }
 
   const verifyToken = token();
-  const status = email ? "pendiente" : "pendiente";
+  const status = "pendiente";
 
   const properties = {
     Nombre: { title: [{ text: { content: name } }] },
-    Edificio: { select: { name: building } },
-    Departamento: { rich_text: [{ text: { content: apt } }] },
+    Tipo: { select: { name: tipo } },
     Estatus: { select: { name: status } },
     Ofrece: { checkbox: ofrece },
     VerifyToken: { rich_text: [{ text: { content: verifyToken } }] },
   };
+  if (building) properties.Edificio = { select: { name: building } };
+  if (apt) properties.Departamento = { rich_text: [{ text: { content: apt } }] };
+  if (local) properties.Local = { rich_text: [{ text: { content: local } }] };
   if (email) properties.Correo = { email };
   if (phone) properties.Telefono = { phone_number: phone };
   if (oficio) properties.Oficio = { rich_text: [{ text: { content: oficio } }] };
@@ -236,7 +249,6 @@ async function handleRegister(req, env) {
     needVerify: !!email,
     needAdmin: !email && !!phone,
     emailSent,
-    // Solo si no hay Resend: el link para pruebas / admin
     verifyUrl: emailSent ? undefined : (email ? verifyUrl : undefined),
     message: email
       ? (emailSent ? "Te enviamos un correo para confirmar." : "Registro creado. Confirma con el enlace (correo pendiente de configurar).")

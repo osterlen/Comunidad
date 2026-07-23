@@ -221,4 +221,49 @@ function GacetaPage({ onSubscribe }) {
   );
 }
 
-Object.assign(window, { GateScreen, ProyectosPage, IniciativasPage, GacetaPage, VoteBtn, VotePill, IniciativaCard });
+function LegalPage({ kind, go }) {
+  const isPriv = kind === "privacidad";
+  const title = isPriv ? "Política de privacidad" : "Términos de uso";
+  return (
+    <div className="wrap" style={{ padding: "48px 32px 80px", maxWidth: 720 }}>
+      <button type="button" onClick={() => go("#/")} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 14, color: C.green, marginBottom: 24, padding: 0 }}>← Inicio</button>
+      <Eyebrow>CUPA Inspira</Eyebrow>
+      <h1 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 4vw, 40px)", color: C.red, margin: "12px 0 0" }}>{title}</h1>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 16, lineHeight: 1.65, color: C.brown, marginTop: 28 }}>
+        {isPriv ? (
+          <React.Fragment>
+            <p>CUPA Inspira (Visiones AC) trata datos del padrón del Centro Urbano Presidente Alemán con el mínimo necesario.</p>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, color: C.red, margin: "28px 0 10px" }}>Qué datos pedimos</h2>
+            <ul style={{ paddingLeft: 20, margin: 0 }}>
+              <li>Nombre, edificio (letra), departamento y/o número de local.</li>
+              <li>Correo o teléfono (al menos uno) para verificar y contactar.</li>
+              <li>Si optas: si ofreces algo a la comunidad (directorio).</li>
+            </ul>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, color: C.red, margin: "28px 0 10px" }}>Para qué</h2>
+            <p>Confirmar que formas parte del CUPA (vecino, comercio o ambos), dar acceso a secciones de comunidad y, más adelante, la Gaceta por correo.</p>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, color: C.red, margin: "28px 0 10px" }}>Quién ve tus datos</h2>
+            <p>Solo la mesa / Visiones en el panel interno. No publicamos departamento ni teléfono. El directorio solo muestra lo que tú marcas como oferta.</p>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, color: C.red, margin: "28px 0 10px" }}>Baja</h2>
+            <p>Puedes pedir baja escribiendo a la mesa. También podemos revocar accesos que no correspondan al conjunto.</p>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <p>CUPA Inspira es un canal vecinal voluntario del Multifamiliar Presidente Alemán, impulsado por Visiones AC. No es el órgano de administración condominial oficial.</p>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, color: C.red, margin: "28px 0 10px" }}>Uso</h2>
+            <ul style={{ paddingLeft: 20, margin: 0 }}>
+              <li>El registro es para vecinas/os, comercios del conjunto, o ambos.</li>
+              <li>Debes dar datos veraces; accesos falsos pueden revocarse.</li>
+              <li>Las secciones de comunidad requieren estatus activo.</li>
+            </ul>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, color: C.red, margin: "28px 0 10px" }}>Responsabilidad</h2>
+            <p>Las opiniones y ofertas entre vecinos son de quien las publica. Visiones AC facilita el canal; no garantiza tratos comerciales privados.</p>
+          </React.Fragment>
+        )}
+        <p style={{ marginTop: 32, fontSize: 13.5, color: "var(--brown-soft)" }}>Actualizado julio 2026.</p>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { GateScreen, ProyectosPage, IniciativasPage, GacetaPage, LegalPage, VoteBtn, VotePill, IniciativaCard });
+

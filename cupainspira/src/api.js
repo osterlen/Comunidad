@@ -1,6 +1,6 @@
 /* Cliente API CUPA → Cloudflare Worker + Notion */
 (function () {
-  const base = () => (window.CUPA_API_BASE || window.API_BASE || "https://cupa-api.elgorila.org").replace(/\/$/, "");
+  const base = () => (window.CUPA_API_BASE || window.API_BASE || "https://cupa-api.dupeyronosterlen.workers.dev").replace(/\/$/, "");
 
   async function call(path, opts = {}) {
     const headers = Object.assign({ "Content-Type": "application/json" }, opts.headers || {});
