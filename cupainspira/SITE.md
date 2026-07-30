@@ -95,6 +95,7 @@ Inventario 50–100 locales → orden por probabilidad → rutas físicas + link
 
 ## Historial
 
+- 2026-07-30 — Contenido unificado: carpeta Notion Pagina → Worker `/api/content` (fallback JSON)
 - 2026-07-30 — El CUPA: memoria + cine + guía práctica (`#/el-cupa`); avisos cultura/deporte; CTA home/footer
 - 2026-07-30 — Microcuota vecinal $5–10 (fase 2, preferir anual); prueba gratis ahora; meta 1–2 empleos con flujos auto
 - 2026-07-30 — Plan: early-bird locales; cartera de campo; prioridad móvil

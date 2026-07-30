@@ -69,4 +69,4 @@ Gaceta por correo: ver [GACETA-MAIL.md](./GACETA-MAIL.md).
 1. Abre Vecinos filtrado por `Estatus = pendiente`
 2. Aprueba teléfonos conocidos → `activo`
 3. Revoca spam → `revocado`
-4. Contenido público (Poposta, gaceta): edita JSON en Dropbox → `./deploy.sh`
+4. Contenido público: carpeta Notion **Pagina** → base **Contenido** (ver [NOTION-PAGINA.md](./NOTION-PAGINA.md)). JSON en repo = respaldo.

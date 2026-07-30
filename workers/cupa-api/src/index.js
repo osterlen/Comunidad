@@ -48,8 +48,192 @@ function propText(page, name) {
   if (p.type === "email") return p.email || "";
   if (p.type === "phone_number") return p.phone_number || "";
   if (p.type === "select") return p.select?.name || "";
+  if (p.type === "multi_select") return (p.multi_select || []).map((s) => s.name);
+  if (p.type === "number") return p.number;
+  if (p.type === "url") return p.url || "";
   if (p.type === "checkbox") return !!p.checkbox;
   return "";
+}
+
+/** Query any database id */
+async function notionQueryDb(env, databaseId, body = {}) {
+  const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+    method: "POST",
+    headers: notionHeaders(env),
+    body: JSON.stringify(Object.assign({ page_size: 100 }, body)),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Notion query failed");
+  return data.results || [];
+}
+
+async function notionQuery(env, filter) {
+  return notionQueryDb(env, env.NOTION_VECINOS_DB, { filter, page_size: 10 });
+}
+
+/**
+ * Carpeta Notion "Pagina" → base Contendido (NOTION_PAGINA_DB).
+ * Tipos: aviso | ahora | convocatoria | oficio | local | oferta | curiosidad | cine | historia | guia | gaceta
+ */
+function rowToContent(page) {
+  const tipo = String(propText(page, "Tipo") || "").toLowerCase();
+  const titulo = propText(page, "Titulo") || propText(page, "Nombre") || "";
+  const orden = propText(page, "Orden");
+  const tag = propText(page, "Tag");
+  const cuerpo = propText(page, "Cuerpo") || propText(page, "Desc") || "";
+  const cta = propText(page, "CTA") || propText(page, "CTA_label") || "";
+  const link = propText(page, "Link") || propText(page, "CTA_href") || "";
+  const tone = String(propText(page, "Tone") || propText(page, "Tono") || "").toLowerCase();
+  const meta = propText(page, "Meta") || propText(page, "Year") || propText(page, "Edificio") || "";
+  const status = propText(page, "Estatus") || propText(page, "Status") || "";
+  const id = (propText(page, "Id") || page.id || "").replace(/-/g, "").slice(0, 12) || page.id;
+  const pubProp = page.properties?.Publicado;
+  const published = !pubProp || pubProp.type !== "checkbox" ? true : !!pubProp.checkbox;
+
+  return {
+    id,
+    tipo,
+    title: titulo,
+    name: titulo,
+    orden: typeof orden === "number" ? orden : parseInt(orden, 10) || 0,
+    tag: Array.isArray(tag) ? (tag[0] || "") : tag,
+    body: cuerpo,
+    desc: cuerpo,
+    cta_label: cta,
+    cta_href: link,
+    tone: tone || (tipo === "ahora" ? "green" : ""),
+    meta,
+    year: meta,
+    note: cuerpo,
+    status: status || "",
+    eyebrow: propText(page, "Eyebrow") || (Array.isArray(tag) ? tag[0] : tag) || "",
+    product: propText(page, "Producto") || titulo,
+    vecino: propText(page, "Vecino") || "",
+    edif: propText(page, "Edificio") || meta || "",
+    type: propText(page, "Giro") || (Array.isArray(tag) ? tag[0] : tag) || "",
+    loc: propText(page, "Ubicacion") || meta || "",
+    published,
+  };
+}
+
+function packContent(rows) {
+  const published = rows
+    .map(rowToContent)
+    .filter((r) => r.tipo && r.published)
+    .sort((a, b) => a.orden - b.orden);
+
+  const by = (t) => published.filter((r) => r.tipo === t);
+
+  const avisos = {
+    updated: new Date().toISOString().slice(0, 10),
+    items: by("aviso").map((r) => ({ id: r.id, title: r.title, body: r.body, tag: r.tag || "Aviso" })),
+  };
+
+  const ahora = by("ahora").map((r) => ({
+    id: r.id,
+    eyebrow: r.eyebrow || "Ahora",
+    title: r.title,
+    body: r.body,
+    cta_label: r.cta_label || "Ver",
+    cta_href: r.cta_href || "#/avisos",
+    tone: r.tone === "red" || r.tone === "cream" ? r.tone : "green",
+  }));
+
+  const convocatorias = by("convocatoria").map((r) => ({
+    id: r.id,
+    title: r.title,
+    tag: r.tag || "Comunidad",
+    status: r.status || "abierta",
+    desc: r.body,
+    cta_label: r.cta_label || "Ver",
+    cta_href: r.cta_href || "#/",
+  }));
+
+  const emprendimiento = by("oficio").map((r) => ({
+    id: r.id,
+    vecino: r.vecino || r.meta || "Vecino",
+    product: r.product || r.title,
+    edif: r.edif || "",
+    emoji: "•",
+  }));
+
+  const comercio = by("local").map((r) => ({
+    id: r.id,
+    name: r.title,
+    type: r.type || "Local",
+    loc: r.loc || "",
+  }));
+
+  const ofertas = by("oferta").map((r) => ({
+    id: r.id,
+    title: r.title,
+    body: r.body,
+    tag: r.tag || "Oferta",
+    cta_label: r.cta_label,
+    cta_href: r.cta_href,
+  }));
+
+  const historiaParas = by("historia").map((r) => r.body).filter(Boolean);
+  const memoria = {
+    updated: new Date().toISOString().slice(0, 10),
+    title: "El CUPA",
+    lede: by("memoria_lede")[0]?.body || "Historia, cine, curiosidades y guía práctica del Centro Urbano Presidente Alemán.",
+    historia: {
+      eyebrow: by("historia")[0]?.eyebrow || "1947 — 1949",
+      headline: by("historia")[0]?.title || "Un pequeño mundo en concreto y jardín",
+      paras: historiaParas.length ? historiaParas : undefined,
+    },
+    curiosidades: by("curiosidad").map((r) => ({ title: r.title, body: r.body })),
+    cine: {
+      intro: by("cine_intro")[0]?.body || "Películas y locaciones verificables:",
+      items: by("cine").map((r) => ({ year: r.year || r.meta, title: r.title, note: r.note || r.body })),
+      sources_note: by("cine_fuente")[0]?.body || "",
+    },
+    guia: {
+      intro: by("guia_intro")[0]?.body || "",
+      bloques: by("guia").map((r) => ({
+        id: r.id,
+        title: r.title,
+        body: r.body,
+        cta_label: r.cta_label || null,
+        cta_href: r.cta_href || null,
+        status: r.status === "pronto" ? "pronto" : undefined,
+      })),
+    },
+  };
+  if (!memoria.historia.paras) delete memoria.historia.paras;
+
+  const gacetaArts = by("gaceta");
+  const gaceta = gacetaArts.length
+    ? {
+        issue: by("gaceta_meta")[0]?.title || undefined,
+        date: by("gaceta_meta")[0]?.meta || undefined,
+        headline: by("gaceta_meta")[0]?.body || undefined,
+        articles: gacetaArts.map((r) => ({ tag: r.tag || "Gaceta", title: r.title, excerpt: r.body })),
+      }
+    : null;
+
+  return { avisos, ahora, convocatorias, emprendimiento, comercio, ofertas, memoria, gaceta, raw: published };
+}
+
+let contentCache = { at: 0, data: null };
+
+async function handleContent(env, tipo) {
+  if (!env.NOTION_PAGINA_DB) {
+    return bad("Contenido Notion no configurado (NOTION_PAGINA_DB)", 503);
+  }
+  const now = Date.now();
+  if (!contentCache.data || now - contentCache.at > 60_000) {
+    const rows = await notionQueryDb(env, env.NOTION_PAGINA_DB, {});
+    contentCache = { at: now, data: packContent(rows) };
+  }
+  const pack = contentCache.data;
+  if (!tipo || tipo === "all") return json({ ok: true, ...pack, source: "notion" });
+  if (tipo === "oficios") {
+    return json({ ok: true, emprendimiento: pack.emprendimiento, comercio: pack.comercio, ofertas: pack.ofertas, source: "notion" });
+  }
+  if (pack[tipo] !== undefined) return json({ ok: true, [tipo]: pack[tipo], source: "notion" });
+  return bad("Tipo desconocido: " + tipo, 404);
 }
 
 function pageToUser(page) {
@@ -66,17 +250,6 @@ function pageToUser(page) {
     ofrece: !!propText(page, "Ofrece"),
     oficio: propText(page, "Oficio"),
   };
-}
-
-async function notionQuery(env, filter) {
-  const res = await fetch(`https://api.notion.com/v1/databases/${env.NOTION_VECINOS_DB}/query`, {
-    method: "POST",
-    headers: notionHeaders(env),
-    body: JSON.stringify({ filter, page_size: 10 }),
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Notion query failed");
-  return data.results || [];
 }
 
 async function notionCreate(env, properties) {
@@ -340,14 +513,27 @@ export default {
   async fetch(req, env) {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
 
-    if (!env.NOTION_TOKEN || !env.NOTION_VECINOS_DB) {
-      return bad("API no configurada (secrets Notion)", 503);
+    if (!env.NOTION_TOKEN) {
+      return bad("API no configurada (NOTION_TOKEN)", 503);
     }
 
     const url = new URL(req.url);
     const path = url.pathname.replace(/\/+$/, "") || "/";
 
     try {
+      // Contenido público desde carpeta Notion "Pagina"
+      if (req.method === "GET" && (path === "/api/content" || path.endsWith("/api/content"))) {
+        return await handleContent(env, "all");
+      }
+      const contentMatch = path.match(/\/api\/content\/([a-z_]+)$/);
+      if (req.method === "GET" && contentMatch) {
+        return await handleContent(env, contentMatch[1]);
+      }
+
+      if (!env.NOTION_VECINOS_DB) {
+        return bad("API padrón no configurada (NOTION_VECINOS_DB)", 503);
+      }
+
       if (req.method === "POST" && (path === "/api/register" || path.endsWith("/api/register"))) {
         return await handleRegister(req, env);
       }
@@ -364,7 +550,11 @@ export default {
         return await handleGacetaSend(req, env);
       }
       if (path === "/" || path === "/api") {
-        return json({ ok: true, service: "cupa-api", endpoints: ["/api/register", "/api/verify", "/api/login", "/api/me", "/api/gaceta/send"] });
+        return json({
+          ok: true,
+          service: "cupa-api",
+          endpoints: ["/api/content", "/api/content/:tipo", "/api/register", "/api/verify", "/api/login", "/api/me", "/api/gaceta/send"],
+        });
       }
       return bad("Not found", 404);
     } catch (err) {
