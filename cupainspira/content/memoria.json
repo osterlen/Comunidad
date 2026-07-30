@@ -1,0 +1,95 @@
+{
+  "updated": "2026-07-30",
+  "title": "El CUPA",
+  "lede": "Centro Urbano Presidente Alemán: el multifamiliar legendario de Mario Pani en Del Valle. Historia, cine, curiosidades y cómo se vive hoy.",
+  "historia": {
+    "eyebrow": "1947 — 1949",
+    "headline": "Un pequeño mundo en concreto y jardín",
+    "paras": [
+      "El Centro Urbano Presidente Alemán (CUPA) se construyó entre 1947 y 1949 e inauguró el 2 de septiembre de 1949. Lo proyectaron Mario Pani y Salvador Ortega, con Bernardo Quintana e ICA.",
+      "En lugar de cientos de casas bajas, propusieron alta densidad con jardines: alrededor de 1,080 departamentos y gran parte del terreno libre para verde, servicios y vida en común.",
+      "Fue de los primeros conjuntos en México pensados como ciudad completa: vivienda, locales, áreas verdes y equipamiento — un hito del funcionalismo habitacional en América Latina."
+    ]
+  },
+  "curiosidades": [
+    {
+      "title": "Más jardín que concreto",
+      "body": "La apuesta era densificar verticalmente para dejar la mayor parte del predio como área jardinada y de encuentro."
+    },
+    {
+      "title": "Puentes y aire",
+      "body": "Los puentes y circulaciones abiertas buscan ventilación e iluminación en cocinas y baños — un detalle típico del proyecto Pani."
+    },
+    {
+      "title": "“Nace una ciudad”",
+      "body": "El corto promocional de la época lo presentó como un “pequeño mundo futurista”: la modernidad hecha barrio."
+    },
+    {
+      "title": "Del Valle, Av. Coyoacán",
+      "body": "Sigue siendo referencia viva del sur de la ciudad: no museo, sino casa de miles de vecinos."
+    }
+  ],
+  "cine": {
+    "intro": "Desde casi su inauguración, el CUPA ha sido locación y personaje del cine mexicano. Lista verificable (ampliar con fuente):",
+    "items": [
+      { "year": "1950", "title": "Nosotras las taquígrafas", "note": "Emilio Gómez Muriel — de las primeras en filmar el conjunto flamante." },
+      { "year": "1951", "title": "La bien amada", "note": "Emilio Fernández." },
+      { "year": "1953", "title": "La ilusión viaja en tranvía", "note": "Luis Buñuel." },
+      { "year": "1953–54", "title": "Los Fernández de Peralvillo", "note": "Alejandro Galindo." },
+      { "year": "1954", "title": "Maldita ciudad", "note": "Ismael Rodríguez." },
+      { "year": "1956", "title": "¿A dónde van nuestros hijos?", "note": "Benito Alazraki." },
+      { "year": "2012", "title": "Elevador", "note": "Adrián Ortiz Maciel — la vida en los ascensores del multi." },
+      { "year": "2016", "title": "¿Y qué culpa tiene el niño?", "note": "Con Karla Souza; locaciones recientes en el conjunto." }
+    ],
+    "sources_note": "Fuentes de partida: ensayos de cine-ciudad y prensa local. Corregir o ampliar en este JSON sin tocar código."
+  },
+  "guia": {
+    "intro": "Lo práctico del día a día. Horarios y contactos se actualizan aquí o en Avisos.",
+    "bloques": [
+      {
+        "id": "cultura",
+        "title": "Centro cultural",
+        "body": "Ballet, guitarra, talleres y más. Confirma horarios vigentes en Avisos o con la administración del centro.",
+        "cta_label": "Ver avisos de cultura",
+        "cta_href": "#/avisos"
+      },
+      {
+        "id": "deporte",
+        "title": "Alberca y deporte",
+        "body": "Natación y espacios deportivos del conjunto. Pregunta horarios y quién puede entrar.",
+        "cta_label": "Ver avisos",
+        "cta_href": "#/avisos"
+      },
+      {
+        "id": "renta",
+        "title": "Renta de locales y espacios",
+        "body": "Locales y salones disponibles o en trámite. El directorio vivo está en Oficios; vacantes se publican en Avisos.",
+        "cta_label": "Ir a Oficios",
+        "cta_href": "#/oficios"
+      },
+      {
+        "id": "mapa",
+        "title": "Croquis",
+        "body": "Pronto: mapa de secciones, jardines, locales y centro cultural, legible en el celular.",
+        "cta_label": null,
+        "cta_href": null,
+        "status": "pronto"
+      },
+      {
+        "id": "organo",
+        "title": "Organigrama",
+        "body": "Mesa y comités: nombres y roles (sin saturar teléfonos públicos). Se publica cuando la mesa lo valide.",
+        "cta_label": null,
+        "cta_href": null,
+        "status": "pronto"
+      }
+    ]
+  },
+  "fotos_brief": [
+    "P0 Hero: fachada o volumen + cielo (atardecer Del Valle)",
+    "P1 Jardines / puentes abiertos",
+    "P2 Vida: clase, alberca o pasaje con gente (permiso)",
+    "P3 Archivo B/N o still de cine con crédito",
+    "P4 Croquis simplificado para móvil"
+  ]
+}

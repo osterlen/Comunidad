@@ -1,6 +1,24 @@
 {
-  "updated": "2026-06-15",
+  "updated": "2026-07-30",
   "items": [
+    {
+      "id": "ballet",
+      "title": "Ballet en el centro cultural",
+      "body": "Clases de ballet. Confirma horario y cupo con el centro cultural del CUPA.",
+      "tag": "Cultura"
+    },
+    {
+      "id": "guitarra",
+      "title": "Guitarra y talleres",
+      "body": "Clases de guitarra y más talleres en el centro cultural. Pregunta el calendario del mes.",
+      "tag": "Cultura"
+    },
+    {
+      "id": "natacion",
+      "title": "Natación / alberca",
+      "body": "Horarios de alberca y natación. Pregunta quién puede entrar y en qué franja.",
+      "tag": "Deporte"
+    },
     {
       "id": "jornada-jardines",
       "title": "Jornada de jardines",

@@ -85,6 +85,20 @@ function HomePage({ go, onRegister }) {
           </div>
         </div>
       </section>
+
+      {/* Memoria — CTA suave, no 4ª puerta de nav */}
+      <section style={{ padding: "0 0 72px" }}>
+        <div className="wrap">
+          <div style={{ background: "linear-gradient(140deg, #5e0f0c 0%, #0d3e23 100%)", borderRadius: 20, padding: "28px 26px", color: C.cream, display: "flex", flexWrap: "wrap", gap: 18, alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ maxWidth: 480 }}>
+              <div style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.75 }}>Memoria del multi</div>
+              <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(24px, 3vw, 32px)", margin: "10px 0 0", lineHeight: 1.15 }}>Historia, cine y cómo se vive el CUPA</h2>
+              <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.5, margin: "10px 0 0", opacity: 0.88 }}>Desde 1949 hasta ballet, alberca y renta de espacios — sin saturar el inicio.</p>
+            </div>
+            <Btn variant="creamSolid" size="lg" icon={false} onClick={() => go("#/el-cupa")}>Conoce el CUPA</Btn>
+          </div>
+        </div>
+      </section>
     </React.Fragment>
   );
 }

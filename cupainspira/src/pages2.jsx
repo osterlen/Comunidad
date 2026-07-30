@@ -315,5 +315,101 @@ function PropuestasPage({ user, votes, onVote, comments, onComment }) {
   );
 }
 
-Object.assign(window, { GateScreen, ProyectosPage, IniciativasPage, GacetaPage, LegalPage, VoteBtn, VotePill, IniciativaCard, PropuestasPage });
+function ElCupaPage({ go }) {
+  const m = (typeof resolveMemoria === "function" ? resolveMemoria() : null) || window.MEMORIA || {};
+  const hist = m.historia || {};
+  const cine = m.cine || {};
+  const curios = m.curiosidades || [];
+  const guia = m.guia || {};
+  const bloques = guia.bloques || [];
+
+  return (
+    <div style={{ paddingTop: 56, paddingBottom: 90 }}>
+      <div className="wrap">
+        <PageHead eyebrow="Memoria y guía" title={m.title || "El CUPA"}
+          intro={m.lede || "Historia, cine, curiosidades y cómo se vive el conjunto."} />
+
+        <section style={{ marginTop: 40 }}>
+          <Eyebrow>{hist.eyebrow || "Historia"}</Eyebrow>
+          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(26px, 3vw, 34px)", color: C.red, margin: "12px 0 0", lineHeight: 1.15 }}>{hist.headline}</h2>
+          <div style={{ marginTop: 18, maxWidth: 640 }}>
+            {(hist.paras || []).map((p, i) => (
+              <p key={i} style={{ fontFamily: "var(--sans)", fontSize: 17.5, lineHeight: 1.6, color: C.brown, margin: i ? "14px 0 0" : 0 }}>{p}</p>
+            ))}
+          </div>
+          <div style={{ marginTop: 22 }}>
+            <image-slot id="memoria-fachada" shape="rect" placeholder="Foto P0 / P1 — fachada o jardines del CUPA"
+              style={{ display: "block", width: "100%", maxWidth: 720, height: 220, borderRadius: 16, overflow: "hidden" }}></image-slot>
+          </div>
+        </section>
+
+        {curios.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <Eyebrow>Curiosidades</Eyebrow>
+            <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 28, color: C.red, margin: "12px 0 0" }}>Detalles que cuentan</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 14, marginTop: 22 }}>
+              {curios.map((c, i) => (
+                <article key={i} style={{ background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 16, padding: "20px 18px" }}>
+                  <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 20, color: C.red, margin: 0, lineHeight: 1.2 }}>{c.title}</h3>
+                  <p style={{ fontFamily: "var(--sans)", fontSize: 16, lineHeight: 1.5, color: C.brown, margin: "8px 0 0" }}>{c.body}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {(cine.items || []).length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <Eyebrow>En el cine</Eyebrow>
+            <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 28, color: C.red, margin: "12px 0 0" }}>Locación y personaje</h2>
+            {cine.intro && <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.55, color: C.brown, margin: "14px 0 0", maxWidth: 620 }}>{cine.intro}</p>}
+            <div style={{ marginTop: 20, borderTop: "1px solid var(--line)" }}>
+              {cine.items.map((it, i) => (
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "72px 1fr", gap: 14, padding: "16px 0", borderBottom: "1px solid var(--line)" }}>
+                  <div style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 14, color: C.green }}>{it.year}</div>
+                  <div>
+                    <div style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 20, color: C.red, lineHeight: 1.2 }}>{it.title}</div>
+                    {it.note && <p style={{ fontFamily: "var(--sans)", fontSize: 15.5, color: "var(--brown-soft)", margin: "4px 0 0", lineHeight: 1.45 }}>{it.note}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {cine.sources_note && <p style={{ fontFamily: "var(--sans)", fontSize: 13.5, color: "var(--brown-soft)", marginTop: 14 }}>{cine.sources_note}</p>}
+          </section>
+        )}
+
+        {bloques.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <Eyebrow>Guía práctica</Eyebrow>
+            <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 28, color: C.red, margin: "12px 0 0" }}>Cultura, deporte, renta</h2>
+            {guia.intro && <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.55, color: C.brown, margin: "14px 0 0", maxWidth: 620 }}>{guia.intro}</p>}
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 22 }}>
+              {bloques.map((b) => (
+                <div key={b.id} style={{ background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 16, padding: "20px 22px", display: "flex", flexWrap: "wrap", gap: 14, alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ flex: 1, minWidth: 200 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red, margin: 0 }}>{b.title}</h3>
+                      {b.status === "pronto" && <Tag color="#b5701a">Pronto</Tag>}
+                    </div>
+                    <p style={{ fontFamily: "var(--sans)", fontSize: 16, lineHeight: 1.5, color: C.brown, margin: "8px 0 0" }}>{b.body}</p>
+                  </div>
+                  {b.cta_label && b.cta_href && (
+                    <Btn variant="green" size="sm" icon={false} onClick={() => go(b.cta_href)}>{b.cta_label}</Btn>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <div style={{ marginTop: 48, display: "flex", flexWrap: "wrap", gap: 12 }}>
+          <Btn variant="primary" size="lg" icon={false} onClick={() => go("#/avisos")}>Ver avisos de hoy</Btn>
+          <Btn variant="outline" size="lg" icon={false} onClick={() => go("#/")}>Volver al inicio</Btn>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { GateScreen, ProyectosPage, IniciativasPage, GacetaPage, LegalPage, VoteBtn, VotePill, IniciativaCard, PropuestasPage, ElCupaPage });
 

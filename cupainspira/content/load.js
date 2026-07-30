@@ -26,6 +26,7 @@
     get("comercio.json", null),
     get("convocatorias.json", []),
     get("ahora.json", []),
+    get("memoria.json", null),
   ]).then(function (pack) {
     window.CUPA_GACETA_FILE = pack[0];
     window.CUPA_AVISOS_FILE = pack[1];
@@ -35,6 +36,7 @@
     window.CUPA_COMERCIO_FILE = pack[5];
     window.CUPA_CONVOCATORIAS_FILE = pack[6];
     window.CUPA_AHORA_FILE = pack[7];
+    window.CUPA_MEMORIA_FILE = pack[8];
     return {
       gaceta: pack[0],
       avisos: pack[1],
@@ -44,6 +46,7 @@
       comercio: pack[5],
       convocatorias: pack[6],
       ahora: pack[7],
+      memoria: pack[8],
     };
   });
 })();

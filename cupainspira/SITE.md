@@ -18,9 +18,10 @@
 
 - **Entry:** `index.html` (SPA React CDN)
 - **Design system:** `DESIGN.md` + `design-system.html`
-- **Contenido:** `content/*.json`
-- **Mapa mental:** Avisos · Oficios (con Ofertas) · Propuestas
+- **Contenido:** `content/*.json` · memoria en `content/memoria.json`
+- **Mapa mental:** Avisos · Oficios (con Ofertas) · Propuestas · **El CUPA** (footer/CTA, no nav principal)
 - **Alcance v1:** solo CUPA (exclusividad). Del Valle aledaño = fase 2.
+- **Fotos:** brief en memoria.json; hero = image-slot hasta P0
 
 ## Modelo económico (interno)
 
@@ -94,6 +95,7 @@ Inventario 50–100 locales → orden por probabilidad → rutas físicas + link
 
 ## Historial
 
+- 2026-07-30 — El CUPA: memoria + cine + guía práctica (`#/el-cupa`); avisos cultura/deporte; CTA home/footer
 - 2026-07-30 — Microcuota vecinal $5–10 (fase 2, preferir anual); prueba gratis ahora; meta 1–2 empleos con flujos auto
 - 2026-07-30 — Plan: early-bird locales; cartera de campo; prioridad móvil
 - 2026-07-30 — Membership Stripe low-ticket locales 50–100

@@ -33,6 +33,10 @@ Cualquier cambio de UI **parte de aquí**. Si no está en este sistema, se discu
 
 Nav de producto = **esas 3** + Entrar. Nada de 6 links de vanidad.
 
+**Capa secundaria — El CUPA:** historia, cine, curiosidades y guía práctica (cultura, deporte, renta, croquis, organigrama). Vive en `#/el-cupa`, CTA suave en home + footer — **no** cuarta puerta de nav.
+
+Contenido editable: `content/memoria.json`.
+
 ---
 
 ## 2. Colorimetría

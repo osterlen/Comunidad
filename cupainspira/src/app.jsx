@@ -93,7 +93,7 @@ function Nav({ route, go, user, onRegister, onLogin, onLogout }) {
         <div style={{ background: C.cream, borderTop: "1px solid var(--line)", boxShadow: "0 20px 40px -24px rgba(91,74,54,.5)", animation: "floatUp .22s ease both" }}>
           <div className="wrap" style={{ padding: "16px 32px 24px", display: "flex", flexDirection: "column", gap: 4 }}>
             {[["Avisos", "#/avisos"], ["Oficios", "#/oficios"], ["Propuestas", "#/propuestas"],
-              ["La Gaceta", "#/gaceta"]].map(([t, h]) => (
+              ["El CUPA", "#/el-cupa"], ["La Gaceta", "#/gaceta"]].map(([t, h]) => (
               <button key={h} onClick={() => go(h)} style={{ textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "12px 12px", borderRadius: 9, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 18, color: route.startsWith(h) || route === h ? C.red : C.brown }}>{t}</button>
             ))}
             <a href="https://instagram.com/cupainspira" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 12px", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 17, color: C.brown }}><IconInstagram size={18} /> Instagram</a>
@@ -118,7 +118,7 @@ function Footer({ go }) {
           </p>
         </div>
         {[["Encuentro", [["Avisos", "#/avisos"], ["Oficios", "#/oficios"], ["Propuestas", "#/propuestas"]]],
-          ["Más", [["La Gaceta", "#/gaceta"], ["Jardines y ecología", "#/comunidad/ecologia"]]]].map(([title, links]) => (
+          ["Más", [["El CUPA", "#/el-cupa"], ["La Gaceta", "#/gaceta"], ["Jardines", "#/comunidad/ecologia"]]]].map(([title, links]) => (
           <div key={title}>
             <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 12.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(251,243,220,.5)" }}>{title}</div>
             <ul style={{ listStyle: "none", marginTop: 14, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -500,7 +500,8 @@ function App() {
         <p style={{ fontFamily: "var(--sans)", fontSize: 17, color: C.brown }}>{verifying ? "Confirmando tu registro…" : "Verificando…"}</p>
       </div>
     );
-  }   else if (path.startsWith("/avisos")) page = <AvisosPage go={go} onRegister={() => openRegister()} />;
+  }   else if (path.startsWith("/el-cupa") || path.startsWith("/memoria")) page = <ElCupaPage go={go} />;
+  else if (path.startsWith("/avisos")) page = <AvisosPage go={go} onRegister={() => openRegister()} />;
   else if (path.startsWith("/oficios")) page = <OficiosPage go={go} onContact={contact} onRegister={() => openRegister()} />;
   else if (path.startsWith("/propuestas")) page = isActiveUser(user)
     ? <PropuestasPage user={user} votes={initVotes} onVote={initVote} comments={comments} onComment={addComment} />
@@ -532,9 +533,12 @@ function App() {
 }
 
 function mountCupa() {
-  // Relee gaceta desde content/ si el loader ya resolvió
+  // Relee gaceta / memoria desde content/ si el loader ya resolvió
   if (typeof resolveGaceta === "function") {
     window.GACETA = resolveGaceta();
+  }
+  if (typeof resolveMemoria === "function") {
+    window.MEMORIA = resolveMemoria();
   }
   ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 }

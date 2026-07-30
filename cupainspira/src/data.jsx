@@ -95,6 +95,24 @@ const AHORA_DEFAULT = [
 
 const CONVOCATORIAS_DEFAULT = [];
 
+const MEMORIA_DEFAULT = {
+  updated: "2026-07-30",
+  title: "El CUPA",
+  lede: "Centro Urbano Presidente Alemán: historia, cine, curiosidades y guía práctica.",
+  historia: {
+    eyebrow: "1947 — 1949",
+    headline: "Un pequeño mundo en concreto y jardín",
+    paras: [
+      "El CUPA se construyó entre 1947 y 1949 (inauguración 2 de septiembre de 1949). Proyecto de Mario Pani y Salvador Ortega, con Bernardo Quintana e ICA.",
+      "Alta densidad con jardines: alrededor de 1,080 departamentos y gran parte del terreno para verde y vida en común.",
+    ],
+  },
+  curiosidades: [],
+  cine: { intro: "", items: [] },
+  guia: { intro: "", bloques: [] },
+  fotos_brief: [],
+};
+
 function pickArr(file, fallback) {
   return Array.isArray(file) && file.length ? file : fallback;
 }
@@ -107,6 +125,21 @@ function resolveGaceta() {
   });
 }
 
+function resolveMemoria() {
+  const file = window.CUPA_MEMORIA_FILE;
+  if (!file || typeof file !== "object") return MEMORIA_DEFAULT;
+  return Object.assign({}, MEMORIA_DEFAULT, file, {
+    historia: Object.assign({}, MEMORIA_DEFAULT.historia, file.historia || {}),
+    curiosidades: Array.isArray(file.curiosidades) ? file.curiosidades : MEMORIA_DEFAULT.curiosidades,
+    cine: Object.assign({}, MEMORIA_DEFAULT.cine, file.cine || {}, {
+      items: Array.isArray(file.cine && file.cine.items) ? file.cine.items : [],
+    }),
+    guia: Object.assign({}, MEMORIA_DEFAULT.guia, file.guia || {}, {
+      bloques: Array.isArray(file.guia && file.guia.bloques) ? file.guia.bloques : [],
+    }),
+  });
+}
+
 const ECOLOGIA = pickArr(window.CUPA_ECOLOGIA_FILE, ECOLOGIA_DEFAULT);
 const EMPRENDIMIENTO = pickArr(window.CUPA_EMPRENDE_FILE, EMPRENDIMIENTO_DEFAULT);
 const COMERCIO = pickArr(window.CUPA_COMERCIO_FILE, COMERCIO_DEFAULT);
@@ -115,6 +148,7 @@ const AHORA = pickArr(window.CUPA_AHORA_FILE, AHORA_DEFAULT);
 const CONVOCATORIAS = pickArr(window.CUPA_CONVOCATORIAS_FILE, CONVOCATORIAS_DEFAULT);
 const GACETA = resolveGaceta();
 const AVISOS = (window.CUPA_AVISOS_FILE && window.CUPA_AVISOS_FILE.items) || [];
+const MEMORIA = resolveMemoria();
 
 /* Letras CUPA A–V (sin I ni Ñ). Altos A–J; bajos K–V. */
 const BUILDINGS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"];
@@ -123,5 +157,6 @@ const API_BASE = window.CUPA_API_BASE || "https://cupa-api.dupeyronosterlen.work
 
 Object.assign(window, {
   ECOLOGIA, EMPRENDIMIENTO, COMERCIO, PROYECTOS, INICIATIVAS, GACETA, AVISOS,
-  AHORA, CONVOCATORIAS, BUILDINGS, GACETA_DEFAULT, resolveGaceta, API_BASE,
+  AHORA, CONVOCATORIAS, MEMORIA, BUILDINGS, GACETA_DEFAULT, MEMORIA_DEFAULT,
+  resolveGaceta, resolveMemoria, API_BASE,
 });
