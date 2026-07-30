@@ -2,51 +2,51 @@
 const { useState: useStateP, useEffect: useEffectP } = React;
 
 /* ====================================================== */
-/*  HOME                                                  */
+/*  HOME — 3 puertas (design system)                      */
 /* ====================================================== */
 function HomePage({ go, onRegister }) {
   const ahora = window.AHORA || [];
-  const convocatorias = (window.CONVOCATORIAS || []).filter((c) => c.status === "abierta");
+  const avisos = (window.AVISOS || []).slice(0, 3);
   return (
     <React.Fragment>
-      {/* HERO */}
-      <section style={{ position: "relative", minHeight: 560, display: "flex", alignItems: "flex-end", overflow: "hidden", background: "linear-gradient(140deg, #5e0f0c 0%, #7a1410 38%, #0d3e23 100%)" }}>
+      <section style={{ position: "relative", minHeight: "78vh", display: "flex", alignItems: "flex-end", overflow: "hidden", background: "linear-gradient(140deg, #5e0f0c 0%, #7a1410 38%, #0d3e23 100%)" }}>
         <image-slot id="hero" shape="rect" placeholder="Fachada del Centro Urbano Presidente Alemán"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", background: "transparent" }}></image-slot>
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(94,15,12,.42) 0%, rgba(94,15,12,.4) 42%, rgba(94,15,12,.88) 100%)" }} />
-        <div className="wrap" style={{ position: "relative", paddingTop: 110, paddingBottom: 56 }}>
-          <div style={{ maxWidth: 660, animation: "floatUp .7s ease both" }}>
-            <Eyebrow color="rgba(251,243,220,.85)">CUPA · Del Valle, Ciudad de México</Eyebrow>
-            <h1 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(42px, 5.4vw, 72px)", lineHeight: 1.0, letterSpacing: "-0.02em", color: C.cream, margin: "20px 0 0", textWrap: "balance" }}>
-              75 años de vecindad,<br />una comunidad que <span style={{ fontStyle: "italic" }}>se organiza</span>.
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(94,15,12,.35) 0%, rgba(94,15,12,.45) 40%, rgba(94,15,12,.92) 100%)" }} />
+        <div className="wrap" style={{ position: "relative", paddingTop: 120, paddingBottom: 52 }}>
+          <div style={{ maxWidth: 640, animation: "floatUp .7s ease both" }}>
+            <Eyebrow color="rgba(251,243,220,.85)">CUPA · Del Valle, CDMX</Eyebrow>
+            <h1 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(40px, 5vw, 64px)", lineHeight: 1.02, letterSpacing: "-0.02em", color: C.cream, margin: "18px 0 0", textWrap: "balance" }}>
+              El punto de encuentro <span style={{ fontStyle: "italic" }}>del CUPA</span>
             </h1>
-            <p style={{ fontFamily: "var(--sans)", fontSize: 19, lineHeight: 1.58, color: "rgba(251,243,220,.86)", maxWidth: 520, margin: "24px 0 0" }}>
-              Canal vecinal del Centro Urbano Presidente Alemán: proyectos en curso, directorio y gaceta — más de mil departamentos.
+            <p style={{ fontFamily: "var(--sans)", fontSize: 19, lineHeight: 1.55, color: "rgba(251,243,220,.88)", maxWidth: 480, margin: "20px 0 0" }}>
+              Aquí te enteras de lo que pasa, avisas a tus vecinos y encuentras quién puede ayudarte.
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 34 }}>
-              <Btn variant="creamSolid" size="lg" onClick={() => go("#/proyectos")}>Ver qué está pasando</Btn>
-              <Btn variant="ghostCream" size="lg" onClick={onRegister} icon={false}>Registrarme como vecino</Btn>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 30 }}>
+              <Btn variant="creamSolid" size="lg" onClick={() => go("#/avisos")}>Ver avisos</Btn>
+              <Btn variant="ghostCream" size="lg" onClick={() => go("#/oficios")} icon={false}>Buscar oficio</Btn>
             </div>
           </div>
         </div>
       </section>
 
-      {/* AHORA EN EL CUPA */}
-      <section style={{ padding: "64px 0 24px" }}>
+      {/* Tres puertas */}
+      <section style={{ padding: "48px 0 28px" }}>
         <div className="wrap">
-          <Eyebrow>Ahora en el CUPA</Eyebrow>
-          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 3.2vw, 40px)", color: C.red, margin: "14px 0 0" }}>Lo que está en marcha</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginTop: 28 }}>
-            {ahora.map((card) => (
-              <article key={card.id} style={{ background: card.tone === "green" ? C.green : C.cream, border: card.tone === "green" ? "none" : "1px solid var(--line)", borderRadius: 20, padding: "28px 26px", color: card.tone === "green" ? C.cream : C.brown }}>
-                <div style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.75 }}>{card.eyebrow}</div>
-                <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 26, margin: "12px 0 0", color: card.tone === "green" ? C.cream : C.red, lineHeight: 1.15 }}>{card.title}</h3>
-                <p style={{ fontFamily: "var(--sans)", fontSize: 15.5, lineHeight: 1.55, margin: "12px 0 0", opacity: card.tone === "green" ? 0.88 : 1 }}>{card.body}</p>
-                <div style={{ marginTop: 20 }}>
-                  <Btn variant={card.tone === "green" ? "creamSolid" : "green"} size="sm" icon={false}
-                    onClick={() => { if ((card.cta_href || "").startsWith("http")) window.open(card.cta_href, "_blank"); else go(card.cta_href || "#/"); }}>
-                    {card.cta_label || "Ver más"}
-                  </Btn>
+          <Eyebrow>¿Qué necesitas?</Eyebrow>
+          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 3.2vw, 40px)", color: C.red, margin: "12px 0 0" }}>Tres maneras de entrar</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginTop: 26 }}>
+            {[
+              { q: "¿Qué está pasando?", title: "Avisos", hint: "Juntas, Poposta, agua, gaceta.", href: "#/avisos", cta: "Ver avisos", variant: "primary" },
+              { q: "¿Quién hace qué?", title: "Oficios", hint: "Chambas, comida, locales, servicios.", href: "#/oficios", cta: "Buscar oficio", variant: "green" },
+              { q: "¿Qué queremos hacer?", title: "Propuestas", hint: "Ideas e iniciativas en curso.", href: "#/propuestas", cta: "Ver propuestas", variant: "outline" },
+            ].map((d) => (
+              <article key={d.title} style={{ background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 20, padding: "26px 24px", display: "flex", flexDirection: "column", gap: 10, minHeight: 200 }}>
+                <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 12.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brown-soft)" }}>{d.q}</div>
+                <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 28, color: C.red, margin: 0, lineHeight: 1.1 }}>{d.title}</h3>
+                <p style={{ fontFamily: "var(--sans)", fontSize: 17, lineHeight: 1.45, color: C.brown, margin: 0, flex: 1 }}>{d.hint}</p>
+                <div style={{ marginTop: 8 }}>
+                  <Btn variant={d.variant} size="lg" icon={false} onClick={() => go(d.href)}>{d.cta}</Btn>
                 </div>
               </article>
             ))}
@@ -54,46 +54,34 @@ function HomePage({ go, onRegister }) {
         </div>
       </section>
 
-      {/* CONVOCATORIAS */}
-      {convocatorias.length > 0 && (
-      <section style={{ padding: "40px 0 24px" }}>
+      {/* Lo de hoy — lista tipográfica */}
+      <section style={{ padding: "36px 0 72px" }}>
         <div className="wrap">
-          <Eyebrow>Convocatorias</Eyebrow>
-          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 32, color: C.red, margin: "14px 0 0" }}>Cómo sumarte</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 24 }}>
-            {convocatorias.map((c) => (
-              <div key={c.id} style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", justifyContent: "space-between", background: C.cream, border: "1px solid var(--line)", borderRadius: 16, padding: "18px 22px" }}>
-                <div style={{ flex: 1, minWidth: 220 }}>
-                  <Tag color={C.green}>{c.tag}</Tag>
-                  <div style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red, marginTop: 8 }}>{c.title}</div>
-                  <p style={{ fontFamily: "var(--sans)", fontSize: 14.5, color: C.brown, margin: "6px 0 0", lineHeight: 1.5 }}>{c.desc}</p>
+          <Eyebrow>Lo de hoy</Eyebrow>
+          <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 3.2vw, 40px)", color: C.red, margin: "12px 0 0" }}>Avisos recientes</h2>
+          <div style={{ marginTop: 8, borderTop: "1px solid var(--line)" }}>
+            {(ahora.length ? ahora.map((card) => ({
+              id: card.id, when: card.eyebrow || "Ahora", title: card.title, body: card.body,
+              href: card.cta_href || "#/avisos", label: card.cta_label || "Ver", tone: card.tone,
+            })) : avisos.map((a) => ({
+              id: a.id, when: a.tag || "Aviso", title: a.title, body: a.body, href: "#/avisos", label: "Ver", tone: "cream",
+            }))).map((row) => (
+              <div key={row.id} style={{ display: "grid", gridTemplateColumns: "minmax(72px,auto) 1fr auto", gap: "10px 18px", alignItems: "center", padding: "20px 0", borderBottom: "1px solid var(--line)" }}>
+                <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 14, color: "var(--brown-soft)" }}>{row.when}</div>
+                <div>
+                  <div style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red, lineHeight: 1.15 }}>{row.title}</div>
+                  <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.45, color: C.brown, margin: "6px 0 0" }}>{row.body}</p>
                 </div>
-                <Btn variant="green" size="sm" icon={false}
-                  onClick={() => {
-                    if ((c.cta_href || "").startsWith("http")) window.open(c.cta_href, "_blank");
-                    else if (c.cta_href === "#/registro") onRegister();
-                    else go(c.cta_href || "#/");
-                  }}>{c.cta_label}</Btn>
+                <Btn variant={row.tone === "green" ? "green" : "outline"} size="sm" icon={false}
+                  onClick={() => { if ((row.href || "").startsWith("http")) window.open(row.href, "_blank"); else go(row.href); }}>
+                  {row.label}
+                </Btn>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-      )}
-
-      {/* ACCESOS */}
-      <section style={{ padding: "48px 0 84px" }}>
-        <div className="wrap">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16 }}>
-            <div>
-              <Eyebrow>Explora</Eyebrow>
-              <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: "clamp(28px, 3.2vw, 40px)", color: C.red, margin: "14px 0 0" }}>Comunidad en acción</h2>
-            </div>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22, marginTop: 36 }}>
-            <NavCard icon={<IconLeaf size={24} color={C.green} />} title="Comunidad" desc="Ecología, emprendimiento y comercio." onClick={() => go("#/comunidad/ecologia")} cta="Ver comunidad" />
-            <NavCard icon={<IconCheck size={24} color={C.red} />} title="Proyectos" desc="Poposta y propuestas en curso." onClick={() => go("#/proyectos")} cta="Ver proyectos" locked />
-            <NavCard icon={<IconNews size={24} color={C.green} />} title="La Gaceta" desc="El boletín quincenal." onClick={() => go("#/gaceta")} cta="Leer la Gaceta" />
+          <div style={{ marginTop: 28, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+            <Btn variant="primary" size="lg" icon={false} onClick={() => go("#/avisos")}>Todos los avisos</Btn>
+            <Btn variant="outline" size="lg" icon={false} onClick={onRegister}>Registrarme como vecino</Btn>
           </div>
         </div>
       </section>
@@ -239,4 +227,129 @@ function ComercioPage({ go }) {
   );
 }
 
-Object.assign(window, { HomePage, EcologiaPage, EmprendimientoPage, ComercioPage, ComunidadLayout, NavCard, SignatureBar });
+/* ====================================================== */
+/*  AVISOS                                                */
+/* ====================================================== */
+function AvisosPage({ go, onRegister }) {
+  const ahora = window.AHORA || [];
+  const avisos = window.AVISOS || [];
+  const convocatorias = (window.CONVOCATORIAS || []).filter((c) => c.status === "abierta");
+  return (
+    <div style={{ paddingTop: 56, paddingBottom: 90 }}>
+      <div className="wrap">
+        <PageHead eyebrow="Avisos" title="¿Qué está pasando en el CUPA?"
+          intro="Lo urgente y lo próximo: proyectos en marcha, juntas y la Gaceta." />
+
+        {ahora.length > 0 && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16, marginTop: 36 }}>
+            {ahora.map((card) => (
+              <article key={card.id} style={{ background: card.tone === "green" ? C.green : "#fffdf7", border: card.tone === "green" ? "none" : "1px solid var(--line)", borderRadius: 20, padding: "26px 24px", color: card.tone === "green" ? C.cream : C.brown }}>
+                <div style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.75 }}>{card.eyebrow}</div>
+                <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 24, margin: "10px 0 0", color: card.tone === "green" ? C.cream : C.red, lineHeight: 1.15 }}>{card.title}</h3>
+                <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.5, margin: "10px 0 0", opacity: card.tone === "green" ? 0.9 : 1 }}>{card.body}</p>
+                <div style={{ marginTop: 18 }}>
+                  <Btn variant={card.tone === "green" ? "creamSolid" : "green"} size="sm" icon={false}
+                    onClick={() => { if ((card.cta_href || "").startsWith("http")) window.open(card.cta_href, "_blank"); else go(card.cta_href || "#/gaceta"); }}>
+                    {card.cta_label || "Ver"}
+                  </Btn>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+
+        <div style={{ marginTop: 40, borderTop: "1px solid var(--line)" }}>
+          {avisos.map((a) => (
+            <div key={a.id} style={{ padding: "22px 0", borderBottom: "1px solid var(--line)" }}>
+              <Tag color={C.green}>{a.tag || "Aviso"}</Tag>
+              <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 24, color: C.red, margin: "10px 0 0", lineHeight: 1.15 }}>{a.title}</h3>
+              <p style={{ fontFamily: "var(--sans)", fontSize: 17, lineHeight: 1.5, color: C.brown, margin: "8px 0 0", maxWidth: 640 }}>{a.body}</p>
+            </div>
+          ))}
+          {!avisos.length && !ahora.length && (
+            <p style={{ fontFamily: "var(--sans)", fontSize: 17, color: "var(--brown-soft)", marginTop: 24 }}>Pronto habrá avisos aquí.</p>
+          )}
+        </div>
+
+        {convocatorias.length > 0 && (
+          <div style={{ marginTop: 40 }}>
+            <Eyebrow>Cómo sumarte</Eyebrow>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 18 }}>
+              {convocatorias.map((c) => (
+                <div key={c.id} style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", justifyContent: "space-between", background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 16, padding: "18px 22px" }}>
+                  <div style={{ flex: 1, minWidth: 220 }}>
+                    <Tag color={C.green}>{c.tag}</Tag>
+                    <div style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red, marginTop: 8 }}>{c.title}</div>
+                    <p style={{ fontFamily: "var(--sans)", fontSize: 16, color: C.brown, margin: "6px 0 0", lineHeight: 1.5 }}>{c.desc}</p>
+                  </div>
+                  <Btn variant="green" size="lg" icon={false}
+                    onClick={() => {
+                      if ((c.cta_href || "").startsWith("http")) window.open(c.cta_href, "_blank");
+                      else if (c.cta_href === "#/registro") onRegister();
+                      else go(c.cta_href || "#/");
+                    }}>{c.cta_label}</Btn>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div style={{ marginTop: 36 }}>
+          <Btn variant="outline" size="lg" icon={false} onClick={() => go("#/gaceta")}>Abrir La Gaceta</Btn>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ====================================================== */
+/*  OFICIOS — directorio unificado                        */
+/* ====================================================== */
+function OficiosPage({ go, onContact, onRegister }) {
+  const oficios = window.EMPRENDIMIENTO || [];
+  const locales = window.COMERCIO || [];
+  return (
+    <div style={{ paddingTop: 56, paddingBottom: 90 }}>
+      <div className="wrap">
+        <PageHead eyebrow="Oficios" title="¿Quién hace qué en el CUPA?"
+          intro="Vecinos que ofrecen un servicio y locales del conjunto. Lo que necesitas, cerca." />
+
+        <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 28, color: C.red, margin: "36px 0 0" }}>Vecinos y oficios</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, marginTop: 20 }}>
+          {oficios.map((v) => (
+            <article key={v.id} style={{ background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 18, padding: "22px 22px 20px", display: "flex", flexDirection: "column" }}>
+              <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red, margin: 0, lineHeight: 1.15 }}>{v.product}</h3>
+              <div style={{ fontFamily: "var(--sans)", fontSize: 15, color: "var(--brown-soft)", marginTop: 10 }}>
+                <strong style={{ color: C.brown }}>{v.vecino}</strong> · {v.edif}
+              </div>
+              <div style={{ marginTop: "auto", paddingTop: 16 }}>
+                <Btn variant="green" size="sm" icon={false} onClick={() => onContact(v.vecino)}>Contactar</Btn>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 28, color: C.red, margin: "48px 0 0" }}>Locales y servicios</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14, marginTop: 20 }}>
+          {locales.map((c) => (
+            <article key={c.id} style={{ background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 18, padding: "20px 22px" }}>
+              <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 21, color: C.red, margin: 0, lineHeight: 1.15 }}>{c.name}</h3>
+              <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 15, color: C.green, marginTop: 6 }}>{c.type}</div>
+              <div style={{ fontFamily: "var(--sans)", fontSize: 15, color: "var(--brown-soft)", marginTop: 4 }}>{c.loc}</div>
+            </article>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 40, padding: "24px 26px", background: "rgba(13,62,35,.06)", borderRadius: 18, display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <div style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 22, color: C.red }}>¿Ofreces algo a la comunidad?</div>
+            <p style={{ fontFamily: "var(--sans)", fontSize: 16, color: C.brown, margin: "6px 0 0" }}>Regístrate y marca que cocinas, reparas, das clases o un servicio.</p>
+          </div>
+          <Btn variant="green" size="lg" icon={false} onClick={onRegister}>Registrarme</Btn>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { HomePage, EcologiaPage, EmprendimientoPage, ComercioPage, ComunidadLayout, NavCard, SignatureBar, AvisosPage, OficiosPage });

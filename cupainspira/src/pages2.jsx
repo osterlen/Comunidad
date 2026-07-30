@@ -265,5 +265,55 @@ function LegalPage({ kind, go }) {
   );
 }
 
-Object.assign(window, { GateScreen, ProyectosPage, IniciativasPage, GacetaPage, LegalPage, VoteBtn, VotePill, IniciativaCard });
+function PropuestasPage({ user, votes, onVote, comments, onComment }) {
+  const list = window.PROYECTOS || [];
+  const ideas = window.INICIATIVAS || [];
+  return (
+    <div style={{ paddingTop: 56, paddingBottom: 90 }}>
+      <div className="wrap">
+        <PageHead eyebrow="Propuestas" title="¿Qué queremos hacer juntos?"
+          intro="Proyectos en marcha e ideas que se están cocinando. Súmate o sigue el avance." />
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 18, fontFamily: "var(--sans)", fontSize: 15, color: C.green }}>
+          <IconCheck size={16} color={C.green} /> Sesión como <strong style={{ marginLeft: 2 }}>{user.name}</strong> · {user.building} {user.apt}
+        </div>
+
+        {list.length > 0 && (
+          <React.Fragment>
+            <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 26, color: C.red, margin: "36px 0 0" }}>En marcha</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 18, marginTop: 18 }}>
+              {list.map((p) => (
+                <article key={p.id} style={{ background: "#fffdf7", border: "1px solid var(--line)", borderRadius: 18, padding: "24px" }}>
+                  <Tag color={p.phase === "gestion" ? C.green : "#b5701a"}>{p.status}</Tag>
+                  <h3 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 24, color: C.red, margin: "12px 0 0", lineHeight: 1.1 }}>{p.title}</h3>
+                  <p style={{ fontFamily: "var(--sans)", fontSize: 16.5, lineHeight: 1.5, color: C.brown, margin: "10px 0 0" }}>{p.desc}</p>
+                  {p.update && (
+                    <p style={{ fontFamily: "var(--sans)", fontSize: 15, lineHeight: 1.45, color: "var(--brown-soft)", margin: "12px 0 0", padding: "12px 14px", background: "rgba(13,62,35,.06)", borderRadius: 12 }}>{p.update}</p>
+                  )}
+                  {p.cta_label && (
+                    <div style={{ marginTop: 16 }}>
+                      <Btn variant="green" size="sm" icon={false}
+                        onClick={() => { if ((p.cta_href || "").startsWith("http")) window.open(p.cta_href, "_blank"); }}>
+                        {p.cta_label}
+                      </Btn>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </React.Fragment>
+        )}
+
+        <h2 style={{ fontFamily: "var(--serif)", fontWeight: 500, fontSize: 26, color: C.red, margin: "44px 0 0" }}>Ideas en cocina</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 22, marginTop: 18 }}>
+          {ideas.map((it) => (
+            <IniciativaCard key={it.id} it={it} vote={votes[it.id]} onVote={onVote}
+              comments={comments[it.id] || it.comments || []} onComment={onComment} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { GateScreen, ProyectosPage, IniciativasPage, GacetaPage, LegalPage, VoteBtn, VotePill, IniciativaCard, PropuestasPage });
 

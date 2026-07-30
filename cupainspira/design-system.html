@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design system — CUPA Inspira · Punto de encuentro</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #fbf3dc;
+      --cream-soft: #f4e8cd;
+      --red: #7a1410;
+      --red-deep: #5e0f0c;
+      --green: #0d3e23;
+      --green-deep: #082a17;
+      --brown: #5b4a36;
+      --brown-soft: #8a775f;
+      --line: rgba(91, 74, 54, 0.18);
+      --line-strong: rgba(91, 74, 54, 0.32);
+      --ok: #0d3e23;
+      --bad: #7a1410;
+      --font-display: "Newsreader", Georgia, serif;
+      --font-body: "Hanken Grotesk", system-ui, sans-serif;
+      --pad: clamp(1.25rem, 4vw, 2.5rem);
+      --max: 1080px;
+      --radius-pill: 999px;
+      --radius-card: 20px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--red); }
+    code {
+      font-size: 0.85em;
+      background: var(--cream-soft);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+    .wrap { width: min(100% - 2 * var(--pad), var(--max)); margin: 0 auto; }
+
+    header.hero-ds {
+      padding: 3.5rem 0 2.75rem;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(140deg, rgba(94,15,12,0.94) 0%, rgba(122,20,16,0.9) 45%, rgba(13,62,35,0.92) 100%);
+      color: var(--cream);
+    }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(251, 243, 220, 0.85);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1.5px;
+      background: currentColor;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      line-height: 1.02;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    h1 em { font-style: italic; font-weight: 400; }
+    .lead {
+      margin-top: 1.1rem;
+      color: rgba(251, 243, 220, 0.86);
+      max-width: 38rem;
+      font-size: 1.1rem;
+      line-height: 1.55;
+    }
+    .meta {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      font-size: 0.8rem;
+      color: rgba(251, 243, 220, 0.7);
+    }
+    .meta span {
+      border: 1px solid rgba(251, 243, 220, 0.28);
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius-pill);
+    }
+    .meta a { color: var(--cream); text-decoration: none; }
+    .meta a:hover { text-decoration: underline; }
+
+    nav.toc {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(251, 243, 220, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav.toc .wrap {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 0.9rem 0;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    nav.toc a { color: var(--brown-soft); text-decoration: none; white-space: nowrap; }
+    nav.toc a:hover { color: var(--red); }
+
+    section {
+      padding: 3.25rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.35rem);
+      font-weight: 500;
+      color: var(--red);
+      margin-bottom: 0.45rem;
+    }
+    .sec-desc {
+      color: var(--brown-soft);
+      margin-bottom: 1.75rem;
+      max-width: 38rem;
+      font-size: 1rem;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+    .swatch {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fffdf7;
+    }
+    .swatch .chip { height: 88px; }
+    .swatch .info { padding: 0.75rem; }
+    .swatch .info strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brown);
+    }
+    .swatch .info code {
+      font-size: 0.72rem;
+      color: var(--brown-soft);
+      background: transparent;
+      padding: 0;
+    }
+    .swatch .info small {
+      display: block;
+      margin-top: 0.35rem;
+      color: var(--brown-soft);
+      font-size: 0.72rem;
+    }
+
+    .type-row {
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .type-row .label {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--brown-soft);
+      margin-bottom: 0.5rem;
+    }
+    .specimen-display {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.05;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: -0.02em;
+    }
+    .specimen-display.italic { font-style: italic; }
+    .specimen-body {
+      font-size: 1.125rem;
+      color: var(--brown);
+      max-width: 36rem;
+      line-height: 1.6;
+    }
+    .specimen-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .specimen-kicker::before {
+      content: "";
+      width: 22px;
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 1rem;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+      text-decoration: none;
+      cursor: default;
+      font-family: var(--font-body);
+    }
+    .btn-lg { padding: 1rem 1.75rem; font-size: 1.0625rem; }
+    .btn-primary { background: var(--red); color: var(--cream); }
+    .btn-green { background: var(--green); color: var(--cream); }
+    .btn-outline {
+      background: transparent;
+      color: var(--brown);
+      border-color: var(--line-strong);
+    }
+    .btn-cream {
+      background: var(--cream);
+      color: var(--red);
+    }
+    .btn-ghost-cream {
+      background: transparent;
+      color: var(--cream);
+      border-color: rgba(251, 243, 220, 0.45);
+    }
+
+    .split {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 800px) {
+      .split { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      .split-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    .card {
+      background: #fffdf7;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      padding: 1.35rem 1.4rem;
+    }
+    .card.green {
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+    }
+    .card.green h3 { color: var(--cream); }
+    .card.green p, .card.green li { color: rgba(251, 243, 220, 0.88); }
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .card p { font-size: 0.98rem; line-height: 1.5; margin-bottom: 0.75rem; }
+    .card ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .card li {
+      font-size: 0.95rem;
+      color: var(--brown);
+      padding-left: 1.15rem;
+      position: relative;
+      line-height: 1.45;
+    }
+    .card.ok li::before { content: "✓"; position: absolute; left: 0; color: var(--ok); font-weight: 700; }
+    .card.bad li::before { content: "✕"; position: absolute; left: 0; color: var(--bad); font-weight: 700; }
+
+    .door {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      min-height: 160px;
+      justify-content: space-between;
+    }
+    .door .q {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown-soft);
+    }
+    .door h3 { margin: 0; font-size: 1.55rem; }
+    .door .hint { font-size: 0.95rem; color: var(--brown-soft); margin: 0; }
+
+    .list-row {
+      display: grid;
+      gap: 0.35rem 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    @media (min-width: 700px) {
+      .list-row {
+        grid-template-columns: 5.5rem 1fr auto;
+        align-items: center;
+      }
+    }
+    .list-row .when {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brown-soft);
+    }
+    .list-row h4 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--red);
+    }
+    .list-row p {
+      font-size: 0.95rem;
+      color: var(--brown);
+      margin-top: 0.2rem;
+    }
+
+    .nav-demo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffdf7;
+      margin-bottom: 1.5rem;
+    }
+    .nav-demo .brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--red);
+    }
+    .nav-demo .brand em { font-style: italic; }
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--brown);
+    }
+
+    .space-row { display: flex; flex-direction: column; gap: 0.55rem; }
+    .space-item {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+    .space-item span { font-size: 0.75rem; color: var(--brown-soft); }
+    .space-item .bar {
+      height: 12px;
+      background: var(--red);
+      opacity: 0.85;
+      border-radius: 2px;
+    }
+
+    .scale-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .scale-table th, .scale-table td {
+      text-align: left;
+      padding: 0.7rem 0.5rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    .scale-table th {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brown-soft);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 2.25rem 0 3rem;
+      color: var(--brown-soft);
+      font-size: 0.9rem;
+    }
+    footer strong { color: var(--brown); }
+  </style>
+</head>
+<body>
+  <header class="hero-ds">
+    <div class="wrap">
+      <p class="eyebrow">Interno · noindex · fuente de verdad visual</p>
+      <h1>CUPA Inspira <em>Punto de encuentro</em></h1>
+      <p class="lead">Sistema de diseño del canal vecinal del Centro Urbano Presidente Alemán. Claridad para gente mayor + tres puertas: avisos, oficios, propuestas. Todo cambio de UI se basa en esta página y en <code>DESIGN.md</code>.</p>
+      <div class="meta">
+        <span>Display: Newsreader</span>
+        <span>UI: Hanken Grotesk</span>
+        <span><a href="index.html">← Ver sitio</a></span>
+        <span><a href="DESIGN.md">DESIGN.md</a></span>
+        <span><a href="https://elgorila.org/cupainspira/" target="_blank" rel="noreferrer">Live</a></span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Secciones">
+    <div class="wrap">
+      <a href="#direccion">Dirección</a>
+      <a href="#puertas">3 puertas</a>
+      <a href="#color">Color</a>
+      <a href="#tipo">Tipo</a>
+      <a href="#ctas">CTAs</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#accesible">Accesible</a>
+      <a href="#motion">Motion</a>
+      <a href="#reglas">Do / Don’t</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="direccion">
+      <div class="wrap">
+        <h2>Dirección</h2>
+        <p class="sec-desc">No es portal de ONG ni app social. Es el tablón del conjunto: enterarse, avisar, encontrar ayuda.</p>
+        <div class="split">
+          <div class="card ok">
+            <h3>Pilares</h3>
+            <ul>
+              <li><strong>Encuentro</strong> — vecinos, locales, oficios</li>
+              <li><strong>Claridad</strong> — una idea por pantalla</li>
+              <li><strong>Acción</strong> — avisos · oficios · propuestas</li>
+              <li><strong>Confianza</strong> — lenguaje de vecino</li>
+            </ul>
+          </div>
+          <div class="card ok">
+            <h3>Promesa</h3>
+            <ul>
+              <li>Aquí te enteras de lo que pasa</li>
+              <li>Avisas a tus vecinos</li>
+              <li>Encuentras quién puede ayudarte</li>
+              <li>Hero = marca + 1 frase + 2 CTAs (máx.)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="puertas">
+      <div class="wrap">
+        <h2>Tres puertas</h2>
+        <p class="sec-desc">Mapa mental fijo. Si algo no cabe en una puerta, no es un ítem de nav.</p>
+        <div class="split split-3">
+          <div class="card door">
+            <div>
+              <div class="q">¿Qué está pasando?</div>
+              <h3>Avisos</h3>
+              <p class="hint">Poposta, juntas, agua, gaceta, seguridad.</p>
+            </div>
+            <span class="btn btn-primary" style="align-self:flex-start;">Ver avisos</span>
+          </div>
+          <div class="card door">
+            <div>
+              <div class="q">¿Quién hace qué?</div>
+              <h3>Oficios</h3>
+              <p class="hint">Chambas, comida, costura, locales, servicios.</p>
+            </div>
+            <span class="btn btn-green" style="align-self:flex-start;">Buscar oficio</span>
+          </div>
+          <div class="card door">
+            <div>
+              <div class="q">¿Qué queremos hacer?</div>
+              <h3>Propuestas</h3>
+              <p class="hint">Ideas nuevas y seguimiento de iniciativas.</p>
+            </div>
+            <span class="btn btn-outline" style="align-self:flex-start;">Ver propuestas</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="color">
+      <div class="wrap">
+        <h2>Colorimetría</h2>
+        <p class="sec-desc">Rojo CUPA + verde jardín + crema papel. Par de acentos fijo; no inventar un tercero.</p>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="chip" style="background:#fbf3dc"></div><div class="info"><strong>cream</strong><code>#fbf3dc</code><small>Fondo / texto sobre marca</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#f4e8cd"></div><div class="info"><strong>cream-soft</strong><code>#f4e8cd</code><small>Superficies suaves</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#7a1410"></div><div class="info"><strong>red</strong><code>#7a1410</code><small>Marca / CTA primario</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#5e0f0c"></div><div class="info"><strong>red-deep</strong><code>#5e0f0c</code><small>Hover / hero</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#0d3e23"></div><div class="info"><strong>green</strong><code>#0d3e23</code><small>Acción / confianza</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#082a17"></div><div class="info"><strong>green-deep</strong><code>#082a17</code><small>Hover verde</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#5b4a36"></div><div class="info"><strong>brown</strong><code>#5b4a36</code><small>Texto cuerpo</small></div></div>
+          <div class="swatch"><div class="chip" style="background:#8a775f"></div><div class="info"><strong>brown-soft</strong><code>#8a775f</code><small>Meta / captions</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tipo">
+      <div class="wrap">
+        <h2>Tipografía</h2>
+        <p class="sec-desc">Newsreader = voz del conjunto. Hanken = lectura e interfaz. Escala grande por defecto.</p>
+        <div class="type-row">
+          <div class="label">Display / H1 — Newsreader 500</div>
+          <div class="specimen-display">El punto de encuentro del CUPA</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Display italic — énfasis</div>
+          <div class="specimen-display italic">entre vecinos</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Eyebrow — Hanken uppercase + red</div>
+          <div class="specimen-kicker">CUPA · Del Valle, CDMX</div>
+        </div>
+        <div class="type-row">
+          <div class="label">Body — Hanken ≥ 18px</div>
+          <p class="specimen-body">Aquí te enteras de lo que pasa, avisas a tus vecinos y encuentras quién puede ayudarte — oficios, locales e iniciativas del conjunto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ctas">
+      <div class="wrap">
+        <h2>CTAs</h2>
+        <p class="sec-desc">Máximo dos por viewport. Labels en español claro. Variantes alineadas a <code>Btn</code> en <code>src/sections.jsx</code>.</p>
+        <div class="btn-row" style="margin-bottom:1.25rem;">
+          <span class="btn btn-primary btn-lg">Ver avisos</span>
+          <span class="btn btn-green btn-lg">Buscar oficio</span>
+          <span class="btn btn-outline btn-lg">Registrarme</span>
+        </div>
+        <div style="background:linear-gradient(140deg,#5e0f0c,#7a1410 50%,#0d3e23);border-radius:20px;padding:1.5rem;margin-bottom:1.25rem;">
+          <div class="btn-row">
+            <span class="btn btn-cream btn-lg">Lo de hoy</span>
+            <span class="btn btn-ghost-cream btn-lg">Registrarme como vecino</span>
+          </div>
+        </div>
+        <div class="card ok">
+          <h3>Reglas</h3>
+          <ul>
+            <li><code>primary</code> (rojo) = acción principal de marca</li>
+            <li><code>green</code> = conectar / sumarse / WhatsApp</li>
+            <li><code>outline</code> = secundaria en fondo claro</li>
+            <li><code>creamSolid</code> / <code>ghostCream</code> = sobre hero rojo-verde</li>
+            <li>Pill 999 — mantener; no mezclar con radio cuadrado</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="componentes">
+      <div class="wrap">
+        <h2>Componentes</h2>
+        <p class="sec-desc">Patrones del peinado: nav corta, lista de avisos, puertas — no dashboard de cards.</p>
+
+        <div class="label specimen-kicker" style="margin-bottom:0.85rem;">Nav (3 puertas + sesión)</div>
+        <div class="nav-demo">
+          <div class="brand">CUPA <em>Inspira</em></div>
+          <div class="nav-links">
+            <span>Avisos</span>
+            <span>Oficios</span>
+            <span>Propuestas</span>
+          </div>
+          <div class="btn-row">
+            <span style="font-weight:600;font-size:0.95rem;text-decoration:underline;">Entrar</span>
+            <span class="btn btn-primary" style="padding:0.55rem 1.1rem;font-size:0.9rem;">Registrarme</span>
+          </div>
+        </div>
+
+        <div class="label specimen-kicker" style="margin:1.75rem 0 0.85rem;">Fila de aviso</div>
+        <div class="card" style="padding-top:0.35rem;padding-bottom:0.35rem;">
+          <div class="list-row">
+            <div class="when">Hoy</div>
+            <div>
+              <h4>Poposta: carta ante alcaldía</h4>
+              <p>Firmas cerradas. Seguimos el trámite del compostero comunitario.</p>
+            </div>
+            <span class="btn btn-green" style="padding:0.55rem 1.1rem;font-size:0.9rem;">Ver</span>
+          </div>
+          <div class="list-row" style="border-bottom:none;">
+            <div class="when">12 jun</div>
+            <div>
+              <h4>Junta de sección 3</h4>
+              <p>Sábado 10:00 · salón de usos múltiples.</p>
+            </div>
+            <span class="btn btn-outline" style="padding:0.55rem 1.1rem;font-size:0.9rem;">Detalle</span>
+          </div>
+        </div>
+
+        <div class="label specimen-kicker" style="margin:2rem 0 0.85rem;">Tarjeta “ahora” (estatus vivo)</div>
+        <div class="card green" style="max-width:28rem;">
+          <div class="q" style="color:rgba(251,243,220,0.75);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-bottom:0.65rem;">Ahora en el CUPA</div>
+          <h3 style="font-size:1.55rem;margin-bottom:0.5rem;">Poposta: de las firmas a la alcaldía</h3>
+          <p style="margin-bottom:1rem;">Cerramos firmas. Carta ante la delegación en curso.</p>
+          <span class="btn btn-cream" style="padding:0.55rem 1.1rem;font-size:0.9rem;">Ver aviso</span>
+        </div>
+
+        <div class="label specimen-kicker" style="margin:2rem 0 0.85rem;">Espaciado</div>
+        <div class="space-row">
+          <div class="space-item"><span>8px</span><div class="bar" style="width:8px"></div></div>
+          <div class="space-item"><span>16px</span><div class="bar" style="width:16px"></div></div>
+          <div class="space-item"><span>24px</span><div class="bar" style="width:24px"></div></div>
+          <div class="space-item"><span>48px</span><div class="bar" style="width:48px"></div></div>
+          <div class="space-item"><span>96px</span><div class="bar" style="width:96px"></div></div>
+        </div>
+        <p class="sec-desc" style="margin-top:1rem;margin-bottom:0;">Secciones ~3–4rem vertical en el peinado (menos aire que “landing de ONG”). Max contenido ~1180px.</p>
+      </div>
+    </section>
+
+    <section id="accesible">
+      <div class="wrap">
+        <h2>Accesible (mayores)</h2>
+        <p class="sec-desc">Reglas duras: si un vecino de 75 no lo lee de un vistazo, sobra.</p>
+        <table class="scale-table">
+          <thead>
+            <tr><th>Rol</th><th>Mínimo</th><th>Nota</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cuerpo</td><td>≥ 18px</td><td>Nunca contenido crítico &lt; 16px</td></tr>
+            <tr><td>Botón grande</td><td>≥ 17px · pad 16×28</td><td>Altura táctil ~44px</td></tr>
+            <tr><td>Nav</td><td>≥ 16px</td><td>Máx. 3 ítems de producto</td></tr>
+            <tr><td>Contraste</td><td>brown/cream · cream/red · cream/green</td><td>No texto soft sobre soft</td></tr>
+            <tr><td>Densidad</td><td>1 job / sección</td><td>Sin grids de 3 “explorar” en home</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="motion">
+      <div class="wrap">
+        <h2>Motion</h2>
+        <p class="sec-desc">Poca, legible, sin ruido.</p>
+        <div class="split">
+          <div class="card ok">
+            <h3>Sí</h3>
+            <ul>
+              <li>floatUp suave en hero / page head</li>
+              <li>Hover de botón (−1px)</li>
+              <li>Reveal corto en listas (opcional)</li>
+            </ul>
+          </div>
+          <div class="card bad">
+            <h3>No</h3>
+            <ul>
+              <li>Parallax / ken burns agresivo</li>
+              <li>Contadores animados de firmas fantasma</li>
+              <li>Glow, confeti, autoplay</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reglas">
+      <div class="wrap">
+        <h2>Do / Don’t</h2>
+        <p class="sec-desc">Si no está aquí, no se inventa en un commit de pasada.</p>
+        <div class="split">
+          <div class="card ok">
+            <h3>Do</h3>
+            <ul>
+              <li>Actualizar DESIGN.md + esta página primero</li>
+              <li>Reflejar tokens en <code>index.html</code> y <code>C</code></li>
+              <li>Mantener 3 puertas en nav y home</li>
+              <li>Copy de vecino, frases cortas</li>
+              <li>Contenido en <code>content/*.json</code></li>
+            </ul>
+          </div>
+          <div class="card bad">
+            <h3>Don’t</h3>
+            <ul>
+              <li>Nav de 6 links (Proyectos/Iniciativas/Fotos…)</li>
+              <li>Taxonomía ONG (Ecología/Emprendimiento/Comercio) como nav</li>
+              <li>Hero con manifiesto de 75 años</li>
+              <li>Cards de “explorar” que repiten la nav</li>
+              <li>Purple AI / dark mode / Inter</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Flujo de cambio:</strong> DESIGN.md + design-system.html → tokens en index.html / sections.jsx → peinar páginas → content JSON.<br />
+      Plantilla cartera: <code>../../_ops/09-DESIGN-SYSTEM.md</code> · Referencia: Redondas.
+    </div>
+  </footer>
+</body>
+</html>

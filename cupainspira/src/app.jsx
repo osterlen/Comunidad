@@ -40,7 +40,7 @@ function Nav({ route, go, user, onRegister, onLogin, onLogout }) {
     const active = isActive(href);
     return (
       <button key={label} onClick={opts.onClick || (() => go(href))} disabled={opts.disabled}
-        style={{ position: "relative", background: "none", border: "none", cursor: opts.disabled ? "default" : "pointer", padding: "8px 2px", fontFamily: "var(--sans)", fontWeight: 500, fontSize: 15, color: opts.disabled ? (overHero ? "rgba(251,243,220,.5)" : "var(--brown-soft)") : fg, opacity: 1, display: "inline-flex", alignItems: "center", gap: 7, whiteSpace: "nowrap" }}>
+        style={{ position: "relative", background: "none", border: "none", cursor: opts.disabled ? "default" : "pointer", padding: "10px 2px", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: opts.disabled ? (overHero ? "rgba(251,243,220,.5)" : "var(--brown-soft)") : fg, opacity: 1, display: "inline-flex", alignItems: "center", gap: 7, whiteSpace: "nowrap" }}>
         {label}
         {opts.badge && <span style={{ fontFamily: "var(--sans)", fontWeight: 700, fontSize: 9.5, color: "#b5701a", background: overHero ? "rgba(251,243,220,.92)" : "rgba(181,112,26,.14)", padding: "2px 6px", borderRadius: 999, letterSpacing: "0.05em" }}>PRONTO</span>}
         {opts.external && <IconArrow size={13} color={fg} />}
@@ -57,11 +57,10 @@ function Nav({ route, go, user, onRegister, onLogin, onLogout }) {
         </button>
 
         {!narrow && (
-        <nav style={{ display: "flex", alignItems: "center", gap: 24, overflowX: "auto", flex: 1, justifyContent: "flex-end", minWidth: 0 }}>
-          {navItem("Proyectos", "#/proyectos")}
-          {navItem("Iniciativas", "#/iniciativas")}
-          {navItem("Gaceta", "#/gaceta")}
-          {navItem("Fotos", "ig", { external: true, onClick: () => window.open("https://instagram.com/cupainspira", "_blank") })}
+        <nav style={{ display: "flex", alignItems: "center", gap: 28, overflowX: "auto", flex: 1, justifyContent: "flex-end", minWidth: 0 }}>
+          {navItem("Avisos", "#/avisos")}
+          {navItem("Oficios", "#/oficios")}
+          {navItem("Propuestas", "#/propuestas")}
         </nav>
         )}
 
@@ -93,11 +92,11 @@ function Nav({ route, go, user, onRegister, onLogin, onLogout }) {
       {narrow && openMenu && (
         <div style={{ background: C.cream, borderTop: "1px solid var(--line)", boxShadow: "0 20px 40px -24px rgba(91,74,54,.5)", animation: "floatUp .22s ease both" }}>
           <div className="wrap" style={{ padding: "16px 32px 24px", display: "flex", flexDirection: "column", gap: 4 }}>
-            {[["Proyectos", "#/proyectos"], ["Iniciativas", "#/iniciativas"], ["Gaceta", "#/gaceta"],
-              ["Ecología", "#/comunidad/ecologia"], ["Emprendimiento", "#/comunidad/emprendimiento"], ["Comercio", "#/comunidad/comercio"]].map(([t, h]) => (
-              <button key={h} onClick={() => go(h)} style={{ textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 12px", borderRadius: 9, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: route.startsWith(h) || route === h ? C.red : C.brown }}>{t}</button>
+            {[["Avisos", "#/avisos"], ["Oficios", "#/oficios"], ["Propuestas", "#/propuestas"],
+              ["La Gaceta", "#/gaceta"]].map(([t, h]) => (
+              <button key={h} onClick={() => go(h)} style={{ textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "12px 12px", borderRadius: 9, fontFamily: "var(--sans)", fontWeight: 600, fontSize: 18, color: route.startsWith(h) || route === h ? C.red : C.brown }}>{t}</button>
             ))}
-            <a href="https://instagram.com/cupainspira" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 12px", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 16, color: C.brown }}><IconInstagram size={18} /> Fotos · Instagram</a>
+            <a href="https://instagram.com/cupainspira" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 12px", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 17, color: C.brown }}><IconInstagram size={18} /> Instagram</a>
           </div>
         </div>
       )}
@@ -114,12 +113,12 @@ function Footer({ go }) {
       <div className="wrap" style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr 1fr 1fr", gap: 36, paddingBottom: 44 }}>
         <div>
           <Logo variant="horizontal" size={21} mono="#fbf3dc" />
-          <p style={{ fontFamily: "var(--sans)", fontSize: 14.5, color: "rgba(251,243,220,.72)", marginTop: 18, maxWidth: 280, lineHeight: 1.55 }}>
-            Plataforma vecinal del Centro Urbano Presidente Alemán (CUPA), Del Valle, Ciudad de México. Una comunidad con más de 75 años de historia.
+          <p style={{ fontFamily: "var(--sans)", fontSize: 16, color: "rgba(251,243,220,.72)", marginTop: 18, maxWidth: 300, lineHeight: 1.55 }}>
+            Punto de encuentro del Centro Urbano Presidente Alemán (CUPA), Del Valle, CDMX. Avisos, oficios y propuestas entre vecinos.
           </p>
         </div>
-        {[["Comunidad", [["Ecología", "#/comunidad/ecologia"], ["Emprendimiento", "#/comunidad/emprendimiento"], ["Comercio", "#/comunidad/comercio"]]],
-          ["Participa", [["Proyectos", "#/proyectos"], ["Iniciativas", "#/iniciativas"], ["La Gaceta", "#/gaceta"]]]].map(([title, links]) => (
+        {[["Encuentro", [["Avisos", "#/avisos"], ["Oficios", "#/oficios"], ["Propuestas", "#/propuestas"]]],
+          ["Más", [["La Gaceta", "#/gaceta"], ["Jardines y ecología", "#/comunidad/ecologia"]]]].map(([title, links]) => (
           <div key={title}>
             <div style={{ fontFamily: "var(--sans)", fontWeight: 600, fontSize: 12.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(251,243,220,.5)" }}>{title}</div>
             <ul style={{ listStyle: "none", marginTop: 14, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -501,8 +500,12 @@ function App() {
         <p style={{ fontFamily: "var(--sans)", fontSize: 17, color: C.brown }}>{verifying ? "Confirmando tu registro…" : "Verificando…"}</p>
       </div>
     );
-  } else if (path.startsWith("/comunidad/emprendimiento")) page = <EmprendimientoPage go={go} onContact={contact} />;
-  else if (path.startsWith("/comunidad/comercio")) page = <ComercioPage go={go} />;
+  }   else if (path.startsWith("/avisos")) page = <AvisosPage go={go} onRegister={() => openRegister()} />;
+  else if (path.startsWith("/oficios")) page = <OficiosPage go={go} onContact={contact} onRegister={() => openRegister()} />;
+  else if (path.startsWith("/propuestas")) page = isActiveUser(user)
+    ? <PropuestasPage user={user} votes={initVotes} onVote={initVote} comments={comments} onComment={addComment} />
+    : <GateScreen title="Propuestas del CUPA" intro="Para seguir iniciativas y sumarte, regístrate como vecino. Confirmamos edificio y contacto." onRegister={() => ensureAccess(() => go("#/propuestas"))} />;
+  else if (path.startsWith("/comunidad/emprendimiento") || path.startsWith("/comunidad/comercio")) page = <OficiosPage go={go} onContact={contact} onRegister={() => openRegister()} />;
   else if (path.startsWith("/comunidad")) page = <EcologiaPage go={go} onJoin={joinOrg} />;
   else if (path.startsWith("/proyectos")) page = isActiveUser(user)
     ? <ProyectosPage user={user} votes={projVotes} onVote={projVote} />
