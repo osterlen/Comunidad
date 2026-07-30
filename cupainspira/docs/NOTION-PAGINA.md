@@ -31,6 +31,9 @@ En Notion → carpeta **Pagina** (CUPA Inspira) → **New database** → nombre 
 
 Conecta la integración **CUPA Inspira WEB** a esta base.
 
+**Database ID (Contenido):** `3add41762a9781fca237c7cb8372f548`  
+(dentro de *VECINOS - PAGINA WEB* bajo CUPA INSPIRA)
+
 Copia el **Database ID** → secret del Worker:
 
 ```bash
