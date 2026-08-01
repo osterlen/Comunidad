@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Med Trabajo · Salud Ocupacional</title>
+<meta name="description" content="Salud ocupacional y control de cumplimiento para empresas en Tlaxcala y Puebla. Exámenes médicos, expedientes y reportes de auditoría.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1c4d78;
+  --navy-dark: #123350;
+  --gold: #f2b705;
+  --ink: #1c2b3a;
+  --paper: #f6f4ef;
+  --head: "Big Shoulders Display", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--navy); }
+a:hover { color: var(--gold); }
+img { max-width: 100%; height: auto; }
+
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; background: #fff;
+  border-bottom: 1px solid rgba(28,77,120,0.12);
+  position: sticky; top: 0; z-index: 10;
+}
+.header img { height: 32px; width: auto; object-fit: contain; }
+.header-cta {
+  font-weight: 600; font-size: 13px; background: var(--navy); color: #fff !important;
+  padding: 9px 16px; border-radius: 3px; text-decoration: none; white-space: nowrap;
+}
+.header-cta:hover { color: #fff !important; filter: brightness(1.08); }
+
+.hero {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 56px 22px 48px;
+  background: linear-gradient(180deg, #fff 0%, var(--paper) 100%);
+}
+.hero-logo { height: 96px; width: auto; object-fit: contain; margin-bottom: 24px; }
+.hero h1 {
+  font-family: var(--head); font-weight: 800; font-size: 34px; line-height: 1.06;
+  letter-spacing: -0.01em; color: var(--navy-dark); max-width: 880px; margin: 0 0 22px;
+  text-wrap: pretty;
+}
+.hero-sub {
+  font-size: 16px; line-height: 1.55; color: rgba(28,43,58,0.75);
+  max-width: 620px; margin: 0 0 36px; text-wrap: pretty;
+}
+.hero-actions { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+.btn-primary {
+  font-weight: 600; font-size: 17px; color: #1c2b3a !important; background: var(--gold);
+  padding: 16px 34px; border-radius: 3px; text-decoration: none;
+}
+.btn-primary:hover { color: #1c2b3a !important; filter: brightness(1.05); }
+.btn-secondary { font-weight: 500; font-size: 15px; color: var(--navy); text-decoration: none; }
+
+.section { padding: 48px 28px; background: var(--paper); }
+.section-alt { padding: 48px 28px; background: var(--navy-dark); }
+.eyebrow {
+  font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold); margin: 0 0 12px;
+}
+.h2 {
+  font-family: var(--head); font-weight: 700; font-size: 27px; line-height: 1.15;
+  color: var(--navy-dark); margin: 0 0 40px; max-width: 760px; text-wrap: pretty;
+}
+.h2-light {
+  font-family: var(--head); font-weight: 700; font-size: 27px; line-height: 1.15;
+  color: #fff; margin: 0 0 20px; max-width: 760px; text-wrap: pretty;
+}
+
+.grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 36px; }
+.card {
+  background: #fff; border: 1px solid rgba(28,77,120,0.14); border-radius: 4px; padding: 28px 24px;
+}
+.card-tag { font-family: var(--head); font-weight: 700; font-size: 19px; color: var(--navy); margin: 0 0 12px; }
+.card-text { font-size: 15px; line-height: 1.55; color: rgba(28,43,58,0.8); margin: 0; }
+.anti {
+  font-size: 15px; line-height: 1.6; color: rgba(28,43,58,0.6); max-width: 720px;
+  font-style: italic; margin: 0;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 36px; }
+.h3 { font-family: var(--head); font-weight: 700; font-size: 24px; color: var(--gold); margin: 0 0 20px; }
+.ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 13px; }
+.li {
+  font-size: 16px; color: #e8edf2; padding-left: 18px;
+  border-left: 2px solid rgba(242,183,5,0.5); padding-bottom: 2px;
+}
+
+.pasos { display: grid; grid-template-columns: 1fr; gap: 28px; }
+.paso { border-top: 3px solid var(--gold); padding-top: 18px; }
+.paso-num { font-family: var(--head); font-weight: 700; font-size: 15px; color: rgba(28,43,58,0.35); letter-spacing: 0.05em; }
+.paso-title { font-family: var(--head); font-weight: 700; font-size: 22px; color: var(--navy-dark); margin: 8px 0 10px; }
+.paso-text { font-size: 15px; line-height: 1.55; color: rgba(28,43,58,0.75); margin: 0; }
+
+.zona-text {
+  font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.8);
+  max-width: 620px; margin: 0 0 32px;
+}
+.map-wrap { border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); }
+.map-wrap iframe { width: 100%; height: 260px; border: 0; display: block; }
+
+.logos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 36px; }
+.logo-block {
+  font-family: var(--head); font-weight: 700; font-size: 15px; text-align: center;
+  color: var(--navy); background: #fff; border: 1px dashed rgba(28,77,120,0.35);
+  border-radius: 4px; padding: 26px 12px; letter-spacing: 0.02em;
+}
+.quote {
+  background: #fff; border-left: 4px solid var(--gold); padding: 26px 28px; max-width: 640px;
+}
+.quote p { font-style: italic; font-size: 16px; color: rgba(28,43,58,0.65); margin: 0; }
+
+.cta {
+  padding: 52px 28px; background: var(--navy);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.cta h2 {
+  font-family: var(--head); font-weight: 800; font-size: 28px; color: #fff; margin: 0 0 12px;
+}
+.cta-sub { font-size: 16px; color: rgba(255,255,255,0.75); margin: 0 0 32px; }
+.cta .btn-primary { margin-bottom: 32px; padding: 17px 38px; }
+.cta-info { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.cta-info a { font-size: 15px; color: #fff; text-decoration: underline; }
+.cta-info a:hover { color: var(--gold); }
+.cta-dir { font-size: 15px; color: rgba(255,255,255,0.7); }
+
+.footer {
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  padding: 32px 20px; background: #fff; border-top: 1px solid rgba(28,77,120,0.12);
+}
+.footer img { height: 34px; width: auto; object-fit: contain; opacity: 0.9; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 14px; color: var(--navy); text-decoration: none; }
+.footer-copy { font-size: 12px; color: rgba(28,43,58,0.45); margin: 0; }
+
+@media (min-width: 880px) {
+  .header { padding: 18px 64px; }
+  .header img { height: 40px; }
+  .header-cta { font-size: 15px; padding: 10px 22px; }
+  .hero { padding: 96px 64px 88px; }
+  .hero-logo { height: 150px; margin-bottom: 36px; }
+  .hero h1 { font-size: 56px; }
+  .hero-sub { font-size: 19px; }
+  .hero-actions { flex-direction: row; }
+  .section, .section-alt, .cta { padding-left: 64px; padding-right: 64px; }
+  .section, .section-alt { padding-top: 84px; padding-bottom: 84px; }
+  .cta { padding-top: 90px; padding-bottom: 90px; }
+  .h2, .h2-light { font-size: 38px; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: 1fr 1fr; gap: 56px; }
+  .pasos { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .map-wrap iframe { height: 380px; }
+  .logos { grid-template-columns: repeat(4, 1fr); }
+  .cta h2 { font-size: 42px; }
+  .cta-info { flex-direction: row; gap: 28px; }
+  .footer { padding: 40px 64px; }
+}
+</style>
+</head>
+<body>
+  <header class="header">
+    <img src="uploads/logo_med-trabajo.png" alt="Med Trabajo · Salud Ocupacional">
+    <a class="header-cta" href="https://wa.me/524445482208?text=Hola%20Med%20Trabajo%2C%20vi%20su%20sitio%20y%20me%20gustar%C3%ADa%20cotizar" target="_blank" rel="noopener">WhatsApp</a>
+  </header>
+
+  <section class="hero">
+    <img class="hero-logo" src="uploads/logo_med-trabajo.png" alt="Med Trabajo">
+    <h1>Salud ocupacional en orden, para empresas que no pueden improvisar.</h1>
+    <p class="hero-sub">Exámenes médicos, expedientes y control de cumplimiento para empresas de Tlaxcala y Puebla. Sin pendientes, sin sorpresas en la auditoría.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://wa.me/524445482208?text=Hola%20Med%20Trabajo%2C%20vi%20su%20sitio%20y%20me%20gustar%C3%ADa%20cotizar" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+      <a class="btn-secondary" href="#servicios">Ver qué hacemos ↓</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="eyebrow">Para quién</p>
+    <h2 class="h2">Si esto le suena familiar, es con usted con quien queremos hablar.</h2>
+    <div class="grid-3">
+      <div class="card">
+        <p class="card-tag">Recursos Humanos</p>
+        <p class="card-text">Necesita expedientes en orden y una respuesta rápida cuando llega una auditoría.</p>
+      </div>
+      <div class="card">
+        <p class="card-tag">Seguridad e Higiene</p>
+        <p class="card-text">Requiere cumplimiento verificable, con documentos que sostengan cualquier revisión.</p>
+      </div>
+      <div class="card">
+        <p class="card-tag">Dueño de planta mediana</p>
+        <p class="card-text">Quiere resolver la salud ocupacional una vez y dejar de pensarlo cada mes.</p>
+      </div>
+    </div>
+    <p class="anti">No somos la cadena nacional más grande ni la opción más barata del mercado. Somos el equipo que conoce su planta, revisa cada expediente y no le deja pendientes.</p>
+  </section>
+
+  <section id="servicios" class="section-alt">
+    <p class="eyebrow">Qué hacemos</p>
+    <h2 class="h2-light">Dos frentes, un solo responsable.</h2>
+    <div class="grid-2">
+      <div>
+        <h3 class="h3">A. Salud ocupacional</h3>
+        <ul class="ul">
+          <li class="li">Exámenes médicos de ingreso</li>
+          <li class="li">Exámenes periódicos</li>
+          <li class="li">Exámenes de egreso</li>
+          <li class="li">Expedientes clínicos completos</li>
+          <li class="li">Capacitación en salud ocupacional</li>
+          <li class="li">Apoyo en trámites STPS / IMSS / SSA</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="h3">B. Control y seguimiento</h3>
+        <ul class="ul">
+          <li class="li">Cumplimiento por colaborador</li>
+          <li class="li">Expedientes centralizados</li>
+          <li class="li">Reportes listos para auditoría</li>
+          <li class="li">Alertas de vigencias y renovaciones</li>
+          <li class="li">Seguimiento por planta o por proyecto</li>
+          <li class="li">Entrega ordenada de resultados</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="eyebrow">Cómo trabajamos</p>
+    <h2 class="h2">Tres pasos, sin vueltas.</h2>
+    <div class="pasos">
+      <div class="paso">
+        <span class="paso-num">01</span>
+        <h3 class="paso-title">Contacto</h3>
+        <p class="paso-text">Nos escribe por WhatsApp y nos cuenta qué necesita su empresa.</p>
+      </div>
+      <div class="paso">
+        <span class="paso-num">02</span>
+        <h3 class="paso-title">Diagnóstico rápido</h3>
+        <p class="paso-text">Revisamos su plantilla y lo que exige su giro, sin compromiso.</p>
+      </div>
+      <div class="paso">
+        <span class="paso-num">03</span>
+        <h3 class="paso-title">Cotización</h3>
+        <p class="paso-text">Le proponemos jornada en planta o atención en sitio, con fechas claras.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <p class="eyebrow">Zona de cobertura</p>
+    <h2 class="h2-light">Tlaxcala · Puebla · CDMX por proyecto</h2>
+    <p class="zona-text">Trabajamos de forma regular en Tlaxcala y Puebla. Para proyectos en la Ciudad de México, coordinamos jornadas por acuerdo previo.</p>
+    <div class="map-wrap">
+      <iframe title="Ubicación Med Trabajo" src="https://maps.google.com/maps?q=Carretera%20Federal%20Tlaxcala-Puebla%2C%20Acuitlapilco%2C%20Tlaxcala&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="eyebrow">Empresas que ya trabajan con nosotros</p>
+    <div class="logos">
+      <div class="logo-block">Manufactura</div><div class="logo-block">Logística y transporte</div><div class="logo-block">Agroindustria</div><div class="logo-block">Construcción</div>
+    </div>
+    <div class="quote">
+      <p>Espacio reservado para el testimonio de un cliente.</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Hablemos de su empresa.</h2>
+    <p class="cta-sub">Escríbanos y le respondemos el mismo día.</p>
+    <a class="btn-primary" href="https://wa.me/524445482208?text=Hola%20Med%20Trabajo%2C%20vi%20su%20sitio%20y%20me%20gustar%C3%ADa%20cotizar" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+    <div class="cta-info">
+      <a href="mailto:contacto@medtrabajo.com">contacto@medtrabajo.com</a>
+      <span class="cta-dir">Carretera Federal Tlaxcala–Puebla, Acuitlapilco, Tlaxcala</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <img src="uploads/logo_med-trabajo.png" alt="Med Trabajo">
+    <div class="footer-links">
+      <a href="https://wa.me/524445482208?text=Hola%20Med%20Trabajo%2C%20vi%20su%20sitio%20y%20me%20gustar%C3%ADa%20cotizar" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:contacto@medtrabajo.com">Correo</a>
+      <a href="https://www.facebook.com/MedTrabajo" target="_blank" rel="noopener">Facebook</a>
+    </div>
+    <p class="footer-copy">© 2026 Med Trabajo · Salud Ocupacional</p>
+  </footer>
+</body>
+</html>
