@@ -19,5 +19,6 @@ Editar gaceta/avisos CUPA: `cupainspira/content/*.json` → `./deploy.sh`
 | Path | Qué es |
 |------|--------|
 | `med-trabajo/` | ~~Espejo~~ **retirado** — prod en medtrabajo.com (CF Pages). No republicar aquí. |
+| `escuela-dupeyron/` | Espejo **publish-only** (staging noindex) — fuente: `Escuela-Dupeyron/`. No editar aquí. |
 
 elgorila.org puede hospedar paths ajenos; eso no los mete en la marca Visiones.

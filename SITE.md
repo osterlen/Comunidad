@@ -34,7 +34,7 @@
 - **Canales actuales:** TBD
 - **Canales deseados:** TBD
 - **CTA principal de la web:** Según sección (hub con acceso; CUPA pública)
-- **Notas de estrategia:** TBD · espejo `med-trabajo/` retirado (cliente en dominio propio)
+- **Notas de estrategia:** TBD · espejo `med-trabajo/` retirado · espejo `escuela-dupeyron/` staging publish-only
 
 ## 6. Presencia web / indexación
 
