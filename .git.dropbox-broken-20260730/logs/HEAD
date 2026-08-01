@@ -1,8 +1,0 @@
-0000000000000000000000000000000000000000 e0fb6b918f98d5b90b5398d9856e7353f48cb4b7 osterlen <osterlen@users.noreply.github.com> 1784756300 -0600	commit (initial): Initial Visiones hub cascarón with public CUPA Inspira.
-e0fb6b918f98d5b90b5398d9856e7353f48cb4b7 311d2644714c515e3320ee4aaf496cf45bd169da osterlen <osterdupeyron@gmail.com> 1784756583 -0600	reset: moving to origin/main
-311d2644714c515e3320ee4aaf496cf45bd169da de86543a0ba9ae2204a0eab5bd6263b171e46cc1 osterlen <osterdupeyron@gmail.com> 1784757072 -0600	reset: moving to origin/main
-de86543a0ba9ae2204a0eab5bd6263b171e46cc1 bd438a7c6f684debb2adf84bc360c949157d7818 osterlen <osterlen@users.noreply.github.com> 1784757463 -0600	commit: Temporarily clear custom domain to re-issue TLS certificate
-bd438a7c6f684debb2adf84bc360c949157d7818 5874c20fbbf3ee92cd2542b8fcd1365917000c22 osterlen <osterlen@users.noreply.github.com> 1784757473 -0600	commit: Restore elgorila.org custom domain for HTTPS certificate
-5874c20fbbf3ee92cd2542b8fcd1365917000c22 a1ecd8817f097c8d458d41baa04076a222b6894d osterlen <osterdupeyron@gmail.com> 1784835282 -0600	commit: Publish CUPA canal vecinal: contenido por sección, registro API, edificios A–V y nav limpia.
-a1ecd8817f097c8d458d41baa04076a222b6894d a33444d004c00dc86fa1a2771c0e2d6269d19edb osterlen <osterdupeyron@gmail.com> 1784839380 -0600	commit: Wire CUPA web to live cupa-api Worker; privacidad, términos y registro tipo vecino/comercio.
-a33444d004c00dc86fa1a2771c0e2d6269d19edb 7f9a9a54f9b823f856578a57d5b8e0155def0ef9 osterlen <osterdupeyron@gmail.com> 1784839431 -0600	commit (amend): Wire CUPA web to live cupa-api Worker; privacidad, términos y registro tipo vecino/comercio.

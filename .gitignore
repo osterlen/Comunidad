@@ -11,3 +11,5 @@ _archivo/
 cupainspira/docs/.secrets*
 node_modules/
 **/node_modules/
+
+.git.dropbox-broken-*
