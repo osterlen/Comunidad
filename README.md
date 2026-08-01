@@ -1,9 +1,23 @@
-# Visiones AC (elgorila.org)
+# Visiones — universo Visiones AC (elgorila.org)
 
-Hub de Visiones AC + proyectos piloto.
+Hub de Visiones AC + proyectos piloto **de esta org**.  
+Repo en Dropbox: `PAGINAS WEB/Visiones`
 
-- `/` — Hub (contraseña)
-- `/cupainspira/` — Plataforma vecinal **pública**
-- Editar gaceta/avisos: `cupainspira/content/*.json` luego `./deploy.sh`
+## Productos de este universo
 
-Repo de trabajo en Dropbox: `PAGINAS WEB/VISIONES`
+| Path | Qué es |
+|------|--------|
+| `/` | Hub (contraseña) |
+| `/cupainspira/` | CUPA — plataforma vecinal **pública** |
+| `aguaparatodos`, `composteros`, `consumo`, … | Pilotos / secciones Visiones |
+| `workers/` | APIs (p. ej. cupa-api) |
+
+Editar gaceta/avisos CUPA: `cupainspira/content/*.json` → `./deploy.sh`
+
+## No es de este universo
+
+| Path | Qué es |
+|------|--------|
+| `med-trabajo/` | ~~Espejo~~ **retirado** — prod en medtrabajo.com (CF Pages). No republicar aquí. |
+
+elgorila.org puede hospedar paths ajenos; eso no los mete en la marca Visiones.

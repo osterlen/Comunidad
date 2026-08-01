@@ -1,6 +1,6 @@
 # Contenido editable — CUPA Inspira
 
-Edita estos JSON y publica con `./deploy.sh` desde la raíz de VISIONES.
+Edita estos JSON y publica con `./deploy.sh` desde la raíz de Visiones.
 
 | Archivo | Sección |
 |---------|---------|
