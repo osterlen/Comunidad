@@ -295,6 +295,7 @@
   <script>
     window.FORM_CONFIG = {
       whatsappTo: "5215512037223", // Os — 55 1203 7223
+      apiBase: "https://agencia-api.dupeyronosterlen.workers.dev",
       storageKey: "agencia-cuenta-google-v1"
     };
   </script>
@@ -303,7 +304,7 @@
     <header class="top">
       <p class="kicker">Onboarding · Agencia</p>
       <h1>Datos para la cuenta Google</h1>
-      <p class="sub">Toma ~3 minutos. Al final se envía por WhatsApp — sin ese paso no nos llegan los datos.</p>
+      <p class="sub">Toma ~3 minutos. Al final se guarda en nuestra base; WhatsApp es opcional.</p>
       <div class="progress" id="progress" aria-hidden="true">
         <span></span><span></span><span></span><span></span>
       </div>
@@ -508,17 +509,18 @@
       <section class="card" data-step="4" hidden>
         <p class="step-label">Listo</p>
         <h2>Revisa y envía</h2>
-        <div class="done-box" id="doneBox">Toca <strong>Enviar por WhatsApp</strong> para mandarnos el resumen. Si falta algo, usa “Atrás”.</div>
+        <div class="done-box" id="doneBox">Revisa y toca <strong>Guardar</strong>. Queda en nuestra base para crear la cuenta / correo.</div>
         <textarea class="preview" id="preview" readonly></textarea>
         <div class="nav" style="flex-wrap: wrap;">
           <button type="button" class="ghost" data-prev>Atrás</button>
-          <button type="button" class="secondary" id="copyBtn">Copiar</button>
-          <button type="button" class="primary" id="waBtn">Enviar por WhatsApp</button>
+          <button type="button" class="secondary" id="waBtn">WhatsApp</button>
+          <button type="button" class="primary" id="saveBtn">Guardar</button>
         </div>
+        <p class="hint" id="saveStatus" style="margin-top:12px;"></p>
       </section>
     </form>
 
-    <footer class="note">Los datos solo llegan si envías por WhatsApp (o copias y pegas)</footer>
+    <footer class="note">Guardado en la base de la agencia · WhatsApp opcional</footer>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
@@ -729,6 +731,44 @@
         return text;
       };
 
+      const buildPayload = () => {
+        const pais = val("pais") === "Otro" ? (val("paisOtro") || "Otro") : val("pais");
+        const dominio =
+          val("dominioTipo") === "Ya tenemos"
+            ? { tipo: "Ya tenemos", valor: val("dominio") }
+            : { tipo: val("dominioTipo"), valor: "" };
+        const cuentaPrevia = {
+          tipo: val("cuentaPrevia"),
+          detalle: val("cuentaPrevia").startsWith("Sí") ? val("cuentaPreviaDetalle") : "",
+        };
+        const rfc =
+          val("rfcTipo") === "Sí tengo"
+            ? { tipo: "Sí tengo", valor: val("rfc") }
+            : { tipo: val("rfcTipo"), valor: "" };
+        return {
+          empresa: val("empresa"),
+          pais,
+          empleados: val("empleados"),
+          dominio,
+          giro: val("giro"),
+          titular: val("titular"),
+          emailRecup: val("emailRecup"),
+          tel: val("tel"),
+          emailDeseado: val("emailDeseado"),
+          cuentaPrevia,
+          razonSocial: val("razonSocial"),
+          rfc,
+          direccion: val("direccion"),
+          pago: val("pago"),
+          titularLegal: val("titularLegal") === "Otro" ? val("titularLegalOtro") : val("titularLegal"),
+          operador: val("operador") === "Otro" ? val("operadorOtro") : val("operador"),
+          emailOs: val("emailOs"),
+          notas: val("notas"),
+          source: "elgorila.org/agencia",
+          submittedAtClient: new Date().toISOString(),
+        };
+      };
+
       form.addEventListener("change", () => { syncConditionals(); persist(); });
       form.addEventListener("input", persist);
 
@@ -755,14 +795,39 @@
         }
       });
 
-      document.getElementById("copyBtn").addEventListener("click", async () => {
-        const text = buildPreview();
+      const saveStatus = document.getElementById("saveStatus");
+      const saveBtn = document.getElementById("saveBtn");
+
+      saveBtn.addEventListener("click", async () => {
+        const api = (cfg.apiBase || "").replace(/\/$/, "");
+        if (!api || api.includes("REPLACE")) {
+          saveStatus.textContent = "API aún no configurada. Usa WhatsApp por ahora.";
+          return;
+        }
+        saveBtn.disabled = true;
+        saveStatus.textContent = "Guardando…";
         try {
-          await navigator.clipboard.writeText(text);
-          showToast("Copiado");
-        } catch (_) {
-          document.getElementById("preview").select();
-          showToast("Selecciona y copia");
+          const payload = buildPayload();
+          const res = await fetch(`${api}/submit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || res.statusText);
+          saveStatus.textContent = `Guardado ✓ (${data.id || "ok"}). Ya lo tenemos para crear la cuenta.`;
+          document.getElementById("doneBox").innerHTML =
+            "Listo — quedó en nuestra base. Puedes cerrar o avisar por WhatsApp si quieres.";
+          try {
+            localStorage.removeItem(cfg.storageKey || "agencia-form");
+          } catch (_) {}
+          showToast("Guardado");
+        } catch (err) {
+          saveStatus.textContent = "No se pudo guardar. Prueba WhatsApp o reintenta.";
+          showToast("Error al guardar");
+          console.error(err);
+        } finally {
+          saveBtn.disabled = false;
         }
       });
 
@@ -781,11 +846,6 @@
           showToast("Copia el resumen y pégalo en WP");
         }
       });
-
-      const doneBox = document.getElementById("doneBox");
-      if (doneBox && !(cfg.whatsappTo || "").replace(/\D/g, "")) {
-        doneBox.innerHTML = "Aún no hay número configurado: toca <strong>Copiar</strong> y pega el texto en el WhatsApp de Os. (Os: pon tu número en <code>FORM_CONFIG.whatsappTo</code>.)";
-      }
 
       restore();
       renderStep();
