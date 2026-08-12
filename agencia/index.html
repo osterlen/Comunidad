@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f1f1a" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Cuenta Google — datos de la empresa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Franklin:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1f1a;
+      --bg-2: #163028;
+      --surface: #f3efe6;
+      --ink: #12201b;
+      --muted: #5c6b64;
+      --line: #d4cdc0;
+      --accent: #1f8a5b;
+      --accent-ink: #063825;
+      --warn: #b45309;
+      --radius: 14px;
+      --shadow: 0 18px 40px rgba(8, 24, 18, 0.28);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #245c45 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #0a3d2e 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .shell {
+      width: min(560px, 100%);
+      margin: 0 auto;
+      padding: 20px 16px calc(28px + var(--safe-b));
+    }
+
+    header.top {
+      color: #e8f2ec;
+      padding: 8px 4px 18px;
+    }
+    header.top p.kicker {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+    header.top h1 {
+      margin: 0;
+      font-family: "Libre Franklin", sans-serif;
+      font-size: clamp(1.45rem, 5vw, 1.85rem);
+      line-height: 1.15;
+      font-weight: 700;
+    }
+    header.top .sub {
+      margin: 10px 0 0;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #c5d9ce;
+    }
+
+    .progress {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin: 8px 0 16px;
+    }
+    .progress span {
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.18);
+      transition: background 0.25s ease;
+    }
+    .progress span.on { background: #6ed3a2; }
+    .progress span.done { background: #2f9e6c; }
+
+    .card {
+      background: var(--surface);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+      padding: 22px 18px 18px;
+      animation: rise 0.35s ease both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .step-label {
+      margin: 0 0 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .card h2 {
+      margin: 0 0 18px;
+      font-family: "Libre Franklin", sans-serif;
+      font-size: 1.25rem;
+      line-height: 1.25;
+    }
+
+    .field { margin-bottom: 18px; }
+    .field:last-of-type { margin-bottom: 8px; }
+    label.main {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    label.main .req { color: var(--accent); }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      background: #fffdf8;
+      border-radius: 12px;
+      padding: 13px 14px;
+      font: inherit;
+      font-size: 1rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31, 138, 91, 0.18);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .hint { margin: 6px 0 0; font-size: 0.8rem; color: var(--muted); }
+
+    .choices {
+      display: grid;
+      gap: 8px;
+    }
+    .choices.compact {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 420px) {
+      .choices.compact { grid-template-columns: 1fr; }
+    }
+
+    .choice {
+      position: relative;
+    }
+    .choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .choice span {
+      display: block;
+      padding: 12px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      background: #fffdf8;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.12s;
+      user-select: none;
+    }
+    .choice input:checked + span {
+      border-color: var(--accent);
+      background: #e5f6ee;
+      color: var(--accent-ink);
+      font-weight: 600;
+    }
+    .choice span:active { transform: scale(0.98); }
+
+    .conditional {
+      display: none;
+      margin-top: 10px;
+    }
+    .conditional.show { display: block; animation: rise 0.25s ease both; }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    button {
+      font: inherit;
+      font-weight: 600;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.15s;
+    }
+    button:active { transform: scale(0.98); }
+    button.ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--line);
+      flex: 0 0 auto;
+    }
+    button.primary {
+      flex: 1;
+      background: var(--accent);
+      color: #fff;
+    }
+    button.primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    button.secondary {
+      flex: 1;
+      background: var(--ink);
+      color: #f3efe6;
+    }
+
+    .err {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #fff1e6;
+      color: var(--warn);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .err.show { display: block; }
+
+    .done-box {
+      background: #e8f6ef;
+      border: 1.5px solid #b7e0cb;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+    .preview {
+      width: 100%;
+      min-height: 220px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      background: #121a17;
+      color: #d7ebe0;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(24px + var(--safe-b));
+      transform: translateX(-50%) translateY(20px);
+      background: #063825;
+      color: #e8f6ef;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 20;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    footer.note {
+      margin-top: 14px;
+      text-align: center;
+      color: #9bb5a8;
+      font-size: 0.78rem;
+    }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <!--
+    CONFIG: pon tu número con código país, sin + ni espacios (ej. 5215512345678).
+    Si queda vacío, el botón WhatsApp solo copia el texto.
+  -->
+  <script>
+    window.FORM_CONFIG = {
+      whatsappTo: "5215512037223", // Os — 55 1203 7223
+      storageKey: "agencia-cuenta-google-v1"
+    };
+  </script>
+
+  <div class="shell">
+    <header class="top">
+      <p class="kicker">Onboarding · Agencia</p>
+      <h1>Datos para la cuenta Google</h1>
+      <p class="sub">Toma ~3 minutos. Al final se envía por WhatsApp — sin ese paso no nos llegan los datos.</p>
+      <div class="progress" id="progress" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </header>
+
+    <form id="form" novalidate>
+      <!-- STEP 0: Empresa -->
+      <section class="card" data-step="0">
+        <p class="step-label">Paso 1 de 4</p>
+        <h2>La empresa</h2>
+
+        <div class="field">
+          <label class="main" for="empresa">Nombre de la empresa <span class="req">*</span></label>
+          <input id="empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Como debe aparecer en Google" />
+        </div>
+
+        <div class="field">
+          <label class="main">País <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="pais" value="México" required /><span>México</span></label>
+            <label class="choice"><input type="radio" name="pais" value="Otro" /><span>Otro</span></label>
+          </div>
+          <div class="conditional" id="paisOtroWrap">
+            <input id="paisOtro" name="paisOtro" type="text" placeholder="¿Cuál país?" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main">Cantidad de empleados <span class="req">*</span></label>
+          <div class="choices compact" id="empleados">
+            <label class="choice"><input type="radio" name="empleados" value="Solo yo" required /><span>Solo yo</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="2–9" /><span>2–9</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="10–19" /><span>10–19</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="20–49" /><span>20–49</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="50–99" /><span>50–99</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="100–199" /><span>100–199</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="200–349" /><span>200–349</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="350–999" /><span>350–999</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="1,000–2,999" /><span>1,000–2,999</span></label>
+            <label class="choice"><input type="radio" name="empleados" value="3,000+" /><span>3,000+</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main">Dominio <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="dominioTipo" value="Ya tenemos" required /><span>Ya tenemos dominio</span></label>
+            <label class="choice"><input type="radio" name="dominioTipo" value="Hay que comprar / definir" /><span>Hay que comprar / definir</span></label>
+            <label class="choice"><input type="radio" name="dominioTipo" value="Por ahora solo Gmail" /><span>Por ahora solo Gmail</span></label>
+          </div>
+          <div class="conditional" id="dominioWrap">
+            <input id="dominio" name="dominio" type="text" placeholder="ej. miempresa.com" inputmode="url" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main" for="giro">Giro (1 frase) <span class="req">*</span></label>
+          <input id="giro" name="giro" type="text" required placeholder="Qué hace la empresa" />
+        </div>
+
+        <p class="err" data-err></p>
+        <div class="nav">
+          <button type="button" class="primary" data-next>Siguiente</button>
+        </div>
+      </section>
+
+      <!-- STEP 1: Titular -->
+      <section class="card" data-step="1" hidden>
+        <p class="step-label">Paso 2 de 4</p>
+        <h2>Titular de la cuenta</h2>
+
+        <div class="field">
+          <label class="main" for="titular">Nombre completo <span class="req">*</span></label>
+          <input id="titular" name="titular" type="text" autocomplete="name" required />
+        </div>
+
+        <div class="field">
+          <label class="main" for="emailRecup">Correo de recuperación <span class="req">*</span></label>
+          <input id="emailRecup" name="emailRecup" type="email" autocomplete="email" required placeholder="Uno que ya usen y puedan abrir" />
+        </div>
+
+        <div class="field">
+          <label class="main" for="tel">Celular (2FA) <span class="req">*</span></label>
+          <input id="tel" name="tel" type="tel" autocomplete="tel" required placeholder="+52 …" />
+          <p class="hint">Con lada país. Ahí llegan los códigos de Google.</p>
+        </div>
+
+        <div class="field">
+          <label class="main" for="emailDeseado">Correo deseado para la cuenta empresa <span class="req">*</span></label>
+          <input id="emailDeseado" name="emailDeseado" type="text" required placeholder="admin@sudominio.com o Gmail dedicado" />
+        </div>
+
+        <div class="field">
+          <label class="main">¿Ya existe cuenta Google / Workspace / Business? <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="cuentaPrevia" value="No — crear de cero" required /><span>No — crear de cero</span></label>
+            <label class="choice"><input type="radio" name="cuentaPrevia" value="Sí, Gmail" /><span>Sí, Gmail</span></label>
+            <label class="choice"><input type="radio" name="cuentaPrevia" value="Sí, Workspace" /><span>Sí, Workspace</span></label>
+            <label class="choice"><input type="radio" name="cuentaPrevia" value="Sí, ya hay ficha(s) Maps" /><span>Sí, ya hay ficha(s) Maps</span></label>
+          </div>
+          <div class="conditional" id="cuentaPreviaWrap">
+            <textarea id="cuentaPreviaDetalle" name="cuentaPreviaDetalle" placeholder="Gmail, nombres de fichas o URLs"></textarea>
+          </div>
+        </div>
+
+        <p class="err" data-err></p>
+        <div class="nav">
+          <button type="button" class="ghost" data-prev>Atrás</button>
+          <button type="button" class="primary" data-next>Siguiente</button>
+        </div>
+      </section>
+
+      <!-- STEP 2: Legal -->
+      <section class="card" data-step="2" hidden>
+        <p class="step-label">Paso 3 de 4</p>
+        <h2>Legal y pago</h2>
+
+        <div class="field">
+          <label class="main" for="razonSocial">Razón social (si es distinta)</label>
+          <input id="razonSocial" name="razonSocial" type="text" placeholder="Opcional" />
+        </div>
+
+        <div class="field">
+          <label class="main">RFC <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="rfcTipo" value="Aún no / no aplica" required /><span>Aún no / no aplica</span></label>
+            <label class="choice"><input type="radio" name="rfcTipo" value="Sí tengo" /><span>Sí tengo</span></label>
+          </div>
+          <div class="conditional" id="rfcWrap">
+            <input id="rfc" name="rfc" type="text" placeholder="RFC" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main" for="direccion">Dirección fiscal <span class="req">*</span></label>
+          <textarea id="direccion" name="direccion" required placeholder="Calle, número, colonia, CP, ciudad, estado"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="main">Método de pago en Google <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="pago" value="Tarjeta del socio" required /><span>Tarjeta del socio</span></label>
+            <label class="choice"><input type="radio" name="pago" value="Otro" /><span>Otro</span></label>
+            <label class="choice"><input type="radio" name="pago" value="Todavía no — solo cuenta gratis" /><span>Todavía no — solo cuenta gratis</span></label>
+          </div>
+        </div>
+
+        <p class="err" data-err></p>
+        <div class="nav">
+          <button type="button" class="ghost" data-prev>Atrás</button>
+          <button type="button" class="primary" data-next>Siguiente</button>
+        </div>
+      </section>
+
+      <!-- STEP 3: Roles + envío -->
+      <section class="card" data-step="3" hidden>
+        <p class="step-label">Paso 4 de 4</p>
+        <h2>Quién opera</h2>
+
+        <div class="field">
+          <label class="main">Titular legal de la cuenta <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="titularLegal" value="Socio" required /><span>Socio</span></label>
+            <label class="choice"><input type="radio" name="titularLegal" value="Razón social" /><span>Razón social</span></label>
+            <label class="choice"><input type="radio" name="titularLegal" value="Otro" /><span>Otro</span></label>
+          </div>
+          <div class="conditional" id="titularLegalWrap">
+            <input id="titularLegalOtro" name="titularLegalOtro" type="text" placeholder="¿Quién?" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main">Quién opera el día a día (SEO / fichas) <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="operador" value="Os (Manager)" required /><span>Os (Manager)</span></label>
+            <label class="choice"><input type="radio" name="operador" value="Socio + Os" /><span>Socio + Os</span></label>
+            <label class="choice"><input type="radio" name="operador" value="Otro" /><span>Otro</span></label>
+          </div>
+          <div class="conditional" id="operadorWrap">
+            <input id="operadorOtro" name="operadorOtro" type="text" placeholder="¿Quién?" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main" for="emailOs">Correo de Os para invitar como Manager <span class="req">*</span></label>
+          <input id="emailOs" name="emailOs" type="email" required placeholder="correo@…" />
+        </div>
+
+        <div class="field">
+          <label class="main" for="notas">Notas</label>
+          <textarea id="notas" name="notas" placeholder="Opcional"></textarea>
+        </div>
+
+        <p class="err" data-err></p>
+        <div class="nav">
+          <button type="button" class="ghost" data-prev>Atrás</button>
+          <button type="button" class="primary" data-next>Ver resumen</button>
+        </div>
+      </section>
+
+      <!-- STEP 4: Resumen -->
+      <section class="card" data-step="4" hidden>
+        <p class="step-label">Listo</p>
+        <h2>Revisa y envía</h2>
+        <div class="done-box" id="doneBox">Toca <strong>Enviar por WhatsApp</strong> para mandarnos el resumen. Si falta algo, usa “Atrás”.</div>
+        <textarea class="preview" id="preview" readonly></textarea>
+        <div class="nav" style="flex-wrap: wrap;">
+          <button type="button" class="ghost" data-prev>Atrás</button>
+          <button type="button" class="secondary" id="copyBtn">Copiar</button>
+          <button type="button" class="primary" id="waBtn">Enviar por WhatsApp</button>
+        </div>
+      </section>
+    </form>
+
+    <footer class="note">Los datos solo llegan si envías por WhatsApp (o copias y pegas)</footer>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    (function () {
+      const cfg = window.FORM_CONFIG || {};
+      const form = document.getElementById("form");
+      const steps = [...form.querySelectorAll("[data-step]")];
+      const progress = [...document.querySelectorAll("#progress span")];
+      const toast = document.getElementById("toast");
+      let step = 0;
+
+      const showToast = (msg) => {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
+      };
+
+      const val = (name) => {
+        const el = form.elements.namedItem(name);
+        if (!el) return "";
+        if (el instanceof RadioNodeList) {
+          const checked = [...el].find((r) => r.checked);
+          return checked ? checked.value : "";
+        }
+        return (el.value || "").trim();
+      };
+
+      const syncConditionals = () => {
+        const map = [
+          ["pais", "Otro", "paisOtroWrap"],
+          ["dominioTipo", "Ya tenemos", "dominioWrap"],
+          ["cuentaPrevia", ["Sí, Gmail", "Sí, Workspace", "Sí, ya hay ficha(s) Maps"], "cuentaPreviaWrap"],
+          ["rfcTipo", "Sí tengo", "rfcWrap"],
+          ["titularLegal", "Otro", "titularLegalWrap"],
+          ["operador", "Otro", "operadorWrap"],
+        ];
+        map.forEach(([name, trigger, wrapId]) => {
+          const wrap = document.getElementById(wrapId);
+          const current = val(name);
+          const ok = Array.isArray(trigger) ? trigger.includes(current) : current === trigger;
+          wrap.classList.toggle("show", ok);
+        });
+      };
+
+      const persist = () => {
+        const data = {};
+        [...form.elements].forEach((el) => {
+          if (!el.name || el.type === "button") return;
+          if (el.type === "radio") {
+            if (el.checked) data[el.name] = el.value;
+            return;
+          }
+          data[el.name] = el.value;
+        });
+        data.__step = step;
+        try {
+          localStorage.setItem(cfg.storageKey || "agencia-form", JSON.stringify(data));
+        } catch (_) {}
+      };
+
+      const restore = () => {
+        try {
+          const raw = localStorage.getItem(cfg.storageKey || "agencia-form");
+          if (!raw) return;
+          const data = JSON.parse(raw);
+          Object.entries(data).forEach(([k, v]) => {
+            if (k === "__step") return;
+            const el = form.elements.namedItem(k);
+            if (!el) return;
+            if (el instanceof RadioNodeList) {
+              [...el].forEach((r) => { r.checked = r.value === v; });
+            } else {
+              el.value = v;
+            }
+          });
+          if (typeof data.__step === "number" && data.__step >= 0 && data.__step < steps.length) {
+            step = data.__step;
+          }
+        } catch (_) {}
+      };
+
+      const renderStep = () => {
+        steps.forEach((s, i) => { s.hidden = i !== step; });
+        progress.forEach((p, i) => {
+          p.classList.toggle("on", i === Math.min(step, 3));
+          p.classList.toggle("done", i < Math.min(step, 3));
+        });
+        if (step === 4) buildPreview();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        syncConditionals();
+        persist();
+      };
+
+      const requiredInStep = (stepEl) => {
+        const fields = [...stepEl.querySelectorAll("[required]")];
+        for (const el of fields) {
+          if (el.type === "radio") {
+            const group = form.elements.namedItem(el.name);
+            const ok = [...group].some((r) => r.checked);
+            if (!ok) return el.name;
+            continue;
+          }
+          if (!el.value.trim()) return el.name;
+        }
+        // conditional extras
+        if (stepEl.dataset.step === "0") {
+          if (val("pais") === "Otro" && !val("paisOtro")) return "paisOtro";
+          if (val("dominioTipo") === "Ya tenemos" && !val("dominio")) return "dominio";
+        }
+        if (stepEl.dataset.step === "1") {
+          const prev = val("cuentaPrevia");
+          if (prev.startsWith("Sí") && !val("cuentaPreviaDetalle")) return "cuentaPreviaDetalle";
+        }
+        if (stepEl.dataset.step === "2") {
+          if (val("rfcTipo") === "Sí tengo" && !val("rfc")) return "rfc";
+        }
+        if (stepEl.dataset.step === "3") {
+          if (val("titularLegal") === "Otro" && !val("titularLegalOtro")) return "titularLegalOtro";
+          if (val("operador") === "Otro" && !val("operadorOtro")) return "operadorOtro";
+        }
+        return null;
+      };
+
+      const showErr = (stepEl, msg) => {
+        const box = stepEl.querySelector("[data-err]");
+        if (!box) return;
+        box.textContent = msg;
+        box.classList.add("show");
+      };
+      const clearErr = (stepEl) => {
+        const box = stepEl.querySelector("[data-err]");
+        if (!box) return;
+        box.classList.remove("show");
+        box.textContent = "";
+      };
+
+      const labels = {
+        empresa: "el nombre de la empresa",
+        pais: "el país",
+        paisOtro: "el país",
+        empleados: "la cantidad de empleados",
+        dominioTipo: "la opción de dominio",
+        dominio: "el dominio",
+        giro: "el giro",
+        titular: "el nombre del titular",
+        emailRecup: "el correo de recuperación",
+        tel: "el celular",
+        emailDeseado: "el correo deseado",
+        cuentaPrevia: "si ya existe cuenta",
+        cuentaPreviaDetalle: "el detalle de la cuenta existente",
+        rfcTipo: "la opción de RFC",
+        rfc: "el RFC",
+        direccion: "la dirección fiscal",
+        pago: "el método de pago",
+        titularLegal: "el titular legal",
+        titularLegalOtro: "quién es el titular",
+        operador: "quién opera",
+        operadorOtro: "quién opera",
+        emailOs: "el correo de Os",
+      };
+
+      const buildPreview = () => {
+        const pais = val("pais") === "Otro" ? (val("paisOtro") || "Otro") : val("pais");
+        const dominio = val("dominioTipo") === "Ya tenemos"
+          ? `Ya tenemos: ${val("dominio")}`
+          : val("dominioTipo");
+        const cuenta = val("cuentaPrevia").startsWith("Sí")
+          ? `${val("cuentaPrevia")}: ${val("cuentaPreviaDetalle")}`
+          : val("cuentaPrevia");
+        const rfc = val("rfcTipo") === "Sí tengo" ? val("rfc") : val("rfcTipo");
+        const titularLegal = val("titularLegal") === "Otro" ? val("titularLegalOtro") : val("titularLegal");
+        const operador = val("operador") === "Otro" ? val("operadorOtro") : val("operador");
+
+        const text = [
+          "*Cuenta Google de la empresa*",
+          "",
+          "*A. Empresa*",
+          `1) Nombre: ${val("empresa")}`,
+          `2) País: ${pais}`,
+          `3) Empleados: ${val("empleados")}`,
+          `4) Dominio: ${dominio}`,
+          `5) Giro: ${val("giro")}`,
+          "",
+          "*B. Titular*",
+          `6) Nombre: ${val("titular")}`,
+          `7) Correo recuperación: ${val("emailRecup")}`,
+          `8) Celular: ${val("tel")}`,
+          `9) Correo deseado: ${val("emailDeseado")}`,
+          `10) Cuenta previa: ${cuenta}`,
+          "",
+          "*C. Legal / pago*",
+          `11) Razón social: ${val("razonSocial") || "—"}`,
+          `12) RFC: ${rfc}`,
+          `13) Dirección: ${val("direccion")}`,
+          `14) Pago: ${val("pago")}`,
+          "",
+          "*D. Quién opera*",
+          `15) Titular legal: ${titularLegal}`,
+          `16) Operador: ${operador}`,
+          `17) Email Os (Manager): ${val("emailOs")}`,
+          `18) Notas: ${val("notas") || "—"}`,
+        ].join("\n");
+
+        document.getElementById("preview").value = text;
+        return text;
+      };
+
+      form.addEventListener("change", () => { syncConditionals(); persist(); });
+      form.addEventListener("input", persist);
+
+      form.addEventListener("click", (e) => {
+        const next = e.target.closest("[data-next]");
+        const prev = e.target.closest("[data-prev]");
+        if (next) {
+          const stepEl = steps[step];
+          clearErr(stepEl);
+          const missing = requiredInStep(stepEl);
+          if (missing) {
+            showErr(stepEl, `Falta ${labels[missing] || "completar un campo"}.`);
+            const focusEl = form.elements.namedItem(missing);
+            if (focusEl && focusEl.focus) focusEl.focus();
+            else if (focusEl && focusEl[0]) focusEl[0].parentElement.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+          }
+          step = Math.min(step + 1, steps.length - 1);
+          renderStep();
+        }
+        if (prev) {
+          step = Math.max(step - 1, 0);
+          renderStep();
+        }
+      });
+
+      document.getElementById("copyBtn").addEventListener("click", async () => {
+        const text = buildPreview();
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Copiado");
+        } catch (_) {
+          document.getElementById("preview").select();
+          showToast("Selecciona y copia");
+        }
+      });
+
+      document.getElementById("waBtn").addEventListener("click", async () => {
+        const text = buildPreview();
+        const phone = (cfg.whatsappTo || "").replace(/\D/g, "");
+        if (phone) {
+          window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+          showToast("Abriendo WhatsApp…");
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Copiado — pégalo en el chat de Os");
+        } catch (_) {
+          showToast("Copia el resumen y pégalo en WP");
+        }
+      });
+
+      const doneBox = document.getElementById("doneBox");
+      if (doneBox && !(cfg.whatsappTo || "").replace(/\D/g, "")) {
+        doneBox.innerHTML = "Aún no hay número configurado: toca <strong>Copiar</strong> y pega el texto en el WhatsApp de Os. (Os: pon tu número en <code>FORM_CONFIG.whatsappTo</code>.)";
+      }
+
+      restore();
+      renderStep();
+    })();
+  </script>
+</body>
+</html>

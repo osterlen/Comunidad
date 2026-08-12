@@ -20,5 +20,6 @@ Editar gaceta/avisos CUPA: `cupainspira/content/*.json` → `./deploy.sh`
 |------|--------|
 | `med-trabajo/` | ~~Espejo~~ **retirado** — prod en medtrabajo.com (CF Pages). No republicar aquí. |
 | `escuela-dupeyron/` | Espejo **publish-only** (staging noindex) — fuente: `Escuela-Dupeyron/`. No editar aquí. |
+| `agencia/` | Form onboarding cuenta Google — fuente: `_Agencia/`. No es marca Visiones. |
 
 elgorila.org puede hospedar paths ajenos; eso no los mete en la marca Visiones.
